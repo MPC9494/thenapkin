@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Napkin Finanza — La finanza su un tovagliolo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1a1a18;--ink2:#4a4a44;--ink3:#8a8a80;
+  --paper:#faf9f5;--paper2:#f3f2ec;--paper3:#ebe9e0;
+  --green:#1d6b4a;--green-l:#e8f5ee;--green-m:#b8ddc9;
+  --amber:#b8621a;--amber-l:#fdf0e4;
+  --blue:#1a4a6b;--blue-l:#e4eef5;
+  --border:#dddbd0;--r:12px;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
+  --mono:'DM Mono',monospace;
+}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:15px;line-height:1.6;min-height:100vh}
+
+/* ── NAV ── */
+nav{display:flex;align-items:center;justify-content:space-between;padding:14px 32px;border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:100}
+.logo{font-family:var(--serif);font-size:21px;font-weight:700;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo-dot{width:9px;height:9px;background:var(--green);border-radius:50%}
+.nav-links{display:flex;gap:4px}
+.nb{background:none;border:none;font-family:var(--sans);font-size:13px;color:var(--ink2);padding:7px 13px;border-radius:6px;cursor:pointer;transition:all .15s}
+.nb:hover{background:var(--paper2);color:var(--ink)}
+.nb.active{background:var(--ink);color:var(--paper)}
+
+/* ── PAGES ── */
+.page{display:none;animation:fadeIn .2s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── HERO ── */
+.hero{padding:72px 32px 52px;max-width:780px;margin:0 auto;text-align:center}
+.hero-tag{display:inline-block;font-size:11px;font-family:var(--mono);color:var(--green);background:var(--green-l);padding:4px 14px;border-radius:20px;margin-bottom:22px;letter-spacing:.07em;text-transform:uppercase}
+.hero h1{font-family:var(--serif);font-size:clamp(34px,5vw,56px);font-weight:700;line-height:1.12;color:var(--ink);margin-bottom:18px}
+.hero h1 em{font-style:italic;color:var(--green)}
+.hero p{font-size:17px;color:var(--ink2);max-width:500px;margin:0 auto 34px;line-height:1.75}
+.hero-cta{display:inline-block;background:var(--ink);color:var(--paper);font-size:14px;font-weight:500;padding:13px 30px;border-radius:8px;border:none;cursor:pointer;transition:all .15s}
+.hero-cta:hover{background:var(--green);transform:translateY(-1px)}
+
+/* ── NUMERO SETTIMANA ── */
+.numero{background:var(--ink);color:var(--paper);border-radius:var(--r);padding:26px 30px;max-width:860px;margin:0 auto 36px;display:flex;align-items:center;gap:28px}
+.num-val{font-family:var(--serif);font-size:52px;font-weight:700;line-height:1;flex-shrink:0}
+.num-delta{font-size:11px;font-family:var(--mono);padding:3px 9px;border-radius:4px;margin-top:8px;display:inline-block}
+.delta-down{background:rgba(139,42,42,.3);color:#f4a0a0}
+.num-ctx h4{font-size:14px;font-weight:500;color:rgba(255,255,255,.9);margin-bottom:5px}
+.num-ctx p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6}
+
+/* ── SECTION ── */
+.sec{padding:0 32px 52px;max-width:900px;margin:0 auto}
+.sec-title{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ink);margin-bottom:5px}
+.sec-sub{font-size:13px;color:var(--ink3);margin-bottom:26px}
+
+/* ── NAPKIN CARDS ── */
+.ng{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.nc{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:22px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.nc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--r) var(--r) 0 0}
+.nc.green::before{background:var(--green)}
+.nc.amber::before{background:var(--amber)}
+.nc.blue::before{background:var(--blue)}
+.nc:hover{border-color:var(--ink);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.nc-cat{font-size:10px;font-family:var(--mono);color:var(--ink3);letter-spacing:.07em;margin-bottom:10px;text-transform:uppercase}
+.nc h3{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--ink);margin-bottom:9px;line-height:1.2}
+.nc p{font-size:13px;color:var(--ink2);line-height:1.55;margin-bottom:14px}
+.nc-arrow{font-size:12px;color:var(--green);font-weight:500}
+
+/* ── GLOSSARIO ── */
+.g-search{width:100%;padding:13px 16px;border:1px solid var(--border);border-radius:8px;font-family:var(--sans);font-size:15px;background:var(--paper);color:var(--ink);margin-bottom:18px;outline:none;transition:border-color .15s}
+.g-search:focus{border-color:var(--ink)}
+.g-letters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.glb{width:32px;height:32px;border:1px solid var(--border);border-radius:6px;background:none;font-family:var(--mono);font-size:12px;cursor:pointer;color:var(--ink2);transition:all .15s}
+.glb:hover,.glb.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.g-list{display:flex;flex-direction:column;gap:11px}
+.gi{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;cursor:pointer;transition:border-color .15s}
+.gi:hover{border-color:var(--ink2)}
+.gi-head{display:flex;align-items:center;justify-content:space-between}
+.gi h4{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--ink)}
+.gi-badge{font-size:10px;font-family:var(--mono);color:var(--ink3);background:var(--paper2);padding:3px 8px;border-radius:4px}
+.gi-body{margin-top:13px;display:none}
+.gi-body.open{display:block}
+.gi-def{font-size:14px;color:var(--ink2);line-height:1.65;margin-bottom:11px}
+.gi-napkin{background:var(--paper2);border-radius:8px;padding:13px 15px;font-size:13px;color:var(--ink);border-left:3px solid var(--green);font-style:italic;line-height:1.6}
+
+/* ── FIRE ── */
+.fire-layout{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+@media(max-width:660px){.fire-layout{grid-template-columns:1fr}}
+.fp{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:24px}
+.fp h3{font-family:var(--serif);font-size:19px;font-weight:700;margin-bottom:20px;color:var(--ink)}
+.fr{margin-bottom:18px}
+.fr label{display:block;font-size:11px;color:var(--ink3);margin-bottom:5px;font-family:var(--mono);letter-spacing:.05em;text-transform:uppercase}
+.fr input[type=range]{width:100%;accent-color:var(--green);margin-bottom:3px}
+.fv{font-size:15px;font-weight:500;color:var(--ink);font-family:var(--mono)}
+.fire-res{background:var(--ink);border-radius:var(--r);padding:24px;color:var(--paper)}
+.fire-res h3{font-family:var(--serif);font-size:19px;font-weight:700;margin-bottom:22px;color:var(--paper)}
+.fstat{margin-bottom:20px}
+.fstat-lbl{font-size:11px;color:rgba(255,255,255,.45);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
+.fstat-val{font-size:28px;font-weight:300;color:var(--paper);font-family:var(--serif)}
+.fstat-sub{font-size:12px;color:rgba(255,255,255,.45);margin-top:2px}
+.fbar{height:5px;background:rgba(255,255,255,.15);border-radius:3px;margin:16px 0}
+.fbar-fill{height:100%;border-radius:3px;background:var(--green);transition:width .5s ease}
+.fwarn{font-size:12px;color:rgba(255,255,255,.55);margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);line-height:1.55}
+.fire-quote{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:17px 20px;margin-top:14px}
+.fire-quote .ql{font-size:11px;font-family:var(--mono);color:var(--ink3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:9px}
+.fire-quote p{font-size:13px;color:var(--ink);font-style:italic;line-height:1.65;border-left:3px solid var(--green);padding-left:11px}
+
+/* ── QUIZ ── */
+.quiz-wrap{max-width:580px;margin:0 auto;padding:36px 32px}
+.qprog{height:4px;background:var(--paper3);border-radius:2px;margin-bottom:34px;overflow:hidden}
+.qprog-fill{height:100%;background:var(--green);border-radius:2px;transition:width .4s ease}
+.q-title{text-align:center;margin-bottom:30px}
+.q-title h2{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.q-title p{font-size:14px;color:var(--ink3)}
+.qq{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--ink);margin-bottom:26px;line-height:1.3}
+.qopts{display:flex;flex-direction:column;gap:11px;margin-bottom:30px}
+.qopt{background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:15px 19px;cursor:pointer;font-size:14px;color:var(--ink);text-align:left;transition:all .15s;font-family:var(--sans)}
+.qopt:hover{border-color:var(--green);background:var(--green-l)}
+.qopt.sel{border-color:var(--green);background:var(--green-l);color:var(--green)}
+.qnav{display:flex;justify-content:space-between;align-items:center}
+.qback{background:none;border:1px solid var(--border);border-radius:6px;padding:9px 19px;font-family:var(--sans);font-size:13px;cursor:pointer;color:var(--ink2)}
+.qnext{background:var(--ink);color:var(--paper);border:none;border-radius:6px;padding:11px 24px;font-family:var(--sans);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s}
+.qnext:hover{background:var(--green)}
+.qres{text-align:center;padding-top:10px}
+.qres-icon{font-size:52px;margin-bottom:16px}
+.qres h2{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.qres p{font-size:15px;color:var(--ink2);max-width:400px;margin:0 auto 26px;line-height:1.7}
+.qres-badge{display:inline-block;font-size:12px;font-family:var(--mono);color:var(--green);background:var(--green-l);padding:5px 15px;border-radius:20px;margin-bottom:18px;letter-spacing:.04em}
+.qrestart{background:var(--ink);color:var(--paper);border:none;border-radius:6px;padding:12px 26px;font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer}
+.qrestart:hover{background:var(--green)}
+
+/* ── START HERE ── */
+.sh-hero{text-align:center;padding:44px 32px 34px}
+.sh-hero h2{font-family:var(--serif);font-size:34px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.sh-hero p{font-size:16px;color:var(--ink2);max-width:460px;margin:0 auto}
+.sh-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;padding:0 32px;max-width:900px;margin:0 auto 44px}
+.shc{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:22px;text-align:center;cursor:pointer;transition:all .2s}
+.shc:hover{border-color:var(--green);transform:translateY(-2px)}
+.shc-icon{font-size:30px;margin-bottom:12px}
+.shc h4{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--ink);margin-bottom:5px}
+.shc p{font-size:12px;color:var(--ink3);line-height:1.5}
+.sh-path{max-width:640px;margin:0 auto;padding:0 32px 52px}
+.sh-path h3{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--ink);margin-bottom:18px}
+.pstep{display:flex;gap:15px;margin-bottom:15px;align-items:flex-start}
+.pnum{width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.pcontent h5{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.pcontent p{font-size:13px;color:var(--ink2);line-height:1.5}
+.beehiiv{background:var(--green-l);border:1px solid var(--green-m);border-radius:var(--r);padding:26px;text-align:center;max-width:460px;margin:28px auto 0}
+.beehiiv h4{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--green);margin-bottom:7px}
+.beehiiv p{font-size:13px;color:var(--ink2);margin-bottom:18px}
+.beehiiv input{width:100%;padding:11px 15px;border:1px solid var(--green-m);border-radius:6px;font-family:var(--sans);font-size:14px;background:white;color:var(--ink);margin-bottom:10px;outline:none}
+.beehiiv button{width:100%;padding:12px;background:var(--green);color:white;border:none;border-radius:6px;font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;transition:background .15s}
+.beehiiv button:hover{background:#155237}
+
+/* ── STRUMENTI ── */
+.str-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.strc{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:19px 21px;transition:all .2s;cursor:pointer}
+.strc:hover{border-color:var(--ink2);transform:translateY(-1px)}
+.str-cat{font-size:10px;font-family:var(--mono);color:var(--ink3);letter-spacing:.07em;margin-bottom:8px;text-transform:uppercase}
+.str-name{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.str-np{font-size:12px;color:var(--ink2);line-height:1.55;margin-bottom:11px}
+.stag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:4px;font-family:var(--mono);margin-right:4px}
+.stag.free{background:var(--green-l);color:var(--green)}
+.stag.paid{background:var(--amber-l);color:var(--amber)}
+.stag.it{background:var(--blue-l);color:var(--blue)}
+
+footer{text-align:center;padding:36px;font-size:12px;color:var(--ink3);border-top:1px solid var(--border);margin-top:48px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo" onclick="show('home')"><span class="logo-dot"></span>Napkin Finanza</div>
+  <div class="nav-links">
+    <button class="nb active" data-page="home" onclick="show('home')">Home</button>
+    <button class="nb" data-page="glossario" onclick="show('glossario')">Glossario</button>
+    <button class="nb" data-page="fire" onclick="show('fire')">FIRE</button>
+    <button class="nb" data-page="quiz" onclick="show('quiz')">Quiz</button>
+    <button class="nb" data-page="strumenti" onclick="show('strumenti')">Strumenti</button>
+    <button class="nb" data-page="inizia" onclick="show('inizia')">Inizia qui</button>
+  </div>
+</nav>
+
+<!-- ══ HOME ══ -->
+<div id="home" class="page active">
+  <div class="hero">
+    <div class="hero-tag">finanza su un tovagliolo</div>
+    <h1>La finanza è semplice.<br>Te l'hanno resa <em>complicata</em>.</h1>
+    <p>Ogni settimana un concetto finanziario in 3 righe e un visual che puoi disegnare su un tovagliolo. Niente gergo. Niente prodotti da comprare.</p>
+    <button class="hero-cta" onclick="show('inizia')">Inizia da qui →</button>
+  </div>
+
+  <div style="padding:0 32px;max-width:900px;margin:0 auto 36px">
+    <div class="numero">
+      <div>
+        <div style="font-size:10px;font-family:var(--mono);color:rgba(255,255,255,.4);letter-spacing:.07em;margin-bottom:7px;text-transform:uppercase">Il numero della settimana</div>
+        <div class="num-val">3,5%</div>
+        <span class="num-delta delta-down">▼ da 4,0% a febbraio</span>
+      </div>
+      <div class="num-ctx">
+        <h4>Tasso BCE — apr. 2025</h4>
+        <p>La Banca Centrale Europea ha tagliato ancora. Significa mutui variabili più leggeri, ma conti deposito meno generosi. Chi ci guadagna davvero?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">I napkin</div>
+    <div class="sec-sub">Un concetto, un visual, tre righe. Clicca per approfondire.</div>
+    <div class="ng" id="napkin-grid"></div>
+  </div>
+</div>
+
+<!-- ══ GLOSSARIO ══ -->
+<div id="glossario" class="page">
+  <div style="padding:34px 32px 0;max-width:860px;margin:0 auto">
+    <div class="sec-title">Glossario</div>
+    <div class="sec-sub">Ogni termine spiegato come se fossi a un aperitivo, non a lezione</div>
+    <input class="g-search" id="gs" placeholder="Cerca un termine..." oninput="filterG()">
+    <div class="g-letters" id="g-letters"></div>
+    <div class="g-list" id="g-list"></div>
+  </div>
+</div>
+
+<!-- ══ FIRE ══ -->
+<div id="fire" class="page">
+  <div style="padding:34px 32px 0;max-width:900px;margin:0 auto">
+    <div class="sec-title">Simulatore FIRE italiano</div>
+    <div class="sec-sub" style="margin-bottom:26px">Financial Independence, Retire Early — con IRPEF, INPS e inflazione italiana</div>
+    <div class="fire-layout">
+      <div>
+        <div class="fp">
+          <h3>La tua situazione</h3>
+          <div class="fr"><label>Età attuale</label><input type="range" min="20" max="55" step="1" value="32" id="f-eta" oninput="calcFire()"><div class="fv" id="f-eta-v">32 anni</div></div>
+          <div class="fr"><label>Reddito netto mensile</label><input type="range" min="1000" max="8000" step="100" value="2800" id="f-red" oninput="calcFire()"><div class="fv" id="f-red-v">€ 2.800</div></div>
+          <div class="fr"><label>Spese mensili</label><input type="range" min="800" max="5000" step="100" value="1800" id="f-spe" oninput="calcFire()"><div class="fv" id="f-spe-v">€ 1.800</div></div>
+          <div class="fr"><label>Patrimonio attuale</label><input type="range" min="0" max="200000" step="2000" value="20000" id="f-pat" oninput="calcFire()"><div class="fv" id="f-pat-v">€ 20.000</div></div>
+          <div class="fr"><label>Rendimento portafoglio (%)</label><input type="range" min="2" max="10" step="0.5" value="6" id="f-ren" oninput="calcFire()"><div class="fv" id="f-ren-v">6% annuo</div></div>
+          <div class="fr"><label>Inflazione attesa (%)</label><input type="range" min="1" max="5" step="0.5" value="2.5" id="f-inf" oninput="calcFire()"><div class="fv" id="f-inf-v">2,5%</div></div>
+          <div class="fr"><label>Pensione INPS stimata (€/mese)</label><input type="range" min="0" max="2000" step="50" value="600" id="f-inp" oninput="calcFire()"><div class="fv" id="f-inp-v">€ 600</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="fire-res">
+          <h3>Il tuo piano FIRE</h3>
+          <div class="fstat"><div class="fstat-lbl">Libertà finanziaria</div><div class="fstat-val" id="fr-eta">a 57 anni</div><div class="fstat-sub" id="fr-manca">tra 25 anni</div></div>
+          <div class="fbar"><div class="fbar-fill" id="fr-bar" style="width:20%"></div></div>
+          <div class="fstat"><div class="fstat-lbl">Patrimonio FIRE necessario</div><div class="fstat-val" id="fr-target">€ 540.000</div><div class="fstat-sub">regola del 4% adattata per l'Italia</div></div>
+          <div class="fstat"><div class="fstat-lbl">Risparmio mensile</div><div class="fstat-val" id="fr-risp">€ 1.000</div><div class="fstat-sub" id="fr-tasso">tasso di risparmio: 36%</div></div>
+          <div class="fstat"><div class="fstat-lbl">Patrimonio al FIRE</div><div class="fstat-val" id="fr-fin">€ 612.000</div></div>
+          <div class="fwarn" id="fr-warn"></div>
+        </div>
+        <div class="fire-quote">
+          <div class="ql">Il napkin</div>
+          <p>"FIRE non significa smettere di lavorare. Significa scegliere se lavorare. Quando le tue spese annuali × 25 sono coperte dal tuo patrimonio, il lavoro diventa facoltativo."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ QUIZ ══ -->
+<div id="quiz" class="page">
+  <div class="quiz-wrap">
+    <div class="q-title">
+      <h2>Che tipo di investitore sei?</h2>
+      <p>5 domande per scoprire il tuo profilo e da dove iniziare</p>
+    </div>
+    <div class="qprog"><div class="qprog-fill" id="qp"></div></div>
+    <div id="qa"></div>
+  </div>
+</div>
+
+<!-- ══ STRUMENTI ══ -->
+<div id="strumenti" class="page">
+  <div style="padding:34px 32px 0;max-width:900px;margin:0 auto">
+    <div class="sec-title">Strumenti</div>
+    <div class="sec-sub" style="margin-bottom:26px">Broker, app, libri e podcast — spiegati in stile napkin. Zero affiliazioni.</div>
+    <div class="str-grid" id="str-grid"></div>
+  </div>
+</div>
+
+<!-- ══ INIZIA ══ -->
+<div id="inizia" class="page">
+  <div class="sh-hero">
+    <h2>Benvenuto. Sei nel posto giusto.</h2>
+    <p>Finanza chiara, onesta, senza niente da vendere. Da dove vuoi partire?</p>
+  </div>
+  <div class="sh-grid">
+    <div class="shc" onclick="show('home')"><div class="shc-icon">📖</div><h4>Sono nuovo</h4><p>Non so nulla e voglio capire da zero</p></div>
+    <div class="shc" onclick="show('quiz')"><div class="shc-icon">🧭</div><h4>Conosco le basi</h4><p>So cos'è un ETF ma non so come organizzarmi</p></div>
+    <div class="shc" onclick="show('fire')"><div class="shc-icon">🔥</div><h4>Voglio l'indipendenza</h4><p>Il mio obiettivo è non dover lavorare per necessità</p></div>
+    <div class="shc" onclick="show('glossario')"><div class="shc-icon">🔍</div><h4>Cerco un termine</h4><p>Ho sentito una parola e non so cosa significa</p></div>
+  </div>
+  <div class="sh-path">
+    <h3>Il percorso consigliato</h3>
+    <div class="pstep"><div class="pnum">1</div><div class="pcontent"><h5>Fai il quiz profilo</h5><p>5 domande per capire da dove partire e cosa leggere prima</p></div></div>
+    <div class="pstep"><div class="pnum">2</div><div class="pcontent"><h5>Leggi 3 napkin fondamentali</h5><p>Interesse composto, inflazione, diversificazione. Tutto il resto viene dopo.</p></div></div>
+    <div class="pstep"><div class="pnum">3</div><div class="pcontent"><h5>Calcola il tuo numero FIRE</h5><p>Non per smettere di lavorare domani, ma per sapere dove sei diretto.</p></div></div>
+    <div class="pstep"><div class="pnum">4</div><div class="pcontent"><h5>Iscriviti — un concetto a settimana</h5><p>Niente spam. Solo finanza utile, ogni lunedì mattina.</p></div></div>
+    <div class="beehiiv">
+      <h4>Una mail a settimana</h4>
+      <p>Il concetto finanziario più utile della settimana, spiegato su un tovagliolo.</p>
+      <input type="email" placeholder="la-tua@email.it">
+      <button>Iscrivimi — è gratis</button>
+    </div>
+  </div>
+</div>
+
+<footer>Napkin Finanza · Non siamo consulenti finanziari · Nessun conflitto di interesse · Fatto con carta e penna (e un po' di codice)</footer>
+
+<script>
+// ── NAVIGATION ──
+function show(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelector(`[data-page="${id}"]`)?.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ── NAPKINS ──
+const napkins=[
+  {cat:'fondamenta',col:'green',titolo:'Interesse composto',testo:'I tuoi interessi fanno interessi. Ogni anno la base cresce. Dopo 30 anni, metà del tuo patrimonio è denaro che non hai mai versato.',d:'M10,48 C60,44 110,32 145,18 S175,5 188,2'},
+  {cat:'fondamenta',col:'amber',titolo:'Inflazione',testo:'€100 oggi comprano di più di €100 tra 10 anni. L\'inflazione è una tassa invisibile sul risparmio fermo sul conto corrente.',d:'M10,48 L188,38'},
+  {cat:'investire',col:'green',titolo:'Diversificazione',testo:'Se possiedi 5.000 aziende, nessun singolo fallimento ti affonda. La diversificazione è l\'unico pasto gratis in finanza.',d:'M10,45 L60,38 L100,30 L145,22 L188,12'},
+  {cat:'investire',col:'blue',titolo:'ETF',testo:'Un ETF è un carrello già riempito. Compri una quota e hai dentro centinaia di aziende. Costa lo 0,2% l\'anno, non il 2% dei fondi attivi.',d:'M10,46 L60,42 L110,35 L155,25 L188,15'},
+  {cat:'fondamenta',col:'amber',titolo:'Regola del 72',testo:'Dividi 72 per il rendimento annuo: ottieni gli anni per raddoppiare. Al 6% annuo, in 12 anni i tuoi soldi raddoppiano esatti.',d:'M10,48 L60,44 L110,36 L155,22 L188,8'},
+  {cat:'FIRE',col:'green',titolo:'Regola del 4%',testo:'Se il tuo patrimonio è 25 volte le spese annuali, puoi prelevare il 4% ogni anno per sempre. I mercati crescono abbastanza da coprire il prelievo.',d:'M10,48 C80,46 130,35 160,18 L188,5'},
+  {cat:'tasse',col:'amber',titolo:'IRPEF a scaglioni',testo:'Non paghi la stessa aliquota su tutto il reddito. I primi €15k al 23%, i successivi al 35%. L\'aliquota marginale non è quella che paghi davvero.',d:'M10,30 L50,30 L50,20 L120,20 L120,10 L188,10'},
+  {cat:'strategie',col:'blue',titolo:'PAC mensile',testo:'Stessa cifra ogni mese, qualunque cosa faccia il mercato. Quando scende compri più quote. La media nel tempo batte quasi sempre il timing.',d:'M10,44 L40,44 L70,38 L100,32 L130,24 L165,16 L188,10'},
+];
+
+const cols={green:'#1d6b4a',amber:'#b8621a',blue:'#1a4a6b'};
+function buildNapkins(){
+  const g=document.getElementById('napkin-grid');
+  napkins.forEach(n=>{
+    const c=document.createElement('div');
+    c.className=`nc ${n.col}`;
+    const svg=`<svg viewBox="0 0 200 60" width="100%" height="60" style="display:block;margin-bottom:12px">
+      <line x1="10" y1="50" x2="190" y2="50" stroke="#dddbd0" stroke-width="1"/>
+      <path d="${n.d}" fill="none" stroke="${cols[n.col]}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`;
+    c.innerHTML=`<div class="nc-cat">${n.cat}</div><h3>${n.titolo}</h3>${svg}<p>${n.testo}</p><div class="nc-arrow">Approfondisci →</div>`;
+    g.appendChild(c);
+  });
+}
+
+// ── GLOSSARIO ──
+const glossario=[
+  {t:'Asset allocation',c:'base',d:'Come distribuisci i tuoi soldi tra diverse categorie di investimento.',n:'Immagina un piatto: pasta=azioni, verdure=obbligazioni, pane=liquidità. Il piatto giusto cambia con l\'età e la tolleranza al rischio.'},
+  {t:'BTP',c:'obbligazioni',d:'Buoni del Tesoro Poliennali: titoli di debito emessi dallo Stato italiano.',n:'Presti soldi al governo. Ogni anno ti paga gli interessi (cedola). Alla scadenza riprendi tutto. Rischio basso, rendimento basso.'},
+  {t:'Cedola',c:'obbligazioni',d:'Il pagamento periodico di interessi su un\'obbligazione.',n:'Compri un\'obbligazione da €1.000 al 3%: ogni anno ti arrivano €30 in tasca, senza fare nulla. È come affittare denaro.'},
+  {t:'Dividendo',c:'azioni',d:'La quota di profitto che un\'azienda distribuisce agli azionisti.',n:'Possiedi azioni di un\'azienda. L\'azienda guadagna, una parte la distribuisce a te. Come ricevere l\'affitto di un immobile.'},
+  {t:'ETF',c:'fondi',d:'Exchange Traded Fund: un fondo che replica un indice, acquistabile in borsa come un\'azione.',n:'Carrello del supermercato già pronto. Compri una quota e dentro ci sono 500 aziende. Costa 0,2% l\'anno invece del 2% dei fondi attivi.'},
+  {t:'Fondo attivo',c:'fondi',d:'Un fondo gestito da professionisti che cercano di battere il mercato.',n:'Paghi un gestore per scegliere le azioni migliori. Problema: l\'80% dei gestori fa peggio del mercato nel lungo periodo.'},
+  {t:'IRPEF',c:'tasse',d:'Imposta sul Reddito delle Persone Fisiche: la tassa principale sul reddito in Italia.',n:'Funziona a scaglioni. Paghi il 23% sui primi €15k, il 35% sui successivi. L\'aliquota effettiva è sempre più bassa di quella marginale.'},
+  {t:'PAC',c:'strategie',d:'Piano di Accumulo del Capitale: investire una cifra fissa a intervalli regolari.',n:'Ogni mese, stessa cifra, stesso ETF. Quando il mercato scende compri più quote. La media nel tempo vince sul timing.'},
+  {t:'Portafoglio',c:'base',d:'L\'insieme di tutti i tuoi investimenti.',n:'Come un mosaico. Il valore non dipende da un singolo pezzo. Se uno si rompe, il mosaico tiene.'},
+  {t:'Rendimento reale',c:'fondamenta',d:'Il rendimento al netto dell\'inflazione.',n:'Il tuo conto deposito rende il 3%. L\'inflazione è al 2,5%. Il rendimento reale è solo 0,5%. I soldi crescono, ma compri quasi le stesse cose.'},
+  {t:'TER',c:'fondi',d:'Total Expense Ratio: il costo annuo totale di un fondo o ETF.',n:'Un ETF con TER 0,2% ti costa €2 ogni €1.000 investiti. Un fondo attivo al 2% ti costa €20. Dopo 30 anni la differenza è enorme.'},
+  {t:'Volatilità',c:'rischio',d:'La misura di quanto il prezzo di un asset oscilla nel tempo.',n:'Alta volatilità = montagne russe. Bassa volatilità = treno. Entrambi arrivano, ma il viaggio è diverso. La volatilità non è rischio: è disturbo.'},
+];
+
+function buildG(){
+  const letters=[...new Set(glossario.map(g=>g.t[0]))].sort();
+  const lc=document.getElementById('g-letters');
+  const all=document.createElement('button');
+  all.className='glb on';all.textContent='Tutti';
+  all.onclick=()=>{document.getElementById('gs').value='';renderG(glossario);document.querySelectorAll('.glb').forEach(b=>b.classList.remove('on'));all.classList.add('on');};
+  lc.appendChild(all);
+  letters.forEach(l=>{
+    const b=document.createElement('button');b.className='glb';b.textContent=l;
+    b.onclick=()=>{renderG(glossario.filter(g=>g.t[0]===l));document.querySelectorAll('.glb').forEach(x=>x.classList.remove('on'));b.classList.add('on');};
+    lc.appendChild(b);
+  });
+  renderG(glossario);
+}
+function filterG(){
+  const v=document.getElementById('gs').value.toLowerCase();
+  renderG(v?glossario.filter(g=>g.t.toLowerCase().includes(v)||g.d.toLowerCase().includes(v)):glossario);
+}
+function renderG(list){
+  const c=document.getElementById('g-list');c.innerHTML='';
+  list.forEach(g=>{
+    const el=document.createElement('div');el.className='gi';
+    el.innerHTML=`<div class="gi-head"><h4>${g.t}</h4><span class="gi-badge">${g.c}</span></div><div class="gi-body"><div class="gi-def">${g.d}</div><div class="gi-napkin">${g.n}</div></div>`;
+    el.onclick=()=>el.querySelector('.gi-body').classList.toggle('open');
+    c.appendChild(el);
+  });
+}
+
+// ── FIRE ──
+const fmtE=v=>'€ '+Math.round(v).toLocaleString('it-IT');
+function calcFire(){
+  const eta=+document.getElementById('f-eta').value;
+  const red=+document.getElementById('f-red').value;
+  const spe=+document.getElementById('f-spe').value;
+  const pat=+document.getElementById('f-pat').value;
+  const ren=+document.getElementById('f-ren').value/100;
+  const inf=+document.getElementById('f-inf').value/100;
+  const inp=+document.getElementById('f-inp').value;
+  document.getElementById('f-eta-v').textContent=eta+' anni';
+  document.getElementById('f-red-v').textContent=fmtE(red);
+  document.getElementById('f-spe-v').textContent=fmtE(spe);
+  document.getElementById('f-pat-v').textContent=fmtE(pat);
+  document.getElementById('f-ren-v').textContent=document.getElementById('f-ren').value+'% annuo';
+  document.getElementById('f-inf-v').textContent=document.getElementById('f-inf').value.replace('.',',')+' %';
+  document.getElementById('f-inp-v').textContent=fmtE(inp);
+  const risp=red-spe;
+  const speseNetteInps=Math.max(0,spe-inp)*12;
+  const target=speseNetteInps*25;
+  const rendReale=ren-inf;
+  let p=pat,anni=0;
+  while(p<target&&anni<60){p=p*(1+rendReale)+risp*12;anni++;}
+  const etaFire=eta+anni;
+  const tasso=red>0?Math.round(risp/red*100):0;
+  document.getElementById('fr-eta').textContent='a '+etaFire+' anni';
+  document.getElementById('fr-manca').textContent='tra '+anni+' anni';
+  document.getElementById('fr-target').textContent=fmtE(target);
+  document.getElementById('fr-risp').textContent=fmtE(risp);
+  document.getElementById('fr-tasso').textContent='tasso di risparmio: '+tasso+'%';
+  document.getElementById('fr-fin').textContent=fmtE(p);
+  document.getElementById('fr-bar').style.width=Math.min(100,Math.round(pat/target*100))+'%';
+  let w='';
+  if(risp<=0)w='⚠️ Stai spendendo più di quanto guadagni. Il FIRE non è raggiungibile senza invertire questo rapporto.';
+  else if(anni>35)w='💡 Aumentando il tasso di risparmio del 5-10%, anticiperesti la libertà finanziaria di molti anni.';
+  else if(tasso>40)w='✓ Ottimo tasso di risparmio. Sei sulla strada giusta per una libertà finanziaria anticipata.';
+  document.getElementById('fr-warn').textContent=w;
+}
+
+// ── QUIZ ──
+const Qs=[
+  {q:'Quando pensi ai tuoi risparmi, qual è la tua reazione istintiva?',o:['Li tengo fermi sul conto corrente','Cerco un conto deposito o BTP','Investo una parte ogni mese','Voglio massimizzare il rendimento']},
+  {q:'Se il tuo portafoglio perdesse il 20% in un mese, cosa faresti?',o:['Venderei tutto immediatamente','Aspetterei nervosamente','Resterei calmo, è temporaneo','Comprerei ancora di più']},
+  {q:'Qual è il tuo orizzonte temporale principale?',o:['Ho bisogno dei soldi entro 2 anni','3-5 anni','5-10 anni','Oltre 10 anni']},
+  {q:'Quanto tempo vuoi dedicare ai tuoi investimenti ogni mese?',o:['Zero, voglio il pilota automatico','30 minuti al mese','Qualche ora a settimana','Mi piace seguirlo da vicino']},
+  {q:'Qual è il tuo obiettivo principale?',o:['Non perdere quello che ho','Battere l\'inflazione','Costruire un patrimonio solido','Raggiungere l\'indipendenza finanziaria']},
+];
+const Ps=[
+  {name:'Il Prudente',icon:'🛡️',badge:'profilo conservativo',desc:'Preferisci dormire tranquillo piuttosto che rischiare per guadagni maggiori. Obbligazioni, BTP, conto deposito sono i tuoi strumenti. Inizia dal napkin sull\'inflazione: è il rischio che stai già correndo.'},
+  {name:'Il Costruttore',icon:'🏗️',badge:'profilo bilanciato',desc:'Vuoi far crescere il tuo patrimonio con costanza, senza stress. Un portafoglio 60% ETF azionari e 40% obbligazionari in PAC mensile è il tuo punto di partenza ideale.'},
+  {name:'Il Navigatore',icon:'🧭',badge:'profilo crescita',desc:'Hai orizzonte lungo e non ti spaventa la volatilità. ETF azionari globali in PAC mensile, con un piano FIRE chiaro. Vai direttamente al simulatore FIRE.'},
+  {name:'Il FIRE Hunter',icon:'🔥',badge:'profilo aggressivo',desc:'Il tuo obiettivo è l\'indipendenza finanziaria prima dell\'età pensionabile. Massimizza il tasso di risparmio, investi quasi tutto in ETF globali, e calcola il tuo numero FIRE ogni anno.'},
+];
+let qi=0,ans=[];
+function buildQ(){
+  const a=document.getElementById('qa');
+  if(qi>=Qs.length){
+    const score=ans.reduce((s,v)=>s+v,0);
+    const pr=Ps[Math.min(3,Math.floor(score/5))];
+    a.innerHTML=`<div class="qres"><div class="qres-icon">${pr.icon}</div><span class="qres-badge">${pr.badge}</span><h2>${pr.name}</h2><p>${pr.desc}</p><button class="qrestart" onclick="qi=0;ans=[];buildQ()">Rifai il quiz</button></div>`;
+    document.getElementById('qp').style.width='100%';return;
+  }
+  const q=Qs[qi];
+  document.getElementById('qp').style.width=((qi/Qs.length)*100)+'%';
+  let h=`<div class="qq">${q.q}</div><div class="qopts">`;
+  q.o.forEach((o,i)=>h+=`<button class="qopt" onclick="selQ(${i})">${o}</button>`);
+  h+=`</div><div class="qnav">${qi>0?`<button class="qback" onclick="qi--;ans.pop();buildQ()">← Indietro</button>`:'<span></span>'}`;
+  h+=`<button class="qnext" id="qnb" onclick="nextQ()" style="opacity:.35;pointer-events:none">Avanti →</button></div>`;
+  a.innerHTML=h;
+  a._sel=undefined;
+}
+function selQ(i){
+  document.querySelectorAll('.qopt').forEach((o,idx)=>o.classList.toggle('sel',idx===i));
+  const nb=document.getElementById('qnb');nb.style.opacity='1';nb.style.pointerEvents='auto';nb._val=i;
+}
+function nextQ(){
+  const nb=document.getElementById('qnb');
+  if(nb._val===undefined)return;
+  ans.push(nb._val);qi++;buildQ();
+}
+
+// ── STRUMENTI ──
+const tools=[
+  {cat:'broker',name:'Directa SIM',np:'Broker italiano con accesso a ETF, azioni, BTP. Costi chiari, sede italiana, ideale per il PAC automatico su ETF.',tags:['it','paid']},
+  {cat:'broker',name:'DEGIRO',np:'Broker europeo con commissioni bassissime sugli ETF. Regolamentato in Olanda. Ottimo per minimizzare i costi nel lungo periodo.',tags:['paid']},
+  {cat:'broker',name:'Fineco Bank',np:'Banca e broker in uno. PAC automatico integrato. Costi leggermente superiori, ma tutto sotto un tetto con IBAN italiano.',tags:['it','paid']},
+  {cat:'app',name:'Wallet by BudgetBakers',np:'Traccia le spese collegando il conto. Il primo passo per capire il tuo tasso di risparmio reale, senza illudersi.',tags:['free']},
+  {cat:'app',name:'JustETF',np:'Il motore di ricerca degli ETF europei. Prima di comprare un ETF, cercalo qui: TER, indice replicato, distribuzione, storico.',tags:['free']},
+  {cat:'libri',name:'Il Piccolo Libro dell\'Investimento',np:'John Bogle spiega perché i fondi a basso costo battono quasi tutto. 150 pagine che cambiano il modo di pensare agli investimenti.',tags:['paid']},
+  {cat:'libri',name:'Padre Ricco Padre Povero',np:'Non è un manuale tecnico, ma cambia la mentalità su come pensare al denaro. Leggilo prima di qualsiasi altro libro.',tags:['paid']},
+  {cat:'dati',name:'ISTAT — Inflazione',np:'Il dato ufficiale sull\'inflazione italiana, aggiornato ogni mese. Usalo per calcolare il rendimento reale dei tuoi investimenti.',tags:['free','it']},
+  {cat:'dati',name:'Banca d\'Italia — Statistiche',np:'Tassi, statistiche, report economici. Fonte primaria per qualsiasi dato macro italiano. Gratuito e autorevole.',tags:['free','it']},
+  {cat:'dati',name:'Borsa Italiana',np:'Prezzi in tempo reale, ETF quotati a Milano, dati storici. Punto di partenza per qualsiasi ricerca sugli strumenti quotati.',tags:['free','it']},
+];
+function buildTools(){
+  const g=document.getElementById('str-grid');
+  tools.forEach(t=>{
+    const c=document.createElement('div');c.className='strc';
+    const tags=t.tags.map(tg=>`<span class="stag ${tg}">${tg==='it'?'🇮🇹 Italia':tg==='free'?'Gratuito':'A pagamento'}</span>`).join('');
+    c.innerHTML=`<div class="str-cat">${t.cat}</div><div class="str-name">${t.name}</div><div class="str-np">${t.np}</div>${tags}`;
+    g.appendChild(c);
+  });
+}
+
+// ── INIT ──
+buildNapkins();buildG();buildQ();buildTools();calcFire();
+</script>
+</body>
+</html>

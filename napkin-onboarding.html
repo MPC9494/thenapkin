@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Napkin Finanza — Scopri il tuo percorso</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1a1a18;--ink2:#4a4a44;--ink3:#8a8a80;
+  --paper:#faf9f5;--paper2:#f3f2ec;--paper3:#e8e6dc;
+  --green:#1d6b4a;--green-l:#e8f5ee;--green-m:#b8ddc9;
+  --amber:#b8621a;--amber-l:#fdf0e4;
+  --blue:#1a4a6b;--blue-l:#e4eef5;
+  --border:#dddbd0;--r:14px;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
+}
+html{height:100%}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;border-bottom:1px solid var(--border)}
+.logo{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo-dot{width:9px;height:9px;background:var(--green);border-radius:50%;display:inline-block}
+.nav-skip{font-size:13px;color:var(--ink3);cursor:pointer;background:none;border:none;font-family:var(--sans)}
+.nav-skip:hover{color:var(--ink)}
+
+/* SCREENS */
+.screen{display:none;flex:1}
+.screen.on{display:flex;flex-direction:column;animation:fadeUp .25s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* PROGRESS */
+.prog-shell{padding:24px 32px 0;max-width:640px;margin:0 auto;width:100%}
+.prog-track{height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.prog-bar{height:100%;background:var(--green);border-radius:2px;transition:width .45s cubic-bezier(.4,0,.2,1)}
+.prog-meta{display:flex;justify-content:space-between;margin-top:8px}
+.prog-meta span{font-size:11px;font-family:var(--mono);color:var(--ink3);letter-spacing:.04em}
+
+/* MAIN CONTENT */
+.wrap{max-width:580px;margin:0 auto;padding:44px 32px 60px;width:100%}
+
+/* WELCOME */
+.welcome-mark{width:52px;height:52px;border-radius:14px;background:var(--green-l);border:1px solid var(--green-m);display:flex;align-items:center;justify-content:center;margin-bottom:24px}
+.welcome-mark svg{width:26px;height:26px;stroke:var(--green);fill:none;stroke-width:2;stroke-linecap:round}
+h1.big{font-family:var(--serif);font-size:clamp(28px,5vw,44px);font-weight:700;line-height:1.12;color:var(--ink);margin-bottom:14px}
+h1.big em{font-style:italic;color:var(--green)}
+p.lead{font-size:16px;color:var(--ink2);line-height:1.75;margin-bottom:32px;max-width:440px}
+.btn-go{background:var(--ink);color:var(--paper);font-family:var(--sans);font-size:15px;font-weight:500;padding:14px 32px;border-radius:10px;border:none;cursor:pointer;transition:all .18s;display:inline-block}
+.btn-go:hover{background:var(--green);transform:translateY(-1px)}
+.proof{display:flex;align-items:center;gap:12px;margin-top:22px}
+.avs{display:flex}
+.av{width:28px;height:28px;border-radius:50%;border:2px solid var(--paper);font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;color:white;margin-left:-7px}
+.av:first-child{margin-left:0}
+.proof-txt{font-size:12px;color:var(--ink3);line-height:1.4}
+.proof-txt strong{color:var(--ink2);font-weight:500}
+
+/* QUIZ */
+.q-cat{font-size:11px;font-family:var(--mono);color:var(--green);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+.q-text{font-family:var(--serif);font-size:clamp(20px,3vw,26px);font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:28px}
+.opts{display:flex;flex-direction:column;gap:11px;margin-bottom:32px}
+.opt{background:var(--paper);border:1.5px solid var(--border);border-radius:12px;padding:15px 18px;cursor:pointer;font-size:14px;color:var(--ink2);text-align:left;transition:all .16s;font-family:var(--sans);display:flex;align-items:center;gap:14px;line-height:1.4}
+.opt:hover{border-color:var(--green);color:var(--ink);background:var(--green-l)}
+.opt.sel{border-color:var(--green);background:var(--green-l);color:var(--green)}
+.opt-radio{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border);flex-shrink:0;transition:all .16s;display:flex;align-items:center;justify-content:center;background:white}
+.opt.sel .opt-radio{background:var(--green);border-color:var(--green)}
+.opt.sel .opt-radio::after{content:'';width:7px;height:7px;border-radius:50%;background:white;display:block}
+.q-nav{display:flex;justify-content:space-between;align-items:center}
+.btn-back{background:none;border:1px solid var(--border);color:var(--ink3);font-family:var(--sans);font-size:13px;padding:10px 20px;border-radius:8px;cursor:pointer;transition:all .15s}
+.btn-back:hover{border-color:var(--ink2);color:var(--ink)}
+.btn-next{background:var(--ink);color:var(--paper);font-family:var(--sans);font-size:14px;font-weight:500;padding:12px 26px;border-radius:8px;border:none;cursor:pointer;transition:all .15s}
+.btn-next:hover:not(:disabled){background:var(--green)}
+.btn-next:disabled{opacity:.3;cursor:not-allowed}
+
+/* RESULT */
+.res-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-family:var(--mono);color:var(--green);background:var(--green-l);border:1px solid var(--green-m);padding:5px 14px;border-radius:20px;margin-bottom:16px;letter-spacing:.05em;text-transform:uppercase}
+.res-name{font-family:var(--serif);font-size:clamp(26px,4vw,36px);font-weight:700;color:var(--ink);margin-bottom:12px;line-height:1.15}
+.res-desc{font-size:15px;color:var(--ink2);line-height:1.75;margin-bottom:28px}
+.percorso{background:var(--paper2);border-radius:var(--r);border:1px solid var(--border);padding:22px 24px;margin-bottom:28px}
+.perc-label{font-size:10px;font-family:var(--mono);color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+.pstep{display:flex;gap:13px;align-items:flex-start;margin-bottom:13px}
+.pstep:last-child{margin-bottom:0}
+.pnum{width:26px;height:26px;min-width:26px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.ptxt h5{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.ptxt p{font-size:12px;color:var(--ink3);line-height:1.45}
+
+/* ISCRIZIONE BOX */
+.cta-box{background:var(--ink);border-radius:var(--r);padding:28px 30px;color:white}
+.cta-box h3{font-family:var(--serif);font-size:22px;font-weight:700;color:white;margin-bottom:8px}
+.cta-box .cta-sub{font-size:13px;color:rgba(255,255,255,.55);margin-bottom:22px;line-height:1.6}
+.cta-email{width:100%;padding:13px 15px;border:1.5px solid rgba(255,255,255,.18);border-radius:9px;background:rgba(255,255,255,.07);color:white;font-family:var(--sans);font-size:14px;margin-bottom:10px;outline:none;transition:border-color .15s}
+.cta-email:focus{border-color:rgba(255,255,255,.45)}
+.cta-email::placeholder{color:rgba(255,255,255,.3)}
+.cta-email.err{border-color:#e24b4a}
+.cta-sub-btn{width:100%;padding:13px;background:var(--green);color:white;border:none;border-radius:9px;font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;transition:all .15s}
+.cta-sub-btn:hover{background:#155237;transform:translateY(-1px)}
+.cta-note{font-size:11px;color:rgba(255,255,255,.3);margin-top:11px;font-family:var(--mono);text-align:center}
+.cta-guarantee{display:flex;align-items:center;gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1)}
+.cta-guarantee svg{width:16px;height:16px;stroke:rgba(255,255,255,.4);fill:none;stroke-width:2;flex-shrink:0}
+.cta-guarantee span{font-size:11px;color:rgba(255,255,255,.4);line-height:1.4}
+
+/* CONFERMA */
+.conf-wrap{text-align:center;padding:20px 0}
+.conf-circle{width:68px;height:68px;border-radius:50%;background:var(--green-l);border:1px solid var(--green-m);display:flex;align-items:center;justify-content:center;margin:0 auto 22px}
+.conf-circle svg{width:32px;height:32px;stroke:var(--green);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.conf-wrap h2{font-family:var(--serif);font-size:clamp(24px,4vw,32px);font-weight:700;color:var(--ink);margin-bottom:10px}
+.conf-wrap .conf-sub{font-size:15px;color:var(--ink2);max-width:380px;margin:0 auto 32px;line-height:1.7}
+.first-card{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;text-align:left;cursor:pointer;transition:all .18s;max-width:380px;margin:0 auto 14px;display:block}
+.first-card:hover{border-color:var(--green);transform:translateY(-1px)}
+.fc-label{font-size:10px;font-family:var(--mono);color:var(--green);letter-spacing:.07em;text-transform:uppercase;margin-bottom:7px}
+.fc-title{font-size:16px;font-weight:500;color:var(--ink);margin-bottom:4px;font-family:var(--serif)}
+.fc-meta{font-size:12px;color:var(--ink3)}
+.conf-secondary{font-size:13px;color:var(--ink3);text-align:center;margin-top:6px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><span class="logo-dot"></span>Napkin Finanza</div>
+  <button class="nav-skip" onclick="goHome()">Salta e vai al sito →</button>
+</nav>
+
+<!-- STEP 0: WELCOME -->
+<div id="s0" class="screen on">
+  <div class="wrap">
+    <div class="welcome-mark">
+      <svg viewBox="0 0 26 26"><path d="M3 19 Q7 5 13 9 Q19 13 23 3"/><circle cx="13" cy="13" r="2.5" fill="#1d6b4a" stroke="none"/></svg>
+    </div>
+    <h1 class="big">Prima di tutto:<br>da <em>dove parti?</em></h1>
+    <p class="lead">3 domande veloci. Ti costruiamo un percorso su misura — e ti diciamo esattamente da dove iniziare, senza perderti.</p>
+    <button class="btn-go" onclick="go(1)">Iniziamo →</button>
+    <div class="proof">
+      <div class="avs">
+        <div class="av" style="background:#1d6b4a">M</div>
+        <div class="av" style="background:#b8621a">L</div>
+        <div class="av" style="background:#1a4a6b">G</div>
+        <div class="av" style="background:#6b1d4a">A</div>
+        <div class="av" style="background:#4a6b1d">R</div>
+      </div>
+      <div class="proof-txt"><strong>+2.400 persone</strong><br>hanno già trovato il loro percorso</div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 1 -->
+<div id="s1" class="screen">
+  <div class="prog-shell">
+    <div class="prog-track"><div class="prog-bar" style="width:33%"></div></div>
+    <div class="prog-meta"><span>Domanda 1 di 3</span><span>33%</span></div>
+  </div>
+  <div class="wrap">
+    <div class="q-cat">La tua situazione oggi</div>
+    <div class="q-text">Come descriveresti il tuo rapporto con i soldi in questo momento?</div>
+    <div class="opts">
+      <button class="opt" onclick="pick(this,'s1',0)"><span class="opt-radio"></span>Li spendo o lascio fermi sul conto — non ci penso molto</button>
+      <button class="opt" onclick="pick(this,'s1',1)"><span class="opt-radio"></span>Ho qualche risparmio ma non so bene cosa farci</button>
+      <button class="opt" onclick="pick(this,'s1',2)"><span class="opt-radio"></span>Investo già qualcosa ma voglio fare meglio</button>
+      <button class="opt" onclick="pick(this,'s1',3)"><span class="opt-radio"></span>Ho un piano, cerco ottimizzazione e libertà finanziaria</button>
+    </div>
+    <div class="q-nav">
+      <span></span>
+      <button class="btn-next" id="nx1" onclick="go(2)" disabled>Avanti →</button>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 2 -->
+<div id="s2" class="screen">
+  <div class="prog-shell">
+    <div class="prog-track"><div class="prog-bar" style="width:66%"></div></div>
+    <div class="prog-meta"><span>Domanda 2 di 3</span><span>66%</span></div>
+  </div>
+  <div class="wrap">
+    <div class="q-cat">Il tuo obiettivo</div>
+    <div class="q-text">Cosa vuoi ottenere con la tua finanza nei prossimi anni?</div>
+    <div class="opts">
+      <button class="opt" onclick="pick(this,'s2',0)"><span class="opt-radio"></span>Capire le basi ed evitare gli errori più comuni</button>
+      <button class="opt" onclick="pick(this,'s2',1)"><span class="opt-radio"></span>Far crescere i risparmi senza troppi rischi</button>
+      <button class="opt" onclick="pick(this,'s2',2)"><span class="opt-radio"></span>Costruire un patrimonio solido nel lungo periodo</button>
+      <button class="opt" onclick="pick(this,'s2',3)"><span class="opt-radio"></span>Raggiungere l'indipendenza finanziaria il prima possibile</button>
+    </div>
+    <div class="q-nav">
+      <button class="btn-back" onclick="go(1)">← Indietro</button>
+      <button class="btn-next" id="nx2" onclick="go(3)" disabled>Avanti →</button>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 3 -->
+<div id="s3" class="screen">
+  <div class="prog-shell">
+    <div class="prog-track"><div class="prog-bar" style="width:90%"></div></div>
+    <div class="prog-meta"><span>Domanda 3 di 3</span><span>90%</span></div>
+  </div>
+  <div class="wrap">
+    <div class="q-cat">La tua tolleranza al rischio</div>
+    <div class="q-text">Il mercato perde il 15% in un mese. Cosa senti?</div>
+    <div class="opts">
+      <button class="opt" onclick="pick(this,'s3',0)"><span class="opt-radio"></span>Ansia — voglio qualcosa di stabile e prevedibile</button>
+      <button class="opt" onclick="pick(this,'s3',1)"><span class="opt-radio"></span>Preoccupazione, ma aspetto — so che è temporaneo</button>
+      <button class="opt" onclick="pick(this,'s3',2)"><span class="opt-radio"></span>Calma — il lungo periodo è quello che conta</button>
+      <button class="opt" onclick="pick(this,'s3',3)"><span class="opt-radio"></span>Opportunità — probabilmente compro ancora di più</button>
+    </div>
+    <div class="q-nav">
+      <button class="btn-back" onclick="go(2)">← Indietro</button>
+      <button class="btn-next" id="nx3" onclick="showResult()" disabled>Scopri il tuo profilo →</button>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 4: RISULTATO + CTA -->
+<div id="s4" class="screen">
+  <div class="wrap">
+    <span class="res-badge" id="r-badge">profilo bilanciato</span>
+    <div class="res-name" id="r-name">Il Costruttore</div>
+    <p class="res-desc" id="r-desc">Hai risparmi ma vuoi usarli meglio. Il tuo percorso parte dall'interesse composto e arriva a un PAC mensile su ETF globali.</p>
+    <div class="percorso">
+      <div class="perc-label">Il tuo percorso personalizzato</div>
+      <div id="perc-steps"></div>
+    </div>
+    <div class="cta-box">
+      <h3 id="cta-h">Ricevi i napkin giusti per te</h3>
+      <p class="cta-sub" id="cta-p">Un concetto alla settimana, nell'ordine pensato per il tuo profilo. Niente di generico.</p>
+      <input class="cta-email" id="em" type="email" placeholder="la-tua@email.it">
+      <button class="cta-sub-btn" onclick="subscribe()">Iscrivimi — è gratis</button>
+      <div class="cta-note">Nessun costo · Disdici in un click · Zero spam</div>
+      <div class="cta-guarantee">
+        <svg viewBox="0 0 16 16"><path d="M8 2L10 6h4l-3 2.5 1 4L8 11l-4 3.5 1-4L2 8h4z"/></svg>
+        <span>Non vendiamo prodotti finanziari. Non abbiamo affiliazioni con broker o banche. La newsletter è indipendente.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 5: CONFERMA -->
+<div id="s5" class="screen">
+  <div class="wrap">
+    <div class="conf-wrap">
+      <div class="conf-circle">
+        <svg viewBox="0 0 32 32"><polyline points="6,17 13,24 26,8"/></svg>
+      </div>
+      <h2>Perfetto, sei dentro.</h2>
+      <p class="conf-sub">Controlla la mail per confermare l'iscrizione. Da lunedì prossimo, un napkin costruito per il tuo profilo ogni settimana.</p>
+      <div id="first-napkin">
+        <a class="first-card" href="#" onclick="goHome();return false">
+          <div class="fc-label">Il tuo primo napkin consigliato</div>
+          <div class="fc-title" id="fc-title">L'interesse composto</div>
+          <div class="fc-meta">3 min di lettura · Il concetto fondamentale da cui tutto parte</div>
+        </a>
+        <div class="conf-secondary">oppure <span onclick="goHome()" style="cursor:pointer;text-decoration:underline;color:var(--ink2)">esplora tutti i napkin →</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const answers = [null, null, null];
+
+const profiles = [
+  {
+    badge: 'profilo base', name: 'Il Curioso',
+    desc: 'Sei all\'inizio e stai facendo la cosa giusta: capire prima di agire. Il tuo percorso parte dai concetti fondamentali — niente prodotti, niente strategie complesse. Prima la testa.',
+    steps: [
+      { t: 'Leggi: L\'inflazione spiegata in 3 righe', s: 'Il rischio che stai già correndo senza saperlo' },
+      { t: 'Leggi: L\'interesse composto', s: 'Perché il tempo vale più del rendimento' },
+      { t: 'Prova: il simulatore base', s: 'Vedi cosa succede a €1.000 in 20 anni' },
+    ],
+    ctaH: 'Inizia dalle fondamenta, un napkin alla settimana',
+    ctaP: 'Ti mandiamo i concetti base nell\'ordine giusto — senza saltare passaggi. Niente di complicato.',
+    first: 'L\'inflazione spiegata in 3 righe',
+  },
+  {
+    badge: 'profilo bilanciato', name: 'Il Costruttore',
+    desc: 'Hai risparmi ma vuoi usarli meglio. Non cerchi l\'emozione, cerchi la solidità. Il tuo percorso passa dall\'interesse composto fino a un PAC mensile su ETF globali.',
+    steps: [
+      { t: 'Leggi: Cos\'è un ETF e perché funziona', s: 'Il carrello già pronto che batte il 90% dei fondi attivi' },
+      { t: 'Strumento: confronta ETF su JustETF', s: 'TER, indice replicato, storico rendimenti' },
+      { t: 'Leggi: PAC mensile — la strategia del pilota automatico', s: 'Investi senza dover fare timing sul mercato' },
+    ],
+    ctaH: 'Un napkin a settimana per costruire il tuo patrimonio',
+    ctaP: 'I concetti giusti per chi vuole smettere di lasciare i soldi fermi sul conto. Pratici, concreti, brevi.',
+    first: 'L\'interesse composto',
+  },
+  {
+    badge: 'profilo crescita', name: 'Il Navigatore',
+    desc: 'Sei già sulla strada. Investi, ma vuoi ottimizzare — asset allocation, fiscalità italiana, orizzonte temporale. Il simulatore FIRE è il tuo prossimo passo concreto.',
+    steps: [
+      { t: 'Simula: calcola il tuo numero FIRE', s: 'Con INPS, IRPEF e inflazione italiana inclusi' },
+      { t: 'Leggi: IRPEF a scaglioni — quanto tieni davvero', s: 'L\'aliquota marginale non è quella effettiva' },
+      { t: 'Leggi: Asset allocation per il lungo periodo', s: 'Come distribuire tra azioni, obbligazioni, liquidità' },
+    ],
+    ctaH: 'Ottimizza con un napkin a settimana',
+    ctaP: 'Contenuti per chi investe già e vuole fare meglio — fiscalità, strategia, libertà finanziaria.',
+    first: 'La regola del 4% applicata all\'Italia',
+  },
+  {
+    badge: 'profilo avanzato', name: 'Il FIRE Hunter',
+    desc: 'L\'obiettivo è chiaro: indipendenza finanziaria prima dell\'età pensionabile. Il simulatore FIRE italiano con INPS e IRPEF reali è lo strumento da cui partire.',
+    steps: [
+      { t: 'Simula: FIRE con fiscalità italiana reale', s: 'L\'unico simulatore che include INPS e IRPEF' },
+      { t: 'Leggi: Regola del 4% — funziona in Italia?', s: 'Come adattare la strategia alla realtà italiana' },
+      { t: 'Leggi: Massimizzare il tasso di risparmio', s: 'La leva più potente per anticipare il FIRE' },
+    ],
+    ctaH: 'Napkin avanzati per chi vuole la libertà finanziaria',
+    ctaP: 'Ogni settimana un concetto che ti avvicina all\'indipendenza. Fiscalità, strategie, numeri reali.',
+    first: 'La regola del 4% applicata all\'Italia',
+  },
+];
+
+function go(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
+  document.getElementById('s' + n).classList.add('on');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function pick(btn, screenId, val) {
+  const scr = document.getElementById(screenId);
+  scr.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+  btn.classList.add('sel');
+  const idx = parseInt(screenId.replace('s', '')) - 1;
+  answers[idx] = val;
+  const nx = document.getElementById('nx' + (idx + 1));
+  if (nx) nx.disabled = false;
+}
+
+function showResult() {
+  const score = answers.reduce((s, v) => s + (v || 0), 0);
+  const pi = Math.min(3, Math.floor(score / 3));
+  const p = profiles[pi];
+  document.getElementById('r-badge').textContent = p.badge;
+  document.getElementById('r-name').textContent = p.name;
+  document.getElementById('r-desc').textContent = p.desc;
+  document.getElementById('cta-h').textContent = p.ctaH;
+  document.getElementById('cta-p').textContent = p.ctaP;
+  document.getElementById('fc-title').textContent = p.first;
+  const stepsEl = document.getElementById('perc-steps');
+  stepsEl.innerHTML = p.steps.map((s, i) => `
+    <div class="pstep">
+      <div class="pnum">${i + 1}</div>
+      <div class="ptxt"><h5>${s.t}</h5><p>${s.s}</p></div>
+    </div>`).join('');
+  go(4);
+}
+
+function subscribe() {
+  const em = document.getElementById('em');
+  em.classList.remove('err');
+  const val = em.value.trim();
+  if (!val || !val.includes('@') || !val.includes('.')) {
+    em.classList.add('err');
+    em.focus();
+    return;
+  }
+  // QUI: integra Beehiiv API o redirect al form Beehiiv embed
+  // es: window.location.href = 'https://tua-newsletter.beehiiv.com/subscribe?email=' + encodeURIComponent(val);
+  go(5);
+}
+
+function goHome() {
+  // In produzione: window.location.href = '/'
+  alert('→ Porta l\'utente alla home del sito');
+}
+</script>
+</body>
+</html>
