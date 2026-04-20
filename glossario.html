@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glossario — The Napkin</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1a1a18;--ink2:#4a4a44;--ink3:#8a8a80;
+  --paper:#faf9f5;--paper2:#f3f2ec;--paper3:#ebe9e0;
+  --green:#1d6b4a;--green-l:#e8f5ee;--green-m:#b8ddc9;
+  --amber:#b8621a;--amber-l:#fdf0e4;
+  --blue:#1a4a6b;--blue-l:#e4eef5;
+  --border:#dddbd0;--r:12px;
+  --serif:'Playfair Display',Georgia,serif;
+  --body:'DM Sans',sans-serif;
+  --mono:'DM Mono',monospace;
+}
+body{font-family:var(--body);background:var(--paper);color:var(--ink);font-size:18px;line-height:1.6;min-height:100vh}
+nav{display:flex;align-items:center;justify-content:space-between;padding:18px 40px;border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:100}
+.logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-dot{width:10px;height:10px;background:var(--green);border-radius:50%;display:inline-block}
+.nb{background:none;border:none;font-family:var(--body);font-size:15px;color:var(--ink2);padding:8px 16px;border-radius:7px;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-block}
+.nb:hover{background:var(--paper2);color:var(--ink)}
+.nb.cta{background:var(--ink);color:var(--paper);font-weight:600}
+.nb.cta:hover{background:var(--green)}
+.page-hero{padding:52px 40px 32px;max-width:800px;margin:0 auto;text-align:center}
+.page-hero h1{font-family:var(--serif);font-size:clamp(32px,4vw,48px);font-weight:700;color:var(--ink);margin-bottom:12px}
+.page-hero p{font-size:18px;color:var(--ink2);max-width:480px;margin:0 auto;font-weight:300}
+footer{text-align:center;padding:32px 40px;font-size:13px;font-family:var(--mono);color:var(--ink3);border-top:1px solid var(--border)}
+@media(max-width:640px){nav{padding:14px 20px}.nb.nav-label{display:none}}
+/* GLOSSARIO */
+.g-search{width:100%;padding:14px 18px;border:1px solid var(--border);border-radius:9px;font-family:var(--body);font-size:16px;background:var(--paper);color:var(--ink);margin-bottom:20px;outline:none;transition:border-color .15s}
+.g-search:focus{border-color:var(--ink)}
+.g-letters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+.glb{width:34px;height:34px;border:1px solid var(--border);border-radius:7px;background:none;font-family:var(--mono);font-size:13px;cursor:pointer;color:var(--ink2);transition:all .15s}
+.glb:hover,.glb.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.g-list{display:flex;flex-direction:column;gap:12px}
+.gi{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;cursor:pointer;transition:border-color .15s}
+.gi:hover{border-color:var(--ink2)}
+.gi-head{display:flex;align-items:center;justify-content:space-between}
+.gi h4{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--ink)}
+.gi-badge{font-size:11px;font-family:var(--mono);color:var(--ink3);background:var(--paper2);padding:3px 9px;border-radius:4px}
+.gi-body{margin-top:14px;display:none}
+.gi-body.open{display:block}
+.gi-def{font-size:15px;color:var(--ink2);line-height:1.7;margin-bottom:12px}
+.gi-napkin{background:var(--paper2);border-radius:8px;padding:14px 16px;font-size:14px;color:var(--ink);border-left:3px solid var(--green);font-style:italic;line-height:1.65}
+
+/* FIRE */
+.fire-layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+@media(max-width:660px){.fire-layout{grid-template-columns:1fr}}
+.fp{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:26px}
+.fp h3{font-family:var(--serif);font-size:21px;font-weight:700;margin-bottom:22px;color:var(--ink)}
+.fr{margin-bottom:20px}
+.fr label{display:block;font-size:12px;color:var(--ink3);margin-bottom:6px;font-family:var(--mono);letter-spacing:.05em;text-transform:uppercase}
+.fr input[type=range]{width:100%;accent-color:var(--green);margin-bottom:4px}
+.fv{font-size:16px;font-weight:500;color:var(--ink);font-family:var(--mono)}
+.fire-res{background:var(--ink);border-radius:var(--r);padding:26px;color:var(--paper)}
+.fire-res h3{font-family:var(--serif);font-size:21px;font-weight:700;margin-bottom:24px;color:var(--paper)}
+.fstat{margin-bottom:22px}
+.fstat-lbl{font-size:11px;color:rgba(255,255,255,.45);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.fstat-val{font-size:30px;font-weight:400;color:var(--paper);font-family:var(--serif)}
+.fstat-sub{font-size:13px;color:rgba(255,255,255,.45);margin-top:3px}
+.fbar{height:5px;background:rgba(255,255,255,.15);border-radius:3px;margin:16px 0}
+.fbar-fill{height:100%;border-radius:3px;background:var(--green);transition:width .5s ease}
+.fwarn{font-size:13px;color:rgba(255,255,255,.55);margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);line-height:1.55}
+.fire-quote{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:18px 22px;margin-top:16px}
+.fire-quote .ql{font-size:11px;font-family:var(--mono);color:var(--ink3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px}
+.fire-quote p{font-size:14px;color:var(--ink);font-style:italic;line-height:1.65;border-left:3px solid var(--green);padding-left:12px}
+
+/* QUIZ */
+.quiz-wrap{max-width:580px;margin:0 auto;padding:40px 36px}
+.qprog{height:4px;background:var(--paper3);border-radius:2px;margin-bottom:36px;overflow:hidden}
+.qprog-fill{height:100%;background:var(--green);border-radius:2px;transition:width .4s ease}
+.q-title{text-align:center;margin-bottom:32px}
+.q-title h2{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.q-title p{font-size:15px;color:var(--ink3)}
+.qq{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ink);margin-bottom:28px;line-height:1.3}
+.qopts{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.qopt{background:var(--paper);border:1px solid var(--border);border-radius:11px;padding:16px 20px;cursor:pointer;font-size:15px;color:var(--ink);text-align:left;transition:all .15s;font-family:var(--body)}
+.qopt:hover{border-color:var(--green);background:var(--green-l)}
+.qopt.sel{border-color:var(--green);background:var(--green-l);color:var(--green)}
+.qnav{display:flex;justify-content:space-between;align-items:center}
+.qback{background:none;border:1px solid var(--border);border-radius:7px;padding:10px 20px;font-family:var(--body);font-size:14px;cursor:pointer;color:var(--ink2)}
+.qnext{background:var(--ink);color:var(--paper);border:none;border-radius:7px;padding:12px 26px;font-family:var(--body);font-size:14px;font-weight:600;cursor:pointer;transition:all .15s}
+.qnext:hover{background:var(--green)}
+.qres{text-align:center;padding-top:12px}
+.qres-icon{font-size:56px;margin-bottom:18px}
+.qres h2{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--ink);margin-bottom:12px}
+.qres p{font-size:16px;color:var(--ink2);max-width:420px;margin:0 auto 28px;line-height:1.7}
+.qres-badge{display:inline-block;font-size:12px;font-family:var(--mono);color:var(--green);background:var(--green-l);padding:5px 16px;border-radius:20px;margin-bottom:20px;letter-spacing:.04em}
+.qrestart{background:var(--ink);color:var(--paper);border:none;border-radius:7px;padding:13px 28px;font-family:var(--body);font-size:15px;font-weight:600;cursor:pointer}
+.qrestart:hover{background:var(--green)}
+
+/* INIZIA */
+.sh-hero{text-align:center;padding:48px 36px 36px}
+.sh-hero h2{font-family:var(--serif);font-size:36px;font-weight:700;color:var(--ink);margin-bottom:12px}
+.sh-hero p{font-size:18px;color:var(--ink2);max-width:480px;margin:0 auto}
+.sh-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;padding:0 36px;max-width:920px;margin:0 auto 48px}
+.shc{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:24px;text-align:center;cursor:pointer;transition:all .2s}
+.shc:hover{border-color:var(--green);transform:translateY(-2px)}
+.shc-icon{font-size:32px;margin-bottom:14px}
+.shc h4{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.shc p{font-size:13px;color:var(--ink3);line-height:1.5}
+.sh-path{max-width:640px;margin:0 auto;padding:0 36px 56px}
+.sh-path h3{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ink);margin-bottom:20px}
+.pstep{display:flex;gap:16px;margin-bottom:16px;align-items:flex-start}
+.pnum{width:32px;height:32px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.pcontent h5{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:3px;font-family:var(--body)}
+.pcontent p{font-size:14px;color:var(--ink2);line-height:1.55}
+.beehiiv{background:var(--green-l);border:1px solid var(--green-m);border-radius:var(--r);padding:28px;text-align:center;max-width:480px;margin:32px auto 0}
+.beehiiv h4{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--green);margin-bottom:8px}
+.beehiiv p{font-size:14px;color:var(--ink2);margin-bottom:20px}
+.beehiiv input{width:100%;padding:12px 16px;border:1px solid var(--green-m);border-radius:7px;font-family:var(--body);font-size:15px;background:white;color:var(--ink);margin-bottom:10px;outline:none}
+.beehiiv button{width:100%;padding:13px;background:var(--green);color:white;border:none;border-radius:7px;font-family:var(--body);font-size:15px;font-weight:600;cursor:pointer;transition:background .15s}
+.beehiiv button:hover{background:#155237}
+
+/* FILTER BTN */
+.filter-btn{background:none;border:1px solid var(--border);border-radius:20px;font-family:var(--mono);font-size:12px;color:var(--ink2);padding:5px 14px;cursor:pointer;transition:all .15s;letter-spacing:.03em}
+.filter-btn:hover{border-color:var(--ink2);color:var(--ink)}
+.filter-btn.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="index.html"><span class="logo-dot"></span>The Napkin</a>
+  <div class="nav-links" style="display:flex;gap:4px;align-items:center">
+    <a class="nb nav-label" href="tovagliolo-01-bias.html">I Napkins</a>
+    <a class="nb nav-label" href="strumenti.html">Strumenti</a>
+    <a class="nb cta" href="https://thenapkin.beehiiv.com">Newsletter</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>Glossario</h1>
+  <p>Tutti i termini che incontri nel mondo degli investimenti, spiegati in due righe.</p>
+</div>
+
+<div class="sec" style="max-width:900px;margin:0 auto;padding:0 40px 80px">
+  <div class="gletter-bar" id="g-letters"></div>
+  <input class="gsearch" id="gs" type="text" placeholder="Cerca un termine..." oninput="filterG()">
+  <div id="g-list"></div>
+</div>
+
+<footer>The Napkin · Non siamo consulenti finanziari · Nessun conflitto di interesse · Fatto con carta e penna (e un po' di codice)</footer>
+
+<script>
+const glossario=[
+  {t:'Asset allocation',c:'base',d:'Come distribuisci i tuoi soldi tra diverse categorie di investimento.',n:'Immagina un piatto: pasta=azioni, verdure=obbligazioni, pane=liquidità. Il piatto giusto cambia con l\'età e il rischio che sei disposto a correre.'},
+  {t:'BTP',c:'obbligazioni',d:'Buoni del Tesoro Poliennali: titoli di debito emessi dallo Stato italiano.',n:'Presti soldi al governo. Ogni anno ti paga gli interessi. Alla scadenza riprendi tutto. Rischio basso, rendimento basso.'},
+  {t:'Cedola',c:'obbligazioni',d:'Il pagamento periodico di interessi su un\'obbligazione.',n:'Compri un\'obbligazione da €1.000 al 3%: ogni anno ti arrivano €30 in tasca, senza fare nulla. Come affittare denaro.'},
+  {t:'Dividendo',c:'azioni',d:'La quota di profitto che un\'azienda distribuisce agli azionisti.',n:'L\'azienda guadagna, una parte la distribuisce a te. Come ricevere l\'affitto di un immobile, senza gestire l\'impianto idraulico.'},
+  {t:'ETF',c:'fondi',d:'Exchange Traded Fund: un fondo che replica un indice, acquistabile in borsa come un\'azione.',n:'Carrello del supermercato già pronto. Compri una quota e dentro ci sono 500 aziende. Costa 0,2% l\'anno invece del 2% dei fondi attivi.'},
+  {t:'Fondo attivo',c:'fondi',d:'Un fondo gestito da professionisti che cercano di battere il mercato.',n:'Paghi un gestore per scegliere le azioni migliori. Problema: l\'80% dei gestori fa peggio del mercato nel lungo periodo.'},
+  {t:'IRPEF',c:'tasse',d:'Imposta sul Reddito delle Persone Fisiche: la tassa principale sul reddito in Italia.',n:'Funziona a scaglioni. Paghi il 23% sui primi €15k, il 35% sui successivi. L\'aliquota effettiva è sempre più bassa di quella marginale.'},
+  {t:'PAC',c:'strategie',d:'Piano di Accumulo del Capitale: investire una cifra fissa a intervalli regolari.',n:'Ogni mese, stessa cifra, stesso ETF. Quando il mercato scende compri più quote. La media nel tempo vince sul timing.'},
+  {t:'Portafoglio',c:'base',d:'L\'insieme di tutti i tuoi investimenti.',n:'Come un mosaico. Il valore non dipende da un singolo pezzo. Se uno si rompe, il mosaico tiene.'},
+  {t:'Rendimento reale',c:'fondamenta',d:'Il rendimento al netto dell\'inflazione.',n:'Il tuo conto deposito rende il 3%. L\'inflazione è al 2,5%. Il rendimento reale è solo 0,5%. I soldi crescono, ma compri quasi le stesse cose.'},
+  {t:'TER',c:'fondi',d:'Total Expense Ratio: il costo annuo totale di un fondo o ETF.',n:'Un ETF con TER 0,2% ti costa €2 ogni €1.000 investiti. Un fondo attivo al 2% ti costa €20. Dopo 30 anni la differenza è enorme.'},
+  {t:'Volatilità',c:'rischio',d:'La misura di quanto il prezzo di un asset oscilla nel tempo.',n:'Alta volatilità = montagne russe. Bassa volatilità = treno. Entrambi arrivano, ma il viaggio è diverso. La volatilità non è rischio: è disagio.'},
+];
+
+function buildG(){
+  const letters=[...new Set(glossario.map(g=>g.t[0]))].sort();
+  const lc=document.getElementById('g-letters');
+  const all=document.createElement('button');all.className='glb on';all.textContent='Tutti';
+  all.onclick=()=>{document.getElementById('gs').value='';renderG(glossario);document.querySelectorAll('.glb').forEach(b=>b.classList.remove('on'));all.classList.add('on');};
+  lc.appendChild(all);
+  letters.forEach(l=>{
+    const b=document.createElement('button');b.className='glb';b.textContent=l;
+    b.onclick=()=>{renderG(glossario.filter(g=>g.t[0]===l));document.querySelectorAll('.glb').forEach(x=>x.classList.remove('on'));b.classList.add('on');};
+    lc.appendChild(b);
+  });
+  renderG(glossario);
+}
+function filterG(){
+  const v=document.getElementById('gs').value.toLowerCase();
+  renderG(v?glossario.filter(g=>g.t.toLowerCase().includes(v)||g.d.toLowerCase().includes(v)):glossario);
+}
+function renderG(list){
+  const c=document.getElementById('g-list');c.innerHTML='';
+  list.forEach(g=>{
+    const el=document.createElement('div');el.className='gi';
+    el.innerHTML=`<div class="gi-head"><h4>${g.t}</h4><span class="gi-badge">${g.c}</span></div><div class="gi-body"><div class="gi-def">${g.d}</div><div class="gi-napkin">${g.n}</div></div>`;
+    el.onclick=()=>el.querySelector('.gi-body').classList.toggle('open');
+    c.appendChild(el);
+  });
+}
+
+buildG();
+</script>
+</body>
+</html>

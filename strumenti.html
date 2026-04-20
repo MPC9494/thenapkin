@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strumenti — The Napkin</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1a1a18;--ink2:#4a4a44;--ink3:#8a8a80;
+  --paper:#faf9f5;--paper2:#f3f2ec;--paper3:#ebe9e0;
+  --green:#1d6b4a;--green-l:#e8f5ee;--green-m:#b8ddc9;
+  --amber:#b8621a;--amber-l:#fdf0e4;
+  --blue:#1a4a6b;--blue-l:#e4eef5;
+  --red:#8b2a2a;--red-l:#fdf0f0;
+  --border:#dddbd0;--r:12px;
+  --serif:'Playfair Display',Georgia,serif;
+  --body:'DM Sans',sans-serif;
+  --mono:'DM Mono',monospace;
+}
+body{font-family:var(--body);background:var(--paper);color:var(--ink);font-size:18px;line-height:1.6;min-height:100vh}
+nav{display:flex;align-items:center;justify-content:space-between;padding:18px 40px;border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:100}
+.logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-dot{width:10px;height:10px;background:var(--green);border-radius:50%;display:inline-block}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nb{background:none;border:none;font-family:var(--body);font-size:15px;color:var(--ink2);padding:8px 16px;border-radius:7px;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-block}
+.nb:hover{background:var(--paper2);color:var(--ink)}
+.nb.cta{background:var(--ink);color:var(--paper);font-weight:600}
+.nb.cta:hover{background:var(--green)}
+.tab-bar{display:flex;gap:4px;padding:24px 40px 0;max-width:900px;margin:0 auto;border-bottom:1px solid var(--border)}
+.tab-btn{font-family:var(--body);font-size:15px;color:var(--ink2);background:none;border:none;padding:10px 20px;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;font-weight:400}
+.tab-btn:hover{color:var(--ink)}
+.tab-btn.active{color:var(--green);border-bottom-color:var(--green);font-weight:600}
+.tab-panel{display:none}.tab-panel.active{display:block}
+footer{text-align:center;padding:32px 40px;font-size:13px;font-family:var(--mono);color:var(--ink3);border-top:1px solid var(--border);margin-top:48px}
+@media(max-width:640px){nav{padding:14px 20px}.nb.nav-label{display:none}.tab-bar{padding:16px 20px 0}.tab-btn{padding:8px 12px;font-size:14px}}
+/* TOOLS PAGE */
+.tools-hero{padding:52px 36px 28px;max-width:800px;margin:0 auto;text-align:center}
+.tools-hero h2{font-family:var(--serif);font-size:clamp(28px,4vw,42px);font-weight:700;color:var(--ink);margin-bottom:10px}
+.tools-hero p{font-size:17px;color:var(--ink2);max-width:460px;margin:0 auto}
+.tools-wrap{max-width:900px;margin:0 auto;padding:20px 36px 52px}
+.tools-sec{margin-bottom:36px}
+.tools-sec-head{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.tools-sec-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.tools-sec-name{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--ink)}
+.tools-sec-desc{font-size:13px;font-family:var(--mono);color:var(--ink3);margin-left:auto}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.tool-card{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;transition:all .15s;cursor:pointer;text-decoration:none;display:block}
+.tool-card:hover{border-color:var(--ink2);transform:translateY(-1px)}
+.tool-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px}
+.tool-name{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--ink);line-height:1.2}
+.tool-link-badge{font-size:10px;font-family:var(--mono);color:var(--green);background:var(--green-l);padding:2px 8px;border-radius:10px;flex-shrink:0;margin-left:8px;margin-top:3px}
+.tool-desc{font-size:14px;color:var(--ink2);line-height:1.55;margin-bottom:10px}
+.tool-tags{display:flex;gap:6px;flex-wrap:wrap}
+.ttag{font-size:11px;font-family:var(--mono);padding:2px 8px;border-radius:4px}
+.ttag.free{background:var(--green-l);color:var(--green)}
+.ttag.paid{background:var(--amber-l);color:var(--amber)}
+.ttag.it{background:var(--blue-l);color:var(--blue)}
+
+/* GLOSSARIO */
+.g-search{width:100%;padding:14px 18px;border:1px solid var(--border);border-radius:9px;font-family:var(--body);font-size:16px;background:var(--paper);color:var(--ink);margin-bottom:20px;outline:none;transition:border-color .15s}
+.g-search:focus{border-color:var(--ink)}
+.g-letters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+.glb{width:34px;height:34px;border:1px solid var(--border);border-radius:7px;background:none;font-family:var(--mono);font-size:13px;cursor:pointer;color:var(--ink2);transition:all .15s}
+.glb:hover,.glb.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.g-list{display:flex;flex-direction:column;gap:12px}
+.gi{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;cursor:pointer;transition:border-color .15s}
+.gi:hover{border-color:var(--ink2)}
+.gi-head{display:flex;align-items:center;justify-content:space-between}
+.gi h4{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--ink)}
+.gi-badge{font-size:11px;font-family:var(--mono);color:var(--ink3);background:var(--paper2);padding:3px 9px;border-radius:4px}
+.gi-body{margin-top:14px;display:none}
+.gi-body.open{display:block}
+.gi-def{font-size:15px;color:var(--ink2);line-height:1.7;margin-bottom:12px}
+.gi-napkin{background:var(--paper2);border-radius:8px;padding:14px 16px;font-size:14px;color:var(--ink);border-left:3px solid var(--green);font-style:italic;line-height:1.65}
+
+/* FIRE */
+.fire-layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+@media(max-width:660px){.fire-layout{grid-template-columns:1fr}}
+.fp{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:26px}
+.fp h3{font-family:var(--serif);font-size:21px;font-weight:700;margin-bottom:22px;color:var(--ink)}
+.fr{margin-bottom:20px}
+.fr label{display:block;font-size:12px;color:var(--ink3);margin-bottom:6px;font-family:var(--mono);letter-spacing:.05em;text-transform:uppercase}
+.fr input[type=range]{width:100%;accent-color:var(--green);margin-bottom:4px}
+.fv{font-size:16px;font-weight:500;color:var(--ink);font-family:var(--mono)}
+.fire-res{background:var(--ink);border-radius:var(--r);padding:26px;color:var(--paper)}
+.fire-res h3{font-family:var(--serif);font-size:21px;font-weight:700;margin-bottom:24px;color:var(--paper)}
+.fstat{margin-bottom:22px}
+.fstat-lbl{font-size:11px;color:rgba(255,255,255,.45);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.fstat-val{font-size:30px;font-weight:400;color:var(--paper);font-family:var(--serif)}
+.fstat-sub{font-size:13px;color:rgba(255,255,255,.45);margin-top:3px}
+.fbar{height:5px;background:rgba(255,255,255,.15);border-radius:3px;margin:16px 0}
+.fbar-fill{height:100%;border-radius:3px;background:var(--green);transition:width .5s ease}
+.fwarn{font-size:13px;color:rgba(255,255,255,.55);margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);line-height:1.55}
+.fire-quote{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:18px 22px;margin-top:16px}
+.fire-quote .ql{font-size:11px;font-family:var(--mono);color:var(--ink3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px}
+.fire-quote p{font-size:14px;color:var(--ink);font-style:italic;line-height:1.65;border-left:3px solid var(--green);padding-left:12px}
+
+/* QUIZ */
+.quiz-wrap{max-width:580px;margin:0 auto;padding:40px 36px}
+.qprog{height:4px;background:var(--paper3);border-radius:2px;margin-bottom:36px;overflow:hidden}
+.qprog-fill{height:100%;background:var(--green);border-radius:2px;transition:width .4s ease}
+.q-title{text-align:center;margin-bottom:32px}
+.q-title h2{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.q-title p{font-size:15px;color:var(--ink3)}
+.qq{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ink);margin-bottom:28px;line-height:1.3}
+.qopts{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.qopt{background:var(--paper);border:1px solid var(--border);border-radius:11px;padding:16px 20px;cursor:pointer;font-size:15px;color:var(--ink);text-align:left;transition:all .15s;font-family:var(--body)}
+.qopt:hover{border-color:var(--green);background:var(--green-l)}
+.qopt.sel{border-color:var(--green);background:var(--green-l);color:var(--green)}
+.qnav{display:flex;justify-content:space-between;align-items:center}
+.qback{background:none;border:1px solid var(--border);border-radius:7px;padding:10px 20px;font-family:var(--body);font-size:14px;cursor:pointer;color:var(--ink2)}
+.qnext{background:var(--ink);color:var(--paper);border:none;border-radius:7px;padding:12px 26px;font-family:var(--body);font-size:14px;font-weight:600;cursor:pointer;transition:all .15s}
+.qnext:hover{background:var(--green)}
+.qres{text-align:center;padding-top:12px}
+.qres-icon{font-size:56px;margin-bottom:18px}
+.qres h2{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--ink);margin-bottom:12px}
+.qres p{font-size:16px;color:var(--ink2);max-width:420px;margin:0 auto 28px;line-height:1.7}
+.qres-badge{display:inline-block;font-size:12px;font-family:var(--mono);color:var(--green);background:var(--green-l);padding:5px 16px;border-radius:20px;margin-bottom:20px;letter-spacing:.04em}
+.qrestart{background:var(--ink);color:var(--paper);border:none;border-radius:7px;padding:13px 28px;font-family:var(--body);font-size:15px;font-weight:600;cursor:pointer}
+.qrestart:hover{background:var(--green)}
+
+/* INIZIA */
+.sh-hero{text-align:center;padding:48px 36px 36px}
+.sh-hero h2{font-family:var(--serif);font-size:36px;font-weight:700;color:var(--ink);margin-bottom:12px}
+.sh-hero p{font-size:18px;color:var(--ink2);max-width:480px;margin:0 auto}
+.sh-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;padding:0 36px;max-width:920px;margin:0 auto 48px}
+.shc{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:24px;text-align:center;cursor:pointer;transition:all .2s}
+.shc:hover{border-color:var(--green);transform:translateY(-2px)}
+.shc-icon{font-size:32px;margin-bottom:14px}
+.shc h4{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.shc p{font-size:13px;color:var(--ink3);line-height:1.5}
+.sh-path{max-width:640px;margin:0 auto;padding:0 36px 56px}
+.sh-path h3{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ink);margin-bottom:20px}
+.pstep{display:flex;gap:16px;margin-bottom:16px;align-items:flex-start}
+.pnum{width:32px;height:32px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.pcontent h5{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:3px;font-family:var(--body)}
+.pcontent p{font-size:14px;color:var(--ink2);line-height:1.55}
+.beehiiv{background:var(--green-l);border:1px solid var(--green-m);border-radius:var(--r);padding:28px;text-align:center;max-width:480px;margin:32px auto 0}
+.beehiiv h4{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--green);margin-bottom:8px}
+.beehiiv p{font-size:14px;color:var(--ink2);margin-bottom:20px}
+.beehiiv input{width:100%;padding:12px 16px;border:1px solid var(--green-m);border-radius:7px;font-family:var(--body);font-size:15px;background:white;color:var(--ink);margin-bottom:10px;outline:none}
+.beehiiv button{width:100%;padding:13px;background:var(--green);color:white;border:none;border-radius:7px;font-family:var(--body);font-size:15px;font-weight:600;cursor:pointer;transition:background .15s}
+.beehiiv button:hover{background:#155237}
+
+/* FILTER BTN */
+.filter-btn{background:none;border:1px solid var(--border);border-radius:20px;font-family:var(--mono);font-size:12px;color:var(--ink2);padding:5px 14px;cursor:pointer;transition:all .15s;letter-spacing:.03em}
+.filter-btn:hover{border-color:var(--ink2);color:var(--ink)}
+.filter-btn.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+footer{text-align:center;padding:40px;font-size:13px;color:var(--ink3);border-top:1px solid var(--border);margin-top:52px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo" onclick="show('home')"><span class="logo-dot"></span>The Napkin</div>
+  <div class="nav-links">
+    <button class="nb active" data-page="home" onclick="show('home')">Home</button>
+    <button class="nb" data-page="inizia" onclick="show('inizia')">Inizia qui</button>
+    <div class="nav-item">
+      <button class="nb nb-drop" data-page="napkins" onclick="show('napkins')">I napkins</button>
+      <div class="dropdown">
+        <div class="dd-item" onclick="showNapkins('fondamenta')"><div class="dd-dot" style="background:var(--amber)"></div><div class="dd-text"><div class="dd-label">Fondamenta mentali</div><div class="dd-count">5 napkins</div></div></div>
+        <div class="dd-item" onclick="showNapkins('azioni')"><div class="dd-dot" style="background:#8b2a2a"></div><div class="dd-text"><div class="dd-label">Azioni</div><div class="dd-count">5 napkins</div></div></div>
+        <div class="dd-item" onclick="showNapkins('etf')"><div class="dd-dot" style="background:var(--green)"></div><div class="dd-text"><div class="dd-label">ETF</div><div class="dd-count">6 napkins</div></div></div>
+        <div class="dd-item" onclick="showNapkins('obbligazioni')"><div class="dd-dot" style="background:var(--blue)"></div><div class="dd-text"><div class="dd-label">Obbligazioni</div><div class="dd-count">4 napkins</div></div></div>
+        <div class="dd-item" onclick="showNapkins('cfds')"><div class="dd-dot" style="background:#5b21b6"></div><div class="dd-text"><div class="dd-label">CFDs</div><div class="dd-count">3 napkins</div></div></div>
+        <div class="dd-item" onclick="showNapkins('opzioni')"><div class="dd-dot" style="background:var(--ink3)"></div><div class="dd-text"><div class="dd-label">Opzioni</div><div class="dd-count">3 napkins</div></div></div>
+        <div class="dd-item" onclick="showNapkins('fiscalita')"><div class="dd-dot" style="background:var(--amber)"></div><div class="dd-text"><div class="dd-label">Fiscalità 🇮🇹</div><div class="dd-count">6 napkins</div></div></div>
+        <div class="dd-divider"></div>
+        <div class="dd-all" onclick="showNapkins('tutti')">Vedi tutti i 30 napkins →</div>
+      </div>
+    </div>
+    <button class="nb" data-page="strumenti" onclick="show('strumenti')">Tools</button>
+    <button class="nb" data-page="glossario" onclick="show('glossario')">Glossario</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <div class="hero">
+    <div class="hero-tag">finanza su un tovagliolo</div>
+    <h1>La finanza è semplice.<br>Te l'hanno resa <em>complicata</em>.</h1>
+    <p>Un concetto alla settimana, spiegato in tre righe. Niente gergo. Niente prodotti da comprare. Solo idee che cambiano come pensi ai soldi.</p>
+    <button class="hero-cta" onclick="show('inizia')">Inizia da qui →</button>
+  </div>
+
+  <div style="padding:0 36px;max-width:880px;margin:0 auto 40px">
+    <div class="numero">
+      <div>
+        <div style="font-size:11px;font-family:var(--mono);color:rgba(255,255,255,.4);letter-spacing:.07em;margin-bottom:8px;text-transform:uppercase">Il numero della settimana</div>
+        <div class="num-val">3,5%</div>
+        <span class="num-delta delta-down">▼ da 4,0% a febbraio</span>
+      </div>
+      <div class="num-ctx">
+        <h4>Tasso BCE — apr. 2025</h4>
+        <p>La Banca Centrale Europea ha tagliato ancora. Mutui variabili più leggeri, conti deposito meno generosi. Chi ci guadagna davvero?</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TREND 2026 -->
+  <div class="trend-section">
+    <div class="trend-label">Trend da seguire nel 2026</div>
+    <div class="trend-grid">
+      <div class="trend-card" onclick="show('napkins')">
+        <h4>I dazi di Trump cambiano tutto?</h4>
+        <p>I mercati ballano. I portafogli globali tremano. Cosa succede davvero quando due economie si chiudono al commercio.</p>
+        <div class="trend-arrow">Leggi il napkin →</div>
+      </div>
+      <div class="trend-card" onclick="show('napkins')">
+        <h4>Oro ai massimi storici — perché adesso?</h4>
+        <p>Non è una moda. Quando l'incertezza sale, l'oro sale con lei. Ma comprarlo nel 2026 ha senso?</p>
+        <div class="trend-arrow">Leggi il napkin →</div>
+      </div>
+      <div class="trend-card" onclick="show('napkins')">
+        <h4>AI e investimenti — hype o opportunità?</h4>
+        <p>Tutti parlano di intelligenza artificiale. Ma come ci investi senza pagare il prezzo dell'entusiasmo?</p>
+        <div class="trend-arrow">Leggi il napkin →</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">I napkins</div>
+    <div class="sec-sub">Clicca su un concetto per approfondire.</div>
+    <div class="ng" id="napkin-grid"></div>
+  </div>
+</div>
+
+<!-- GLOSSARIO -->
+<div id="glossario" class="page">
+  <div style="padding:36px 36px 0;max-width:860px;margin:0 auto">
+    <div class="sec-title">Glossario</div>
+    <div class="sec-sub">Ogni termine spiegato come se fossi a un aperitivo, non a lezione</div>
+    <input class="g-search" id="gs" placeholder="Cerca un termine..." oninput="filterG()">
+    <div class="g-letters" id="g-letters"></div>
+    <div class="g-list" id="g-list"></div>
+  </div>
+</div>
+
+<!-- FIRE -->
+<div id="fire" class="page">
+  <div style="padding:36px 36px 0;max-width:900px;margin:0 auto">
+    <div class="sec-title">Simulatore FIRE italiano</div>
+    <div class="sec-sub" style="margin-bottom:28px">Financial Independence, Retire Early — con IRPEF, INPS e inflazione italiana</div>
+    <div class="fire-layout">
+      <div>
+        <div class="fp">
+          <h3>La tua situazione</h3>
+          <div class="fr"><label>Età attuale</label><input type="range" min="20" max="55" step="1" value="32" id="f-eta" oninput="calcFire()"><div class="fv" id="f-eta-v">32 anni</div></div>
+          <div class="fr"><label>Reddito netto mensile</label><input type="range" min="1000" max="8000" step="100" value="2800" id="f-red" oninput="calcFire()"><div class="fv" id="f-red-v">€ 2.800</div></div>
+          <div class="fr"><label>Spese mensili</label><input type="range" min="800" max="5000" step="100" value="1800" id="f-spe" oninput="calcFire()"><div class="fv" id="f-spe-v">€ 1.800</div></div>
+          <div class="fr"><label>Patrimonio attuale</label><input type="range" min="0" max="200000" step="2000" value="20000" id="f-pat" oninput="calcFire()"><div class="fv" id="f-pat-v">€ 20.000</div></div>
+          <div class="fr"><label>Rendimento portafoglio (%)</label><input type="range" min="2" max="10" step="0.5" value="6" id="f-ren" oninput="calcFire()"><div class="fv" id="f-ren-v">6% annuo</div></div>
+          <div class="fr"><label>Inflazione attesa (%)</label><input type="range" min="1" max="5" step="0.5" value="2.5" id="f-inf" oninput="calcFire()"><div class="fv" id="f-inf-v">2,5 %</div></div>
+          <div class="fr"><label>Pensione INPS stimata (€/mese)</label><input type="range" min="0" max="2000" step="50" value="600" id="f-inp" oninput="calcFire()"><div class="fv" id="f-inp-v">€ 600</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="fire-res">
+          <h3>Il tuo piano FIRE</h3>
+          <div class="fstat"><div class="fstat-lbl">Libertà finanziaria</div><div class="fstat-val" id="fr-eta">a 57 anni</div><div class="fstat-sub" id="fr-manca">tra 25 anni</div></div>
+          <div class="fbar"><div class="fbar-fill" id="fr-bar" style="width:20%"></div></div>
+          <div class="fstat"><div class="fstat-lbl">Patrimonio FIRE necessario</div><div class="fstat-val" id="fr-target">€ 540.000</div><div class="fstat-sub">regola del 4% adattata per l'Italia</div></div>
+          <div class="fstat"><div class="fstat-lbl">Risparmio mensile</div><div class="fstat-val" id="fr-risp">€ 1.000</div><div class="fstat-sub" id="fr-tasso">tasso di risparmio: 36%</div></div>
+          <div class="fstat"><div class="fstat-lbl">Patrimonio al FIRE</div><div class="fstat-val" id="fr-fin">€ 612.000</div></div>
+          <div class="fwarn" id="fr-warn"></div>
+        </div>
+        <div class="fire-quote">
+          <div class="ql">Il napkin</div>
+          <p>"FIRE non significa smettere di lavorare. Significa scegliere se lavorare. Quando le tue spese annuali × 25 sono coperte dal tuo patrimonio, il lavoro diventa facoltativo."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="page">
+  <div class="quiz-wrap">
+    <div class="q-title">
+      <h2>Che tipo di investitore sei?</h2>
+      <p>5 domande per scoprire il tuo profilo e da dove iniziare</p>
+    </div>
+    <div class="qprog"><div class="qprog-fill" id="qp"></div></div>
+    <div id="qa"></div>
+  </div>
+</div>
+
+<!-- I NAPKINS -->
+<div id="napkins" class="page">
+  <div class="napkins-hero">
+    <h2>Ogni concetto finanziario<br>su un <em>tovagliolo</em>.</h2>
+    <p>30 idee che cambiano come pensi ai soldi. Una alla volta, senza gergo, senza fretta.</p>
+  </div>
+  <div class="napkins-filters" id="napkins-filters">
+    <button class="nfbtn on" onclick="filterNapkins(this,'tutti')">Tutti · 30</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'fondamenta')">Fondamenta</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'azioni')">Azioni</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'etf')">ETF</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'obbligazioni')">Obbligazioni</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'cfds')">CFDs</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'opzioni')">Opzioni</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'fiscalita')">Fiscalità 🇮🇹</button>
+  </div>
+  <div class="napkins-grid" id="napkin-grid-full"></div>
+</div>
+
+<!-- TOOLS -->
+<div id="strumenti" class="page">
+  <div class="tools-hero">
+    <h2>Gli strumenti che usiamo davvero</h2>
+    <p>Niente affiliazioni. Solo le risorse che un investitore curioso dovrebbe conoscere.</p>
+  </div>
+  <div class="tools-wrap" id="tools-wrap"></div>
+</div>
+
+<!-- INIZIA -->
+<div id="inizia" class="page">
+  <div class="sh-hero">
+    <h2>Benvenuto. Sei nel posto giusto.</h2>
+    <p>Finanza chiara, onesta, senza niente da vendere. Da dove vuoi partire?</p>
+  </div>
+  <div class="sh-grid">
+    <div class="shc" onclick="show('home')"><div class="shc-icon">📖</div><h4>Sono nuovo</h4><p>Non so nulla e voglio capire da zero</p></div>
+    <div class="shc" onclick="show('quiz')"><div class="shc-icon">🧭</div><h4>Conosco le basi</h4><p>So cos'è un ETF ma non so come organizzarmi</p></div>
+    <div class="shc" onclick="show('fire')"><div class="shc-icon">🔥</div><h4>Voglio l'indipendenza</h4><p>Voglio capire quando il lavoro diventa opzionale</p></div>
+    <div class="shc" onclick="show('glossario')"><div class="shc-icon">🔍</div><h4>Cerco un termine</h4><p>Ho sentito una parola e non so cosa significa</p></div>
+  </div>
+  <div class="sh-path">
+    <h3>Il percorso consigliato</h3>
+    <div class="pstep"><div class="pnum">1</div><div class="pcontent"><h5>Fai il quiz profilo</h5><p>5 domande per capire da dove partire e cosa leggere prima</p></div></div>
+    <div class="pstep"><div class="pnum">2</div><div class="pcontent"><h5>Leggi 3 napkins fondamentali</h5><p>Interesse composto, inflazione, bias mentali. Tutto il resto viene dopo.</p></div></div>
+    <div class="pstep"><div class="pnum">3</div><div class="pcontent"><h5>Calcola il tuo numero FIRE</h5><p>Non per smettere di lavorare domani, ma per sapere dove sei diretto.</p></div></div>
+    <div class="pstep"><div class="pnum">4</div><div class="pcontent"><h5>Iscriviti — un napkin a settimana</h5><p>Niente spam. Solo finanza utile, ogni domenica mattina.</p></div></div>
+    <div class="beehiiv">
+      <h4>The Sunday Napkin</h4>
+      <p>Un concetto finanziario ogni domenica mattina. 3 minuti. Niente di più.</p>
+      <input type="email" placeholder="la-tua@email.it">
+      <button>Iscrivimi — è gratis</button>
+    </div>
+  </div>
+</div>
+
+<footer>The Napkin · Non siamo consulenti finanziari · Nessun conflitto di interesse · Fatto con carta e penna (e un po' di codice)</footer>
+
+<script>
+function show(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id)?.classList.add('active');
+  document.querySelector(`[data-page="${id}"]`)?.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function showNapkins(cat){
+  show('napkins');
+  setTimeout(()=>{
+    const btn=cat==='tutti'
+      ? document.querySelector('.nfbtn')
+      : [...document.querySelectorAll('.nfbtn')].find(b=>b.textContent.toLowerCase().includes(cat));
+    if(btn) filterNapkins(btn,cat);
+  },50);
+}
+
+// ALL NAPKINS DATA
+const allNapkins=[
+  {n:'01',cat:'fondamenta',col:'amber',titolo:'I bias mentali che distruggono i portafogli',testo:'Il mercato rende il 7%. Tu prendi il 2,9%. La differenza non è il mercato — è il cervello.',href:'tovagliolo-01-bias.html'},
+  {n:'02',cat:'fondamenta',col:'amber',titolo:'L\'inflazione non aspetta i tuoi risparmi',testo:'Ogni anno i tuoi soldi fermi sul conto valgono un po\' meno. Non è una crisi — è la matematica.',href:'#'},
+  {n:'03',cat:'fondamenta',col:'green',titolo:'Interesse composto — perché il tempo batte il talento',testo:'Gli interessi fanno interessi. Dopo 30 anni, metà del patrimonio è denaro che non hai mai versato.',href:'#'},
+  {n:'04',cat:'fondamenta',col:'amber',titolo:'Regola del 72 — il calcolo che tutti dovrebbero saper fare',testo:'Dividi 72 per il rendimento annuo. Il risultato sono gli anni per raddoppiare il capitale.',href:'#'},
+  {n:'05',cat:'fondamenta',col:'amber',titolo:'Rischio e rendimento — il pasto gratis non esiste',testo:'Ogni rendimento più alto nasconde un rischio più alto. Chi ti promette il contrario mente.',href:'#'},
+  {n:'06',cat:'azioni',col:'amber',titolo:'Cosa compri davvero quando compri un\'azione',testo:'Un\'azione è una quota di proprietà reale. Diventi socio dell\'azienda, con tutto quello che comporta.',href:'#'},
+  {n:'07',cat:'azioni',col:'amber',titolo:'Dividendi — ricevere l\'affitto delle aziende',testo:'Alcune aziende distribuiscono parte degli utili ogni anno. Come ricevere l\'affitto di un immobile, senza il mutuo.',href:'#'},
+  {n:'08',cat:'azioni',col:'amber',titolo:'P/E ratio — come capisco se un\'azione è cara',testo:'Il rapporto prezzo/utili dice quanto paghi per ogni euro di profitto. Alto non significa sempre caro.',href:'#'},
+  {n:'09',cat:'azioni',col:'amber',titolo:'Singole azioni vs ETF — la scommessa contro il mercato',testo:'Scegliere azioni singole significa scommettere di essere più bravi del mercato. Quasi nessuno lo è nel lungo periodo.',href:'#'},
+  {n:'10',cat:'azioni',col:'amber',titolo:'Short selling — guadagnare quando il mercato scende',testo:'Vendi qualcosa che non hai ancora. Se scende, lo ricompri più a buon mercato. Se sale, perdi.',href:'#'},
+  {n:'11',cat:'etf',col:'green',titolo:'ETF — il carrello della spesa già riempito',testo:'Compri una quota e hai dentro centinaia di aziende. Costa lo 0,2% l\'anno, non il 2% dei fondi attivi.',href:'#'},
+  {n:'12',cat:'etf',col:'green',titolo:'PAC mensile — il pilota automatico dei tuoi investimenti',testo:'Stessa cifra ogni mese, qualunque cosa faccia il mercato. La media nel tempo batte il timing quasi sempre.',href:'#'},
+  {n:'13',cat:'etf',col:'green',titolo:'Fondo attivo vs ETF — perché il 90% dei gestori perde',testo:'I costi mangiano il rendimento. Nel lungo periodo, quasi nessun gestore batte l\'indice di riferimento.',href:'#'},
+  {n:'14',cat:'etf',col:'green',titolo:'ETF ESG — investire in modo etico funziona?',testo:'I fondi sostenibili sono cresciuti molto. Ma i costi sono più alti e le performance non sempre migliori.',href:'#'},
+  {n:'15',cat:'etf',col:'green',titolo:'Come scegliere un ETF — le 4 cose che contano davvero',testo:'TER, replica fisica o sintetica, dimensione del fondo, liquidità. Tutto il resto è rumore.',href:'#'},
+  {n:'16',cat:'etf',col:'green',titolo:'ETF tematici — AI, energia pulita, robotica',testo:'Scommettere su un settore specifico è più rischioso di un ETF globale. Ma può avere senso in piccole dosi.',href:'#'},
+  {n:'17',cat:'obbligazioni',col:'blue',titolo:'BTP — quando diventi creditore dello Stato',testo:'Presti soldi al governo italiano. Ogni anno ricevi gli interessi. Alla scadenza riprendi il capitale.',href:'#'},
+  {n:'18',cat:'obbligazioni',col:'blue',titolo:'Duration — perché i tassi alti fanno scendere i BTP',testo:'Quando i tassi salgono, le obbligazioni già emesse valgono meno. È matematica, non magia.',href:'#'},
+  {n:'19',cat:'obbligazioni',col:'blue',titolo:'Investment grade vs junk bond — il rischio che si vede',testo:'Le obbligazioni ad alto rendimento pagano di più perché c\'è più rischio che l\'emittente non rimborsi.',href:'#'},
+  {n:'20',cat:'obbligazioni',col:'blue',titolo:'Conto deposito — sicuro, ma a quale prezzo?',testo:'Tasso garantito, capitale protetto. Ma il rendimento reale — tolte tasse e inflazione — è spesso vicino a zero.',href:'#'},
+  {n:'21',cat:'cfds',col:'amber',titolo:'CFD — cosa sono e perché la maggioranza perde',testo:'Contratti per differenza: movi grandi capitali con piccoli depositi. Il 74% dei trader retail perde soldi.',href:'#'},
+  {n:'22',cat:'cfds',col:'amber',titolo:'Leva finanziaria — come si amplificano guadagni e perdite',testo:'Con la leva 10x, un movimento dell\'1% diventa il 10%. Nei due sensi. Non è uno strumento per principianti.',href:'#'},
+  {n:'23',cat:'cfds',col:'amber',titolo:'Spread e commissioni nei CFD — il costo nascosto',testo:'Il broker guadagna sullo spread tra bid e ask. Più operi, più paghi. Il costo si accumula silenziosamente.',href:'#'},
+  {n:'24',cat:'opzioni',col:'amber',titolo:'Opzioni — il diritto di comprare o vendere',testo:'Un\'opzione ti dà il diritto, non l\'obbligo, di comprare o vendere un asset a un prezzo fissato.',href:'#'},
+  {n:'25',cat:'opzioni',col:'amber',titolo:'Call e Put — le due facce delle opzioni',testo:'La call scommette sul rialzo. La put sul ribasso. Possono anche essere usate per proteggere un portafoglio.',href:'#'},
+  {n:'26',cat:'opzioni',col:'amber',titolo:'Theta decay — perché le opzioni perdono valore nel tempo',testo:'Ogni giorno che passa, l\'opzione vale un po\' meno. Il tempo lavora contro chi le compra.',href:'#'},
+  {n:'27',cat:'fiscalita',col:'amber',titolo:'12,5% vs 26% — la tassazione che nessuno ti spiega',testo:'BTP tassati al 12,5%. Azioni e ETF al 26%. Capire la differenza vale migliaia di euro nel tempo.',href:'#'},
+  {n:'28',cat:'fiscalita',col:'amber',titolo:'IRPEF a scaglioni — quanto tieni davvero di quello che guadagni',testo:'Non paghi il 35% su tutto il reddito. L\'aliquota marginale non è quella effettiva.',href:'#'},
+  {n:'29',cat:'fiscalita',col:'amber',titolo:'TFR — lasciarlo in azienda o mandarlo al fondo pensione?',testo:'Il TFR in azienda rende poco ed è tassato di più. Il fondo pensione ha vantaggi fiscali che quasi nessuno usa.',href:'#'},
+  {n:'30',cat:'fiscalita',col:'amber',titolo:'Capital gain — quanto resta in tasca quando vendi',testo:'Guadagni 1.000€ vendendo un ETF. Lo Stato prende il 26%. Ci sono modi legali per ridurre l\'impatto.',href:'#'},
+];
+
+function filterNapkins(btn,cat){
+  document.querySelectorAll('.nfbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  const list=cat==='tutti'?allNapkins:allNapkins.filter(n=>n.cat===cat);
+  renderNapkinsFull(list);
+}
+
+function renderNapkinsFull(list){
+  const g=document.getElementById('napkin-grid-full');
+  g.innerHTML='';
+  const cols={green:'#1d6b4a',amber:'#b8621a',blue:'#1a4a6b'};
+  list.forEach(n=>{
+    const c=document.createElement('div');c.className='nk-card';
+    c.innerHTML=`<div class="nk-stripe ${n.col}"></div>
+    <div class="nk-body">
+      <div class="nk-meta">
+        <span class="nk-num">#${n.n}</span>
+        <span class="nk-pill ${n.cat}">${n.cat}</span>
+      </div>
+      <div class="nk-title">${n.titolo}</div>
+      <div class="nk-desc">${n.testo}</div>
+      <div class="nk-read">Leggi il napkin →</div>
+    </div>`;
+    c.onclick=()=>{ if(n.href&&n.href!=='#') window.location.href=n.href; };
+    g.appendChild(c);
+  });
+}
+
+// HOME NAPKINS (8 highlights)
+const napkins=[
+  {cat:'fondamenta',col:'amber',titolo:'I bias mentali che distruggono i portafogli',testo:'Il mercato rende il 7%. Tu prendi il 2,9%. La differenza non è il mercato — è il cervello.',d:'M10,48 C50,44 90,32 130,18 S170,6 188,2',href:'tovagliolo-01-bias.html'},
+  {cat:'fondamenta',col:'amber',titolo:'L\'inflazione non aspetta i tuoi risparmi',testo:'Ogni anno i tuoi soldi fermi sul conto valgono un po\' meno. Non è una crisi — è la matematica.',d:'M10,48 L188,28'},
+  {cat:'fondamenta',col:'green',titolo:'Interesse composto — il tempo batte il talento',testo:'Gli interessi fanno interessi. Dopo 30 anni, metà del patrimonio è denaro che non hai mai versato.',d:'M10,48 C70,44 120,32 148,18 S175,5 188,2'},
+  {cat:'etf',col:'green',titolo:'ETF — il carrello della spesa già riempito',testo:'Compri una quota e hai dentro centinaia di aziende. Costa lo 0,2% all\'anno, non il 2% dei fondi attivi.',d:'M10,46 L55,38 L100,28 L148,18 L188,10'},
+  {cat:'etf',col:'green',titolo:'PAC mensile — il pilota automatico',testo:'Stessa cifra ogni mese. La media nel tempo batte il timing quasi sempre.',d:'M10,46 L40,46 L70,38 L100,30 L135,20 L165,12 L188,8'},
+  {cat:'obbligazioni',col:'blue',titolo:'BTP — quando diventi creditore dello Stato',testo:'Presti soldi al governo. Ogni anno ricevi gli interessi. Alla scadenza riprendi il capitale.',d:'M10,30 L60,24 L110,28 L155,20 L188,24'},
+  {cat:'fiscalita',col:'amber',titolo:'12,5% vs 26% — la tassazione che nessuno spiega',testo:'BTP tassati al 12,5%. Azioni e ETF al 26%. Capire la differenza vale migliaia di euro.',d:'M10,20 L80,20 L80,10 L160,10 L160,28 L188,28'},
+  {cat:'azioni',col:'amber',titolo:'P/E ratio — capire se un\'azione è cara',testo:'Il rapporto prezzo/utili dice quanto paghi per ogni euro di profitto. Alto non significa sempre caro.',d:'M10,40 L50,36 L90,28 L130,32 L160,22 L188,18'},
+];
+
+function buildNapkins(){
+  const g=document.getElementById('napkin-grid');
+  const cols={green:'#1d6b4a',amber:'#b8621a',blue:'#1a4a6b'};
+  napkins.forEach(n=>{
+    const c=document.createElement('div');c.className=`nc ${n.col}`;
+    const svg=`<svg viewBox="0 0 200 58" width="100%" height="58" style="display:block;margin-bottom:12px">
+      <line x1="10" y1="50" x2="190" y2="50" stroke="#dddbd0" stroke-width="1"/>
+      <path d="${n.d}" fill="none" stroke="${cols[n.col]}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`;
+    c.innerHTML=`<div class="nc-cat">${n.cat}</div><h3>${n.titolo}</h3>${svg}<p>${n.testo}</p><div class="nc-arrow">Leggi →</div>`;
+    if(n.href) c.onclick=()=>window.location.href=n.href;
+    g.appendChild(c);
+  });
+}
+
+// TOOLS
+const toolSections=[
+  {name:'Azioni',col:'#8b2a2a',desc:'Dove si comprano e si analizzano',tools:[
+    {name:'Directa SIM',desc:'Broker italiano, accesso diretto a azioni, ETF, BTP. Il punto di riferimento per chi vuole fare da sé.',tags:['it','paid'],url:'https://www.directa.it'},
+    {name:'Fineco Bank',desc:'Banca e broker in uno. PAC automatico integrato, IBAN italiano, copertura completa.',tags:['it','paid'],url:'https://www.finecobank.com'},
+    {name:'DEGIRO',desc:'Commissioni bassissime su azioni europee e americane. Il broker low-cost di riferimento in Europa.',tags:['paid'],url:'https://www.degiro.it'},
+    {name:'Investing.com',desc:'Grafici, notizie, screener azionari. Tutto quello che serve per analizzare un titolo prima di comprarlo.',tags:['free'],url:'https://it.investing.com'},
+  ]},
+  {name:'ETF',col:'#1d6b4a',desc:'Ricerca, confronto e acquisto',tools:[
+    {name:'JustETF',desc:'Il motore di ricerca degli ETF europei. TER, indice replicato, storico rendimenti, distribuzione dei dividendi.',tags:['free'],url:'https://www.justetf.com/it'},
+    {name:'Scalable Capital',desc:'Piano flat mensile, ETF illimitati. Ottimo per chi fa PAC su più strumenti senza preoccuparsi delle commissioni.',tags:['paid'],url:'https://it.scalable.capital'},
+    {name:'ETF Database',desc:'Confronta ETF per indice, costo e rendimento storico. Più orientato al mercato americano.',tags:['free'],url:'https://etfdb.com'},
+    {name:'Morningstar',desc:'Rating indipendenti su fondi ed ETF. Utile per capire la qualità di uno strumento nel tempo.',tags:['free'],url:'https://www.morningstar.it'},
+  ]},
+  {name:'Obbligazioni',col:'#1a4a6b',desc:'BTP, bond e tassi',tools:[
+    {name:'MEF — Tesoro',desc:'Aste dei titoli di Stato italiani, rendimenti correnti, calendario delle emissioni. Fonte ufficiale.',tags:['free','it'],url:'https://www.dt.mef.gov.it'},
+    {name:'Borsa Italiana',desc:'Prezzi live di BTP e obbligazioni corporate quotate a Milano, con storico e dati tecnici.',tags:['free','it'],url:'https://www.borsaitaliana.it'},
+    {name:'Banca d\'Italia',desc:'Tassi ufficiali, statistiche monetarie, report economici. La fonte primaria per ogni dato macro italiano.',tags:['free','it'],url:'https://www.bancaditalia.it'},
+  ]},
+  {name:'CFDs & Opzioni',col:'#5b21b6',desc:'Strumenti avanzati — solo per chi sa cosa fa',tools:[
+    {name:'Interactive Brokers',desc:'La piattaforma professionale per CFD, opzioni, futures. Complessità alta, costi bassi, strumenti completi.',tags:['paid'],url:'https://www.interactivebrokers.com'},
+    {name:'Tastyworks',desc:'Pensata per il trading di opzioni. Interfaccia chiara, commissioni competitive, ottima per chi studia le greche.',tags:['paid'],url:'https://www.tastytrade.com'},
+  ]},
+  {name:'Other — Dati & Fiscalità',col:'#b8621a',desc:'Fonti per capire il contesto italiano',tools:[
+    {name:'ISTAT — Inflazione',desc:'Il dato ufficiale dell\'inflazione italiana, aggiornato ogni mese. Fondamentale per calcolare il rendimento reale.',tags:['free','it'],url:'https://www.istat.it'},
+    {name:'Agenzia delle Entrate',desc:'Normativa fiscale sugli investimenti, tassazione capital gain, dichiarazioni. La fonte che devi leggere prima di agire.',tags:['free','it'],url:'https://www.agenziaentrate.gov.it'},
+    {name:'Wallet by BudgetBakers',desc:'Traccia le spese collegando il conto. Il primo passo per capire il tuo tasso di risparmio reale.',tags:['free'],url:'https://budgetbakers.com'},
+    {name:'Portfolio Visualizer',desc:'Simula portafogli storici, backtesting, correlazioni tra asset. Lo strumento degli investitori seri.',tags:['free'],url:'https://www.portfoliovisualizer.com'},
+  ]},
+];
+
+function buildTools(){
+  const w=document.getElementById('tools-wrap');
+  toolSections.forEach(sec=>{
+    const s=document.createElement('div');s.className='tools-sec';
+    s.innerHTML=`<div class="tools-sec-head">
+      <div class="tools-sec-dot" style="background:${sec.col}"></div>
+      <div class="tools-sec-name">${sec.name}</div>
+      <div class="tools-sec-desc">${sec.desc}</div>
+    </div>
+    <div class="tools-grid">${sec.tools.map(t=>`
+      <a class="tool-card" href="${t.url}" target="_blank" rel="noopener">
+        <div class="tool-top">
+          <div class="tool-name">${t.name}</div>
+          <span class="tool-link-badge">↗ visita</span>
+        </div>
+        <div class="tool-desc">${t.desc}</div>
+        <div class="tool-tags">${t.tags.map(tg=>`<span class="ttag ${tg}">${tg==='it'?'🇮🇹 Italia':tg==='free'?'Gratuito':'A pagamento'}</span>`).join('')}</div>
+      </a>`).join('')}
+    </div>`;
+    w.appendChild(s);
+  });
+}
+
+// GLOSSARIO
+const glossario=[
+  {t:'Asset allocation',c:'base',d:'Come distribuisci i tuoi soldi tra diverse categorie di investimento.',n:'Immagina un piatto: pasta=azioni, verdure=obbligazioni, pane=liquidità. Il piatto giusto cambia con l\'età e il rischio che sei disposto a correre.'},
+  {t:'BTP',c:'obbligazioni',d:'Buoni del Tesoro Poliennali: titoli di debito emessi dallo Stato italiano.',n:'Presti soldi al governo. Ogni anno ti paga gli interessi. Alla scadenza riprendi tutto. Rischio basso, rendimento basso.'},
+  {t:'Cedola',c:'obbligazioni',d:'Il pagamento periodico di interessi su un\'obbligazione.',n:'Compri un\'obbligazione da €1.000 al 3%: ogni anno ti arrivano €30 in tasca, senza fare nulla. Come affittare denaro.'},
+  {t:'Dividendo',c:'azioni',d:'La quota di profitto che un\'azienda distribuisce agli azionisti.',n:'L\'azienda guadagna, una parte la distribuisce a te. Come ricevere l\'affitto di un immobile, senza gestire l\'impianto idraulico.'},
+  {t:'ETF',c:'fondi',d:'Exchange Traded Fund: un fondo che replica un indice, acquistabile in borsa come un\'azione.',n:'Carrello del supermercato già pronto. Compri una quota e dentro ci sono 500 aziende. Costa 0,2% l\'anno invece del 2% dei fondi attivi.'},
+  {t:'Fondo attivo',c:'fondi',d:'Un fondo gestito da professionisti che cercano di battere il mercato.',n:'Paghi un gestore per scegliere le azioni migliori. Problema: l\'80% dei gestori fa peggio del mercato nel lungo periodo.'},
+  {t:'IRPEF',c:'tasse',d:'Imposta sul Reddito delle Persone Fisiche: la tassa principale sul reddito in Italia.',n:'Funziona a scaglioni. Paghi il 23% sui primi €15k, il 35% sui successivi. L\'aliquota effettiva è sempre più bassa di quella marginale.'},
+  {t:'PAC',c:'strategie',d:'Piano di Accumulo del Capitale: investire una cifra fissa a intervalli regolari.',n:'Ogni mese, stessa cifra, stesso ETF. Quando il mercato scende compri più quote. La media nel tempo vince sul timing.'},
+  {t:'Portafoglio',c:'base',d:'L\'insieme di tutti i tuoi investimenti.',n:'Come un mosaico. Il valore non dipende da un singolo pezzo. Se uno si rompe, il mosaico tiene.'},
+  {t:'Rendimento reale',c:'fondamenta',d:'Il rendimento al netto dell\'inflazione.',n:'Il tuo conto deposito rende il 3%. L\'inflazione è al 2,5%. Il rendimento reale è solo 0,5%. I soldi crescono, ma compri quasi le stesse cose.'},
+  {t:'TER',c:'fondi',d:'Total Expense Ratio: il costo annuo totale di un fondo o ETF.',n:'Un ETF con TER 0,2% ti costa €2 ogni €1.000 investiti. Un fondo attivo al 2% ti costa €20. Dopo 30 anni la differenza è enorme.'},
+  {t:'Volatilità',c:'rischio',d:'La misura di quanto il prezzo di un asset oscilla nel tempo.',n:'Alta volatilità = montagne russe. Bassa volatilità = treno. Entrambi arrivano, ma il viaggio è diverso. La volatilità non è rischio: è disagio.'},
+];
+
+function buildG(){
+  const letters=[...new Set(glossario.map(g=>g.t[0]))].sort();
+  const lc=document.getElementById('g-letters');
+  const all=document.createElement('button');all.className='glb on';all.textContent='Tutti';
+  all.onclick=()=>{document.getElementById('gs').value='';renderG(glossario);document.querySelectorAll('.glb').forEach(b=>b.classList.remove('on'));all.classList.add('on');};
+  lc.appendChild(all);
+  letters.forEach(l=>{
+    const b=document.createElement('button');b.className='glb';b.textContent=l;
+    b.onclick=()=>{renderG(glossario.filter(g=>g.t[0]===l));document.querySelectorAll('.glb').forEach(x=>x.classList.remove('on'));b.classList.add('on');};
+    lc.appendChild(b);
+  });
+  renderG(glossario);
+}
+function filterG(){
+  const v=document.getElementById('gs').value.toLowerCase();
+  renderG(v?glossario.filter(g=>g.t.toLowerCase().includes(v)||g.d.toLowerCase().includes(v)):glossario);
+}
+function renderG(list){
+  const c=document.getElementById('g-list');c.innerHTML='';
+  list.forEach(g=>{
+    const el=document.createElement('div');el.className='gi';
+    el.innerHTML=`<div class="gi-head"><h4>${g.t}</h4><span class="gi-badge">${g.c}</span></div><div class="gi-body"><div class="gi-def">${g.d}</div><div class="gi-napkin">${g.n}</div></div>`;
+    el.onclick=()=>el.querySelector('.gi-body').classList.toggle('open');
+    c.appendChild(el);
+  });
+}
+
+// FIRE
+const fmtE=v=>'€ '+Math.round(v).toLocaleString('it-IT');
+function calcFire(){
+  const eta=+document.getElementById('f-eta').value,red=+document.getElementById('f-red').value,
+    spe=+document.getElementById('f-spe').value,pat=+document.getElementById('f-pat').value,
+    ren=+document.getElementById('f-ren').value/100,inf=+document.getElementById('f-inf').value/100,
+    inp=+document.getElementById('f-inp').value;
+  document.getElementById('f-eta-v').textContent=eta+' anni';
+  document.getElementById('f-red-v').textContent=fmtE(red);
+  document.getElementById('f-spe-v').textContent=fmtE(spe);
+  document.getElementById('f-pat-v').textContent=fmtE(pat);
+  document.getElementById('f-ren-v').textContent=document.getElementById('f-ren').value+'% annuo';
+  document.getElementById('f-inf-v').textContent=document.getElementById('f-inf').value.replace('.',',')+' %';
+  document.getElementById('f-inp-v').textContent=fmtE(inp);
+  const risp=red-spe,target=Math.max(0,spe-inp)*12*25,rr=ren-inf;
+  let p=pat,anni=0;
+  while(p<target&&anni<60){p=p*(1+rr)+risp*12;anni++;}
+  const tasso=red>0?Math.round(risp/red*100):0;
+  document.getElementById('fr-eta').textContent='a '+(eta+anni)+' anni';
+  document.getElementById('fr-manca').textContent='tra '+anni+' anni';
+  document.getElementById('fr-target').textContent=fmtE(target);
+  document.getElementById('fr-risp').textContent=fmtE(risp);
+  document.getElementById('fr-tasso').textContent='tasso di risparmio: '+tasso+'%';
+  document.getElementById('fr-fin').textContent=fmtE(p);
+  document.getElementById('fr-bar').style.width=Math.min(100,Math.round(pat/target*100))+'%';
+  let w='';
+  if(risp<=0)w='⚠️ Stai spendendo più di quanto guadagni. Il FIRE non è raggiungibile così.';
+  else if(anni>35)w='💡 Aumentare il tasso di risparmio del 5-10% anticiperebbe il FIRE di diversi anni.';
+  else if(tasso>40)w='✓ Ottimo tasso di risparmio. Sei sulla strada giusta.';
+  document.getElementById('fr-warn').textContent=w;
+}
+
+// QUIZ
+const Qs=[
+  {q:'Come descriveresti il tuo rapporto con i soldi oggi?',o:['Li lascio fermi sul conto','Ho qualche risparmio ma non so cosa farci','Investo già qualcosa','Ho un piano, cerco ottimizzazione']},
+  {q:'Se il tuo portafoglio perdesse il 20% in un mese, cosa faresti?',o:['Venderei tutto','Aspetterei nervosamente','Resterei calmo, è temporaneo','Comprerei ancora di più']},
+  {q:'Qual è il tuo orizzonte temporale?',o:['Meno di 2 anni','3-5 anni','5-10 anni','Oltre 10 anni']},
+  {q:'Quanto tempo vuoi dedicare agli investimenti ogni mese?',o:['Zero, voglio il pilota automatico','30 minuti','Qualche ora a settimana','Mi piace seguirlo da vicino']},
+  {q:'Qual è il tuo obiettivo principale?',o:['Non perdere quello che ho','Battere l\'inflazione','Costruire un patrimonio solido','Indipendenza finanziaria']},
+];
+const Ps=[
+  {name:'Il Prudente',icon:'🛡️',badge:'profilo conservativo',desc:'Preferisci dormire tranquillo. Obbligazioni, BTP, conto deposito sono i tuoi strumenti. Inizia dal napkin sull\'inflazione: è il rischio che stai già correndo.'},
+  {name:'Il Costruttore',icon:'🏗️',badge:'profilo bilanciato',desc:'Vuoi far crescere il patrimonio con costanza. Un portafoglio 60% ETF azionari e 40% obbligazionari in PAC mensile è il tuo punto di partenza.'},
+  {name:'Il Navigatore',icon:'🧭',badge:'profilo crescita',desc:'Hai orizzonte lungo e non ti spaventa la volatilità. ETF azionari globali in PAC mensile. Vai al simulatore FIRE.'},
+  {name:'Il FIRE Hunter',icon:'🔥',badge:'profilo aggressivo',desc:'Vuoi l\'indipendenza finanziaria prima dell\'età pensionabile. Massimizza il tasso di risparmio, investi in ETF globali, calcola il tuo numero FIRE ogni anno.'},
+];
+let qi=0,ans=[];
+function buildQ(){
+  const a=document.getElementById('qa');
+  if(qi>=Qs.length){
+    const pr=Ps[Math.min(3,Math.floor(ans.reduce((s,v)=>s+v,0)/5))];
+    a.innerHTML=`<div class="qres"><div class="qres-icon">${pr.icon}</div><span class="qres-badge">${pr.badge}</span><h2>${pr.name}</h2><p>${pr.desc}</p><button class="qrestart" onclick="qi=0;ans=[];buildQ()">Rifai il quiz</button></div>`;
+    document.getElementById('qp').style.width='100%';return;
+  }
+  const q=Qs[qi];
+  document.getElementById('qp').style.width=((qi/Qs.length)*100)+'%';
+  let h=`<div class="qq">${q.q}</div><div class="qopts">`;
+  q.o.forEach((o,i)=>h+=`<button class="qopt" onclick="selQ(${i})">${o}</button>`);
+  h+=`</div><div class="qnav">${qi>0?`<button class="qback" onclick="qi--;ans.pop();buildQ()">← Indietro</button>`:'<span></span>'}`;
+  h+=`<button class="qnext" id="qnb" onclick="nextQ()" style="opacity:.3;pointer-events:none">Avanti →</button></div>`;
+  a.innerHTML=h;a._sel=undefined;
+}
+function selQ(i){
+  document.querySelectorAll('.qopt').forEach((o,idx)=>o.classList.toggle('sel',idx===i));
+  const nb=document.getElementById('qnb');nb.style.opacity='1';nb.style.pointerEvents='auto';nb._val=i;
+}
+function nextQ(){const nb=document.getElementById('qnb');if(nb._val===undefined)return;ans.push(nb._val);qi++;buildQ();}
+
+// INIT
+buildNapkins();buildG();buildQ();buildTools();calcFire();
+renderNapkinsFull(allNapkins);
+</script>
+</body>
+</html>
+/* FIRE */
+.fire-layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+@media(max-width:660px){.fire-layout{grid-template-columns:1fr}}
+.fp{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:26px}
+.fp h3{font-family:var(--serif);font-size:21px;font-weight:700;margin-bottom:22px;color:var(--ink)}
+.fr{margin-bottom:20px}
+.fr label{display:block;font-size:12px;color:var(--ink3);margin-bottom:6px;font-family:var(--mono);letter-spacing:.05em;text-transform:uppercase}
+.fr input[type=range]{width:100%;accent-color:var(--green);margin-bottom:4px}
+.fv{font-size:16px;font-weight:500;color:var(--ink);font-family:var(--mono)}
+.fire-res{background:var(--ink);border-radius:var(--r);padding:26px;color:var(--paper)}
+.fire-res h3{font-family:var(--serif);font-size:21px;font-weight:700;margin-bottom:24px;color:var(--paper)}
+.fstat{margin-bottom:22px}
+.fstat-lbl{font-size:11px;color:rgba(255,255,255,.45);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.fstat-val{font-size:30px;font-weight:400;color:var(--paper);font-family:var(--serif)}
+.fstat-sub{font-size:13px;color:rgba(255,255,255,.45);margin-top:3px}
+.fbar{height:5px;background:rgba(255,255,255,.15);border-radius:3px;margin:16px 0}
+.fbar-fill{height:100%;border-radius:3px;background:var(--green);transition:width .5s ease}
+.fwarn{font-size:13px;color:rgba(255,255,255,.55);margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);line-height:1.55}
+.fire-quote{background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:18px 22px;margin-top:16px}
+.fire-quote .ql{font-size:11px;font-family:var(--mono);color:var(--ink3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px}
+.fire-quote p{font-size:14px;color:var(--ink);font-style:italic;line-height:1.65;border-left:3px solid var(--green);padding-left:12px}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="index.html"><span class="logo-dot"></span>The Napkin</a>
+  <div class="nav-links">
+    <a class="nb nav-label" href="tovagliolo-01-bias.html">I Napkins</a>
+    <a class="nb nav-label" href="glossario.html">Glossario</a>
+    <a class="nb cta" href="https://thenapkin.beehiiv.com">Newsletter</a>
+  </div>
+</nav>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('tools')">Broker &amp; App</button>
+  <button class="tab-btn" onclick="showTab('fire')">Simulatore FIRE</button>
+  <button class="tab-btn" onclick="showTab('quiz')">Quiz profilo</button>
+</div>
+
+<div id="tab-tools" class="tab-panel active">
+  <div class="tools-hero">
+    <h2>Gli strumenti che usiamo davvero</h2>
+    <p>Niente affiliazioni. Solo le risorse che un investitore curioso dovrebbe conoscere.</p>
+  </div>
+  <div class="tools-wrap" id="tools-wrap"></div>
+</div>
+
+<div id="tab-fire" class="tab-panel">
+  <div style="padding:36px 36px 0;max-width:900px;margin:0 auto">
+    <div class="sec-title">Simulatore FIRE italiano</div>
+    <div class="sec-sub" style="margin-bottom:28px">Financial Independence, Retire Early — con IRPEF, INPS e inflazione italiana</div>
+    <div class="fire-layout">
+      <div>
+        <div class="fp">
+          <h3>La tua situazione</h3>
+          <div class="fr"><label>Età attuale</label><input type="range" min="20" max="55" step="1" value="32" id="f-eta" oninput="calcFire()"><div class="fv" id="f-eta-v">32 anni</div></div>
+          <div class="fr"><label>Reddito netto mensile</label><input type="range" min="1000" max="8000" step="100" value="2800" id="f-red" oninput="calcFire()"><div class="fv" id="f-red-v">€ 2.800</div></div>
+          <div class="fr"><label>Spese mensili</label><input type="range" min="800" max="5000" step="100" value="1800" id="f-spe" oninput="calcFire()"><div class="fv" id="f-spe-v">€ 1.800</div></div>
+          <div class="fr"><label>Patrimonio attuale</label><input type="range" min="0" max="200000" step="2000" value="20000" id="f-pat" oninput="calcFire()"><div class="fv" id="f-pat-v">€ 20.000</div></div>
+          <div class="fr"><label>Rendimento portafoglio (%)</label><input type="range" min="2" max="10" step="0.5" value="6" id="f-ren" oninput="calcFire()"><div class="fv" id="f-ren-v">6% annuo</div></div>
+          <div class="fr"><label>Inflazione attesa (%)</label><input type="range" min="1" max="5" step="0.5" value="2.5" id="f-inf" oninput="calcFire()"><div class="fv" id="f-inf-v">2,5 %</div></div>
+          <div class="fr"><label>Pensione INPS stimata (€/mese)</label><input type="range" min="0" max="2000" step="50" value="600" id="f-inp" oninput="calcFire()"><div class="fv" id="f-inp-v">€ 600</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="fire-res">
+          <h3>Il tuo piano FIRE</h3>
+          <div class="fstat"><div class="fstat-lbl">Libertà finanziaria</div><div class="fstat-val" id="fr-eta">a 57 anni</div><div class="fstat-sub" id="fr-manca">tra 25 anni</div></div>
+          <div class="fbar"><div class="fbar-fill" id="fr-bar" style="width:20%"></div></div>
+          <div class="fstat"><div class="fstat-lbl">Patrimonio FIRE necessario</div><div class="fstat-val" id="fr-target">€ 540.000</div><div class="fstat-sub">regola del 4% adattata per l'Italia</div></div>
+          <div class="fstat"><div class="fstat-lbl">Risparmio mensile</div><div class="fstat-val" id="fr-risp">€ 1.000</div><div class="fstat-sub" id="fr-tasso">tasso di risparmio: 36%</div></div>
+          <div class="fstat"><div class="fstat-lbl">Patrimonio al FIRE</div><div class="fstat-val" id="fr-fin">€ 612.000</div></div>
+          <div class="fwarn" id="fr-warn"></div>
+        </div>
+        <div class="fire-quote">
+          <div class="ql">Il napkin</div>
+          <p>"FIRE non significa smettere di lavorare. Significa scegliere se lavorare. Quando le tue spese annuali × 25 sono coperte dal tuo patrimonio, il lavoro diventa facoltativo."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="page">
+  <div class="quiz-wrap">
+    <div class="q-title">
+      <h2>Che tipo di investitore sei?</h2>
+      <p>5 domande per scoprire il tuo profilo e da dove iniziare</p>
+    </div>
+    <div class="qprog"><div class="qprog-fill" id="qp"></div></div>
+    <div id="qa"></div>
+  </div>
+</div>
+
+<!-- I NAPKINS -->
+<div id="napkins" class="page">
+  <div class="napkins-hero">
+    <h2>Ogni concetto finanziario<br>su un <em>tovagliolo</em>.</h2>
+    <p>30 idee che cambiano come pensi ai soldi. Una alla volta, senza gergo, senza fretta.</p>
+  </div>
+  <div class="napkins-filters" id="napkins-filters">
+    <button class="nfbtn on" onclick="filterNapkins(this,'tutti')">Tutti · 30</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'fondamenta')">Fondamenta</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'azioni')">Azioni</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'etf')">ETF</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'obbligazioni')">Obbligazioni</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'cfds')">CFDs</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'opzioni')">Opzioni</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'fiscalita')">Fiscalità 🇮🇹</button>
+  </div>
+  <div class="napkins-grid" id="napkin-grid-full"></div>
+</div>
+
+<!-- TOOLS -->
+<div id="strumenti" class="page">
+  <div class="tools-hero">
+    <h2>Gli strumenti che usiamo davvero</h2>
+    <p>Niente affiliazioni. Solo le risorse che un investitore curioso dovrebbe conoscere.</p>
+  </div>
+  <div class="tools-wrap" id="tools-wrap"></div>
+</div>
+
+<!-- INIZIA -->
+<div id="inizia" class="page">
+  <div class="sh-hero">
+    <h2>Benvenuto. Sei nel posto giusto.</h2>
+    <p>Finanza chiara, onesta, senza niente da vendere. Da dove vuoi partire?</p>
+  </div>
+  <div class="sh-grid">
+    <div class="shc" onclick="show('home')"><div class="shc-icon">📖</div><h4>Sono nuovo</h4><p>Non so nulla e voglio capire da zero</p></div>
+    <div class="shc" onclick="show('quiz')"><div class="shc-icon">🧭</div><h4>Conosco le basi</h4><p>So cos'è un ETF ma non so come organizzarmi</p></div>
+    <div class="shc" onclick="show('fire')"><div class="shc-icon">🔥</div><h4>Voglio l'indipendenza</h4><p>Voglio capire quando il lavoro diventa opzionale</p></div>
+    <div class="shc" onclick="show('glossario')"><div class="shc-icon">🔍</div><h4>Cerco un termine</h4><p>Ho sentito una parola e non so cosa significa</p></div>
+  </div>
+  <div class="sh-path">
+    <h3>Il percorso consigliato</h3>
+    <div class="pstep"><div class="pnum">1</div><div class="pcontent"><h5>Fai il quiz profilo</h5><p>5 domande per capire da dove partire e cosa leggere prima</p></div></div>
+    <div class="pstep"><div class="pnum">2</div><div class="pcontent"><h5>Leggi 3 napkins fondamentali</h5><p>Interesse composto, inflazione, bias mentali. Tutto il resto viene dopo.</p></div></div>
+    <div class="pstep"><div class="pnum">3</div><div class="pcontent"><h5>Calcola il tuo numero FIRE</h5><p>Non per smettere di lavorare domani, ma per sapere dove sei diretto.</p></div></div>
+    <div class="pstep"><div class="pnum">4</div><div class="pcontent"><h5>Iscriviti — un napkin a settimana</h5><p>Niente spam. Solo finanza utile, ogni domenica mattina.</p></div></div>
+    <div class="beehiiv">
+      <h4>The Sunday Napkin</h4>
+      <p>Un concetto finanziario ogni domenica mattina. 3 minuti. Niente di più.</p>
+      <input type="email" placeholder="la-tua@email.it">
+      <button>Iscrivimi — è gratis</button>
+    </div>
+  </div>
+</div>
+
+<footer>The Napkin · Non siamo consulenti finanziari · Nessun conflitto di interesse · Fatto con carta e penna (e un po' di codice)</footer>
+
+<script>
+function show(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id)?.classList.add('active');
+  document.querySelector(`[data-page="${id}"]`)?.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function showNapkins(cat){
+  show('napkins');
+  setTimeout(()=>{
+    const btn=cat==='tutti'
+      ? document.querySelector('.nfbtn')
+      : [...document.querySelectorAll('.nfbtn')].find(b=>b.textContent.toLowerCase().includes(cat));
+    if(btn) filterNapkins(btn,cat);
+  },50);
+}
+
+// ALL NAPKINS DATA
+const allNapkins=[
+  {n:'01',cat:'fondamenta',col:'amber',titolo:'I bias mentali che distruggono i portafogli',testo:'Il mercato rende il 7%. Tu prendi il 2,9%. La differenza non è il mercato — è il cervello.',href:'tovagliolo-01-bias.html'},
+  {n:'02',cat:'fondamenta',col:'amber',titolo:'L\'inflazione non aspetta i tuoi risparmi',testo:'Ogni anno i tuoi soldi fermi sul conto valgono un po\' meno. Non è una crisi — è la matematica.',href:'#'},
+  {n:'03',cat:'fondamenta',col:'green',titolo:'Interesse composto — perché il tempo batte il talento',testo:'Gli interessi fanno interessi. Dopo 30 anni, metà del patrimonio è denaro che non hai mai versato.',href:'#'},
+  {n:'04',cat:'fondamenta',col:'amber',titolo:'Regola del 72 — il calcolo che tutti dovrebbero saper fare',testo:'Dividi 72 per il rendimento annuo. Il risultato sono gli anni per raddoppiare il capitale.',href:'#'},
+  {n:'05',cat:'fondamenta',col:'amber',titolo:'Rischio e rendimento — il pasto gratis non esiste',testo:'Ogni rendimento più alto nasconde un rischio più alto. Chi ti promette il contrario mente.',href:'#'},
+  {n:'06',cat:'azioni',col:'amber',titolo:'Cosa compri davvero quando compri un\'azione',testo:'Un\'azione è una quota di proprietà reale. Diventi socio dell\'azienda, con tutto quello che comporta.',href:'#'},
+  {n:'07',cat:'azioni',col:'amber',titolo:'Dividendi — ricevere l\'affitto delle aziende',testo:'Alcune aziende distribuiscono parte degli utili ogni anno. Come ricevere l\'affitto di un immobile, senza il mutuo.',href:'#'},
+  {n:'08',cat:'azioni',col:'amber',titolo:'P/E ratio — come capisco se un\'azione è cara',testo:'Il rapporto prezzo/utili dice quanto paghi per ogni euro di profitto. Alto non significa sempre caro.',href:'#'},
+  {n:'09',cat:'azioni',col:'amber',titolo:'Singole azioni vs ETF — la scommessa contro il mercato',testo:'Scegliere azioni singole significa scommettere di essere più bravi del mercato. Quasi nessuno lo è nel lungo periodo.',href:'#'},
+  {n:'10',cat:'azioni',col:'amber',titolo:'Short selling — guadagnare quando il mercato scende',testo:'Vendi qualcosa che non hai ancora. Se scende, lo ricompri più a buon mercato. Se sale, perdi.',href:'#'},
+  {n:'11',cat:'etf',col:'green',titolo:'ETF — il carrello della spesa già riempito',testo:'Compri una quota e hai dentro centinaia di aziende. Costa lo 0,2% l\'anno, non il 2% dei fondi attivi.',href:'#'},
+  {n:'12',cat:'etf',col:'green',titolo:'PAC mensile — il pilota automatico dei tuoi investimenti',testo:'Stessa cifra ogni mese, qualunque cosa faccia il mercato. La media nel tempo batte il timing quasi sempre.',href:'#'},
+  {n:'13',cat:'etf',col:'green',titolo:'Fondo attivo vs ETF — perché il 90% dei gestori perde',testo:'I costi mangiano il rendimento. Nel lungo periodo, quasi nessun gestore batte l\'indice di riferimento.',href:'#'},
+  {n:'14',cat:'etf',col:'green',titolo:'ETF ESG — investire in modo etico funziona?',testo:'I fondi sostenibili sono cresciuti molto. Ma i costi sono più alti e le performance non sempre migliori.',href:'#'},
+  {n:'15',cat:'etf',col:'green',titolo:'Come scegliere un ETF — le 4 cose che contano davvero',testo:'TER, replica fisica o sintetica, dimensione del fondo, liquidità. Tutto il resto è rumore.',href:'#'},
+  {n:'16',cat:'etf',col:'green',titolo:'ETF tematici — AI, energia pulita, robotica',testo:'Scommettere su un settore specifico è più rischioso di un ETF globale. Ma può avere senso in piccole dosi.',href:'#'},
+  {n:'17',cat:'obbligazioni',col:'blue',titolo:'BTP — quando diventi creditore dello Stato',testo:'Presti soldi al governo italiano. Ogni anno ricevi gli interessi. Alla scadenza riprendi il capitale.',href:'#'},
+  {n:'18',cat:'obbligazioni',col:'blue',titolo:'Duration — perché i tassi alti fanno scendere i BTP',testo:'Quando i tassi salgono, le obbligazioni già emesse valgono meno. È matematica, non magia.',href:'#'},
+  {n:'19',cat:'obbligazioni',col:'blue',titolo:'Investment grade vs junk bond — il rischio che si vede',testo:'Le obbligazioni ad alto rendimento pagano di più perché c\'è più rischio che l\'emittente non rimborsi.',href:'#'},
+  {n:'20',cat:'obbligazioni',col:'blue',titolo:'Conto deposito — sicuro, ma a quale prezzo?',testo:'Tasso garantito, capitale protetto. Ma il rendimento reale — tolte tasse e inflazione — è spesso vicino a zero.',href:'#'},
+  {n:'21',cat:'cfds',col:'amber',titolo:'CFD — cosa sono e perché la maggioranza perde',testo:'Contratti per differenza: movi grandi capitali con piccoli depositi. Il 74% dei trader retail perde soldi.',href:'#'},
+  {n:'22',cat:'cfds',col:'amber',titolo:'Leva finanziaria — come si amplificano guadagni e perdite',testo:'Con la leva 10x, un movimento dell\'1% diventa il 10%. Nei due sensi. Non è uno strumento per principianti.',href:'#'},
+  {n:'23',cat:'cfds',col:'amber',titolo:'Spread e commissioni nei CFD — il costo nascosto',testo:'Il broker guadagna sullo spread tra bid e ask. Più operi, più paghi. Il costo si accumula silenziosamente.',href:'#'},
+  {n:'24',cat:'opzioni',col:'amber',titolo:'Opzioni — il diritto di comprare o vendere',testo:'Un\'opzione ti dà il diritto, non l\'obbligo, di comprare o vendere un asset a un prezzo fissato.',href:'#'},
+  {n:'25',cat:'opzioni',col:'amber',titolo:'Call e Put — le due facce delle opzioni',testo:'La call scommette sul rialzo. La put sul ribasso. Possono anche essere usate per proteggere un portafoglio.',href:'#'},
+  {n:'26',cat:'opzioni',col:'amber',titolo:'Theta decay — perché le opzioni perdono valore nel tempo',testo:'Ogni giorno che passa, l\'opzione vale un po\' meno. Il tempo lavora contro chi le compra.',href:'#'},
+  {n:'27',cat:'fiscalita',col:'amber',titolo:'12,5% vs 26% — la tassazione che nessuno ti spiega',testo:'BTP tassati al 12,5%. Azioni e ETF al 26%. Capire la differenza vale migliaia di euro nel tempo.',href:'#'},
+  {n:'28',cat:'fiscalita',col:'amber',titolo:'IRPEF a scaglioni — quanto tieni davvero di quello che guadagni',testo:'Non paghi il 35% su tutto il reddito. L\'aliquota marginale non è quella effettiva.',href:'#'},
+  {n:'29',cat:'fiscalita',col:'amber',titolo:'TFR — lasciarlo in azienda o mandarlo al fondo pensione?',testo:'Il TFR in azienda rende poco ed è tassato di più. Il fondo pensione ha vantaggi fiscali che quasi nessuno usa.',href:'#'},
+  {n:'30',cat:'fiscalita',col:'amber',titolo:'Capital gain — quanto resta in tasca quando vendi',testo:'Guadagni 1.000€ vendendo un ETF. Lo Stato prende il 26%. Ci sono modi legali per ridurre l\'impatto.',href:'#'},
+];
+
+function filterNapkins(btn,cat){
+  document.querySelectorAll('.nfbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  const list=cat==='tutti'?allNapkins:allNapkins.filter(n=>n.cat===cat);
+  renderNapkinsFull(list);
+}
+
+function renderNapkinsFull(list){
+  const g=document.getElementById('napkin-grid-full');
+  g.innerHTML='';
+  const cols={green:'#1d6b4a',amber:'#b8621a',blue:'#1a4a6b'};
+  list.forEach(n=>{
+    const c=document.createElement('div');c.className='nk-card';
+    c.innerHTML=`<div class="nk-stripe ${n.col}"></div>
+    <div class="nk-body">
+      <div class="nk-meta">
+        <span class="nk-num">#${n.n}</span>
+        <span class="nk-pill ${n.cat}">${n.cat}</span>
+      </div>
+      <div class="nk-title">${n.titolo}</div>
+      <div class="nk-desc">${n.testo}</div>
+      <div class="nk-read">Leggi il napkin →</div>
+    </div>`;
+    c.onclick=()=>{ if(n.href&&n.href!=='#') window.location.href=n.href; };
+    g.appendChild(c);
+  });
+}
+
+// HOME NAPKINS (8 highlights)
+const napkins=[
+  {cat:'fondamenta',col:'amber',titolo:'I bias mentali che distruggono i portafogli',testo:'Il mercato rende il 7%. Tu prendi il 2,9%. La differenza non è il mercato — è il cervello.',d:'M10,48 C50,44 90,32 130,18 S170,6 188,2',href:'tovagliolo-01-bias.html'},
+  {cat:'fondamenta',col:'amber',titolo:'L\'inflazione non aspetta i tuoi risparmi',testo:'Ogni anno i tuoi soldi fermi sul conto valgono un po\' meno. Non è una crisi — è la matematica.',d:'M10,48 L188,28'},
+  {cat:'fondamenta',col:'green',titolo:'Interesse composto — il tempo batte il talento',testo:'Gli interessi fanno interessi. Dopo 30 anni, metà del patrimonio è denaro che non hai mai versato.',d:'M10,48 C70,44 120,32 148,18 S175,5 188,2'},
+  {cat:'etf',col:'green',titolo:'ETF — il carrello della spesa già riempito',testo:'Compri una quota e hai dentro centinaia di aziende. Costa lo 0,2% all\'anno, non il 2% dei fondi attivi.',d:'M10,46 L55,38 L100,28 L148,18 L188,10'},
+  {cat:'etf',col:'green',titolo:'PAC mensile — il pilota automatico',testo:'Stessa cifra ogni mese. La media nel tempo batte il timing quasi sempre.',d:'M10,46 L40,46 L70,38 L100,30 L135,20 L165,12 L188,8'},
+  {cat:'obbligazioni',col:'blue',titolo:'BTP — quando diventi creditore dello Stato',testo:'Presti soldi al governo. Ogni anno ricevi gli interessi. Alla scadenza riprendi il capitale.',d:'M10,30 L60,24 L110,28 L155,20 L188,24'},
+  {cat:'fiscalita',col:'amber',titolo:'12,5% vs 26% — la tassazione che nessuno spiega',testo:'BTP tassati al 12,5%. Azioni e ETF al 26%. Capire la differenza vale migliaia di euro.',d:'M10,20 L80,20 L80,10 L160,10 L160,28 L188,28'},
+  {cat:'azioni',col:'amber',titolo:'P/E ratio — capire se un\'azione è cara',testo:'Il rapporto prezzo/utili dice quanto paghi per ogni euro di profitto. Alto non significa sempre caro.',d:'M10,40 L50,36 L90,28 L130,32 L160,22 L188,18'},
+];
+
+function buildNapkins(){
+  const g=document.getElementById('napkin-grid');
+  const cols={green:'#1d6b4a',amber:'#b8621a',blue:'#1a4a6b'};
+  napkins.forEach(n=>{
+    const c=document.createElement('div');c.className=`nc ${n.col}`;
+    const svg=`<svg viewBox="0 0 200 58" width="100%" height="58" style="display:block;margin-bottom:12px">
+      <line x1="10" y1="50" x2="190" y2="50" stroke="#dddbd0" stroke-width="1"/>
+      <path d="${n.d}" fill="none" stroke="${cols[n.col]}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`;
+    c.innerHTML=`<div class="nc-cat">${n.cat}</div><h3>${n.titolo}</h3>${svg}<p>${n.testo}</p><div class="nc-arrow">Leggi →</div>`;
+    if(n.href) c.onclick=()=>window.location.href=n.href;
+    g.appendChild(c);
+  });
+}
+
+// TOOLS
+const toolSections=[
+  {name:'Azioni',col:'#8b2a2a',desc:'Dove si comprano e si analizzano',tools:[
+    {name:'Directa SIM',desc:'Broker italiano, accesso diretto a azioni, ETF, BTP. Il punto di riferimento per chi vuole fare da sé.',tags:['it','paid'],url:'https://www.directa.it'},
+    {name:'Fineco Bank',desc:'Banca e broker in uno. PAC automatico integrato, IBAN italiano, copertura completa.',tags:['it','paid'],url:'https://www.finecobank.com'},
+    {name:'DEGIRO',desc:'Commissioni bassissime su azioni europee e americane. Il broker low-cost di riferimento in Europa.',tags:['paid'],url:'https://www.degiro.it'},
+    {name:'Investing.com',desc:'Grafici, notizie, screener azionari. Tutto quello che serve per analizzare un titolo prima di comprarlo.',tags:['free'],url:'https://it.investing.com'},
+  ]},
+  {name:'ETF',col:'#1d6b4a',desc:'Ricerca, confronto e acquisto',tools:[
+    {name:'JustETF',desc:'Il motore di ricerca degli ETF europei. TER, indice replicato, storico rendimenti, distribuzione dei dividendi.',tags:['free'],url:'https://www.justetf.com/it'},
+    {name:'Scalable Capital',desc:'Piano flat mensile, ETF illimitati. Ottimo per chi fa PAC su più strumenti senza preoccuparsi delle commissioni.',tags:['paid'],url:'https://it.scalable.capital'},
+    {name:'ETF Database',desc:'Confronta ETF per indice, costo e rendimento storico. Più orientato al mercato americano.',tags:['free'],url:'https://etfdb.com'},
+    {name:'Morningstar',desc:'Rating indipendenti su fondi ed ETF. Utile per capire la qualità di uno strumento nel tempo.',tags:['free'],url:'https://www.morningstar.it'},
+  ]},
+  {name:'Obbligazioni',col:'#1a4a6b',desc:'BTP, bond e tassi',tools:[
+    {name:'MEF — Tesoro',desc:'Aste dei titoli di Stato italiani, rendimenti correnti, calendario delle emissioni. Fonte ufficiale.',tags:['free','it'],url:'https://www.dt.mef.gov.it'},
+    {name:'Borsa Italiana',desc:'Prezzi live di BTP e obbligazioni corporate quotate a Milano, con storico e dati tecnici.',tags:['free','it'],url:'https://www.borsaitaliana.it'},
+    {name:'Banca d\'Italia',desc:'Tassi ufficiali, statistiche monetarie, report economici. La fonte primaria per ogni dato macro italiano.',tags:['free','it'],url:'https://www.bancaditalia.it'},
+  ]},
+  {name:'CFDs & Opzioni',col:'#5b21b6',desc:'Strumenti avanzati — solo per chi sa cosa fa',tools:[
+    {name:'Interactive Brokers',desc:'La piattaforma professionale per CFD, opzioni, futures. Complessità alta, costi bassi, strumenti completi.',tags:['paid'],url:'https://www.interactivebrokers.com'},
+    {name:'Tastyworks',desc:'Pensata per il trading di opzioni. Interfaccia chiara, commissioni competitive, ottima per chi studia le greche.',tags:['paid'],url:'https://www.tastytrade.com'},
+  ]},
+  {name:'Other — Dati & Fiscalità',col:'#b8621a',desc:'Fonti per capire il contesto italiano',tools:[
+    {name:'ISTAT — Inflazione',desc:'Il dato ufficiale dell\'inflazione italiana, aggiornato ogni mese. Fondamentale per calcolare il rendimento reale.',tags:['free','it'],url:'https://www.istat.it'},
+    {name:'Agenzia delle Entrate',desc:'Normativa fiscale sugli investimenti, tassazione capital gain, dichiarazioni. La fonte che devi leggere prima di agire.',tags:['free','it'],url:'https://www.agenziaentrate.gov.it'},
+    {name:'Wallet by BudgetBakers',desc:'Traccia le spese collegando il conto. Il primo passo per capire il tuo tasso di risparmio reale.',tags:['free'],url:'https://budgetbakers.com'},
+    {name:'Portfolio Visualizer',desc:'Simula portafogli storici, backtesting, correlazioni tra asset. Lo strumento degli investitori seri.',tags:['free'],url:'https://www.portfoliovisualizer.com'},
+  ]},
+];
+
+function buildTools(){
+  const w=document.getElementById('tools-wrap');
+  toolSections.forEach(sec=>{
+    const s=document.createElement('div');s.className='tools-sec';
+    s.innerHTML=`<div class="tools-sec-head">
+      <div class="tools-sec-dot" style="background:${sec.col}"></div>
+      <div class="tools-sec-name">${sec.name}</div>
+      <div class="tools-sec-desc">${sec.desc}</div>
+    </div>
+    <div class="tools-grid">${sec.tools.map(t=>`
+      <a class="tool-card" href="${t.url}" target="_blank" rel="noopener">
+        <div class="tool-top">
+          <div class="tool-name">${t.name}</div>
+          <span class="tool-link-badge">↗ visita</span>
+        </div>
+        <div class="tool-desc">${t.desc}</div>
+        <div class="tool-tags">${t.tags.map(tg=>`<span class="ttag ${tg}">${tg==='it'?'🇮🇹 Italia':tg==='free'?'Gratuito':'A pagamento'}</span>`).join('')}</div>
+      </a>`).join('')}
+    </div>`;
+    w.appendChild(s);
+  });
+}
+
+// GLOSSARIO
+const glossario=[
+  {t:'Asset allocation',c:'base',d:'Come distribuisci i tuoi soldi tra diverse categorie di investimento.',n:'Immagina un piatto: pasta=azioni, verdure=obbligazioni, pane=liquidità. Il piatto giusto cambia con l\'età e il rischio che sei disposto a correre.'},
+  {t:'BTP',c:'obbligazioni',d:'Buoni del Tesoro Poliennali: titoli di debito emessi dallo Stato italiano.',n:'Presti soldi al governo. Ogni anno ti paga gli interessi. Alla scadenza riprendi tutto. Rischio basso, rendimento basso.'},
+  {t:'Cedola',c:'obbligazioni',d:'Il pagamento periodico di interessi su un\'obbligazione.',n:'Compri un\'obbligazione da €1.000 al 3%: ogni anno ti arrivano €30 in tasca, senza fare nulla. Come affittare denaro.'},
+  {t:'Dividendo',c:'azioni',d:'La quota di profitto che un\'azienda distribuisce agli azionisti.',n:'L\'azienda guadagna, una parte la distribuisce a te. Come ricevere l\'affitto di un immobile, senza gestire l\'impianto idraulico.'},
+  {t:'ETF',c:'fondi',d:'Exchange Traded Fund: un fondo che replica un indice, acquistabile in borsa come un\'azione.',n:'Carrello del supermercato già pronto. Compri una quota e dentro ci sono 500 aziende. Costa 0,2% l\'anno invece del 2% dei fondi attivi.'},
+  {t:'Fondo attivo',c:'fondi',d:'Un fondo gestito da professionisti che cercano di battere il mercato.',n:'Paghi un gestore per scegliere le azioni migliori. Problema: l\'80% dei gestori fa peggio del mercato nel lungo periodo.'},
+  {t:'IRPEF',c:'tasse',d:'Imposta sul Reddito delle Persone Fisiche: la tassa principale sul reddito in Italia.',n:'Funziona a scaglioni. Paghi il 23% sui primi €15k, il 35% sui successivi. L\'aliquota effettiva è sempre più bassa di quella marginale.'},
+  {t:'PAC',c:'strategie',d:'Piano di Accumulo del Capitale: investire una cifra fissa a intervalli regolari.',n:'Ogni mese, stessa cifra, stesso ETF. Quando il mercato scende compri più quote. La media nel tempo vince sul timing.'},
+  {t:'Portafoglio',c:'base',d:'L\'insieme di tutti i tuoi investimenti.',n:'Come un mosaico. Il valore non dipende da un singolo pezzo. Se uno si rompe, il mosaico tiene.'},
+  {t:'Rendimento reale',c:'fondamenta',d:'Il rendimento al netto dell\'inflazione.',n:'Il tuo conto deposito rende il 3%. L\'inflazione è al 2,5%. Il rendimento reale è solo 0,5%. I soldi crescono, ma compri quasi le stesse cose.'},
+  {t:'TER',c:'fondi',d:'Total Expense Ratio: il costo annuo totale di un fondo o ETF.',n:'Un ETF con TER 0,2% ti costa €2 ogni €1.000 investiti. Un fondo attivo al 2% ti costa €20. Dopo 30 anni la differenza è enorme.'},
+  {t:'Volatilità',c:'rischio',d:'La misura di quanto il prezzo di un asset oscilla nel tempo.',n:'Alta volatilità = montagne russe. Bassa volatilità = treno. Entrambi arrivano, ma il viaggio è diverso. La volatilità non è rischio: è disagio.'},
+];
+
+function buildG(){
+  const letters=[...new Set(glossario.map(g=>g.t[0]))].sort();
+  const lc=document.getElementById('g-letters');
+  const all=document.createElement('button');all.className='glb on';all.textContent='Tutti';
+  all.onclick=()=>{document.getElementById('gs').value='';renderG(glossario);document.querySelectorAll('.glb').forEach(b=>b.classList.remove('on'));all.classList.add('on');};
+  lc.appendChild(all);
+  letters.forEach(l=>{
+    const b=document.createElement('button');b.className='glb';b.textContent=l;
+    b.onclick=()=>{renderG(glossario.filter(g=>g.t[0]===l));document.querySelectorAll('.glb').forEach(x=>x.classList.remove('on'));b.classList.add('on');};
+    lc.appendChild(b);
+  });
+  renderG(glossario);
+}
+function filterG(){
+  const v=document.getElementById('gs').value.toLowerCase();
+  renderG(v?glossario.filter(g=>g.t.toLowerCase().includes(v)||g.d.toLowerCase().includes(v)):glossario);
+}
+function renderG(list){
+  const c=document.getElementById('g-list');c.innerHTML='';
+  list.forEach(g=>{
+    const el=document.createElement('div');el.className='gi';
+    el.innerHTML=`<div class="gi-head"><h4>${g.t}</h4><span class="gi-badge">${g.c}</span></div><div class="gi-body"><div class="gi-def">${g.d}</div><div class="gi-napkin">${g.n}</div></div>`;
+    el.onclick=()=>el.querySelector('.gi-body').classList.toggle('open');
+    c.appendChild(el);
+  });
+}
+
+// FIRE
+const fmtE=v=>'€ '+Math.round(v).toLocaleString('it-IT');
+function calcFire(){
+  const eta=+document.getElementById('f-eta').value,red=+document.getElementById('f-red').value,
+    spe=+document.getElementById('f-spe').value,pat=+document.getElementById('f-pat').value,
+    ren=+document.getElementById('f-ren').value/100,inf=+document.getElementById('f-inf').value/100,
+    inp=+document.getElementById('f-inp').value;
+  document.getElementById('f-eta-v').textContent=eta+' anni';
+  document.getElementById('f-red-v').textContent=fmtE(red);
+  document.getElementById('f-spe-v').textContent=fmtE(spe);
+  document.getElementById('f-pat-v').textContent=fmtE(pat);
+  document.getElementById('f-ren-v').textContent=document.getElementById('f-ren').value+'% annuo';
+  document.getElementById('f-inf-v').textContent=document.getElementById('f-inf').value.replace('.',',')+' %';
+  document.getElementById('f-inp-v').textContent=fmtE(inp);
+  const risp=red-spe,target=Math.max(0,spe-inp)*12*25,rr=ren-inf;
+  let p=pat,anni=0;
+  while(p<target&&anni<60){p=p*(1+rr)+risp*12;anni++;}
+  const tasso=red>0?Math.round(risp/red*100):0;
+  document.getElementById('fr-eta').textContent='a '+(eta+anni)+' anni';
+  document.getElementById('fr-manca').textContent='tra '+anni+' anni';
+  document.getElementById('fr-target').textContent=fmtE(target);
+  document.getElementById('fr-risp').textContent=fmtE(risp);
+  document.getElementById('fr-tasso').textContent='tasso di risparmio: '+tasso+'%';
+  document.getElementById('fr-fin').textContent=fmtE(p);
+  document.getElementById('fr-bar').style.width=Math.min(100,Math.round(pat/target*100))+'%';
+  let w='';
+  if(risp<=0)w='⚠️ Stai spendendo più di quanto guadagni. Il FIRE non è raggiungibile così.';
+  else if(anni>35)w='💡 Aumentare il tasso di risparmio del 5-10% anticiperebbe il FIRE di diversi anni.';
+  else if(tasso>40)w='✓ Ottimo tasso di risparmio. Sei sulla strada giusta.';
+  document.getElementById('fr-warn').textContent=w;
+}
+
+// QUIZ
+const Qs=[
+  {q:'Come descriveresti il tuo rapporto con i soldi oggi?',o:['Li lascio fermi sul conto','Ho qualche risparmio ma non so cosa farci','Investo già qualcosa','Ho un piano, cerco ottimizzazione']},
+  {q:'Se il tuo portafoglio perdesse il 20% in un mese, cosa faresti?',o:['Venderei tutto','Aspetterei nervosamente','Resterei calmo, è temporaneo','Comprerei ancora di più']},
+  {q:'Qual è il tuo orizzonte temporale?',o:['Meno di 2 anni','3-5 anni','5-10 anni','Oltre 10 anni']},
+  {q:'Quanto tempo vuoi dedicare agli investimenti ogni mese?',o:['Zero, voglio il pilota automatico','30 minuti','Qualche ora a settimana','Mi piace seguirlo da vicino']},
+  {q:'Qual è il tuo obiettivo principale?',o:['Non perdere quello che ho','Battere l\'inflazione','Costruire un patrimonio solido','Indipendenza finanziaria']},
+];
+const Ps=[
+  {name:'Il Prudente',icon:'🛡️',badge:'profilo conservativo',desc:'Preferisci dormire tranquillo. Obbligazioni, BTP, conto deposito sono i tuoi strumenti. Inizia dal napkin sull\'inflazione: è il rischio che stai già correndo.'},
+  {name:'Il Costruttore',icon:'🏗️',badge:'profilo bilanciato',desc:'Vuoi far crescere il patrimonio con costanza. Un portafoglio 60% ETF azionari e 40% obbligazionari in PAC mensile è il tuo punto di partenza.'},
+  {name:'Il Navigatore',icon:'🧭',badge:'profilo crescita',desc:'Hai orizzonte lungo e non ti spaventa la volatilità. ETF azionari globali in PAC mensile. Vai al simulatore FIRE.'},
+  {name:'Il FIRE Hunter',icon:'🔥',badge:'profilo aggressivo',desc:'Vuoi l\'indipendenza finanziaria prima dell\'età pensionabile. Massimizza il tasso di risparmio, investi in ETF globali, calcola il tuo numero FIRE ogni anno.'},
+];
+let qi=0,ans=[];
+function buildQ(){
+  const a=document.getElementById('qa');
+  if(qi>=Qs.length){
+    const pr=Ps[Math.min(3,Math.floor(ans.reduce((s,v)=>s+v,0)/5))];
+    a.innerHTML=`<div class="qres"><div class="qres-icon">${pr.icon}</div><span class="qres-badge">${pr.badge}</span><h2>${pr.name}</h2><p>${pr.desc}</p><button class="qrestart" onclick="qi=0;ans=[];buildQ()">Rifai il quiz</button></div>`;
+    document.getElementById('qp').style.width='100%';return;
+  }
+  const q=Qs[qi];
+  document.getElementById('qp').style.width=((qi/Qs.length)*100)+'%';
+  let h=`<div class="qq">${q.q}</div><div class="qopts">`;
+  q.o.forEach((o,i)=>h+=`<button class="qopt" onclick="selQ(${i})">${o}</button>`);
+  h+=`</div><div class="qnav">${qi>0?`<button class="qback" onclick="qi--;ans.pop();buildQ()">← Indietro</button>`:'<span></span>'}`;
+  h+=`<button class="qnext" id="qnb" onclick="nextQ()" style="opacity:.3;pointer-events:none">Avanti →</button>
+</div>
+
+<div id="tab-quiz" class="tab-panel">
+  <div class="quiz-wrap">
+    <div class="q-title">
+      <h2>Che tipo di investitore sei?</h2>
+      <p>5 domande per scoprire il tuo profilo e da dove iniziare</p>
+    </div>
+    <div class="qprog"><div class="qprog-fill" id="qp"></div></div>
+    <div id="qa"></div>
+  </div>
+</div>
+
+<!-- I NAPKINS -->
+<div id="napkins" class="page">
+  <div class="napkins-hero">
+    <h2>Ogni concetto finanziario<br>su un <em>tovagliolo</em>.</h2>
+    <p>30 idee che cambiano come pensi ai soldi. Una alla volta, senza gergo, senza fretta.</p>
+  </div>
+  <div class="napkins-filters" id="napkins-filters">
+    <button class="nfbtn on" onclick="filterNapkins(this,'tutti')">Tutti · 30</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'fondamenta')">Fondamenta</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'azioni')">Azioni</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'etf')">ETF</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'obbligazioni')">Obbligazioni</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'cfds')">CFDs</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'opzioni')">Opzioni</button>
+    <button class="nfbtn" onclick="filterNapkins(this,'fiscalita')">Fiscalità 🇮🇹</button>
+  </div>
+  <div class="napkins-grid" id="napkin-grid-full"></div>
+</div>
+
+<!-- TOOLS -->
+<div id="strumenti" class="page">
+  <div class="tools-hero">
+    <h2>Gli strumenti che usiamo davvero</h2>
+    <p>Niente affiliazioni. Solo le risorse che un investitore curioso dovrebbe conoscere.</p>
+  </div>
+  <div class="tools-wrap" id="tools-wrap"></div>
+</div>
+
+<!-- INIZIA -->
+<div id="inizia" class="page">
+  <div class="sh-hero">
+    <h2>Benvenuto. Sei nel posto giusto.</h2>
+    <p>Finanza chiara, onesta, senza niente da vendere. Da dove vuoi partire?</p>
+  </div>
+  <div class="sh-grid">
+    <div class="shc" onclick="show('home')"><div class="shc-icon">📖</div><h4>Sono nuovo</h4><p>Non so nulla e voglio capire da zero</p></div>
+    <div class="shc" onclick="show('quiz')"><div class="shc-icon">🧭</div><h4>Conosco le basi</h4><p>So cos'è un ETF ma non so come organizzarmi</p></div>
+    <div class="shc" onclick="show('fire')"><div class="shc-icon">🔥</div><h4>Voglio l'indipendenza</h4><p>Voglio capire quando il lavoro diventa opzionale</p></div>
+    <div class="shc" onclick="show('glossario')"><div class="shc-icon">🔍</div><h4>Cerco un termine</h4><p>Ho sentito una parola e non so cosa significa</p></div>
+  </div>
+  <div class="sh-path">
+    <h3>Il percorso consigliato</h3>
+    <div class="pstep"><div class="pnum">1</div><div class="pcontent"><h5>Fai il quiz profilo</h5><p>5 domande per capire da dove partire e cosa leggere prima</p></div></div>
+    <div class="pstep"><div class="pnum">2</div><div class="pcontent"><h5>Leggi 3 napkins fondamentali</h5><p>Interesse composto, inflazione, bias mentali. Tutto il resto viene dopo.</p></div></div>
+    <div class="pstep"><div class="pnum">3</div><div class="pcontent"><h5>Calcola il tuo numero FIRE</h5><p>Non per smettere di lavorare domani, ma per sapere dove sei diretto.</p></div></div>
+    <div class="pstep"><div class="pnum">4</div><div class="pcontent"><h5>Iscriviti — un napkin a settimana</h5><p>Niente spam. Solo finanza utile, ogni domenica mattina.</p></div></div>
+    <div class="beehiiv">
+      <h4>The Sunday Napkin</h4>
+      <p>Un concetto finanziario ogni domenica mattina. 3 minuti. Niente di più.</p>
+      <input type="email" placeholder="la-tua@email.it">
+      <button>Iscrivimi — è gratis</button>
+    </div>
+  </div>
+</div>
+
+<footer>The Napkin · Non siamo consulenti finanziari · Nessun conflitto di interesse · Fatto con carta e penna (e un po' di codice)</footer>
+
+<script>
+function show(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id)?.classList.add('active');
+  document.querySelector(`[data-page="${id}"]`)?.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function showNapkins(cat){
+  show('napkins');
+  setTimeout(()=>{
+    const btn=cat==='tutti'
+      ? document.querySelector('.nfbtn')
+      : [...document.querySelectorAll('.nfbtn')].find(b=>b.textContent.toLowerCase().includes(cat));
+    if(btn) filterNapkins(btn,cat);
+  },50);
+}
+
+// ALL NAPKINS DATA
+const allNapkins=[
+  {n:'01',cat:'fondamenta',col:'amber',titolo:'I bias mentali che distruggono i portafogli',testo:'Il mercato rende il 7%. Tu prendi il 2,9%. La differenza non è il mercato — è il cervello.',href:'tovagliolo-01-bias.html'},
+  {n:'02',cat:'fondamenta',col:'amber',titolo:'L\'inflazione non aspetta i tuoi risparmi',testo:'Ogni anno i tuoi soldi fermi sul conto valgono un po\' meno. Non è una crisi — è la matematica.',href:'#'},
+  {n:'03',cat:'fondamenta',col:'green',titolo:'Interesse composto — perché il tempo batte il talento',testo:'Gli interessi fanno interessi. Dopo 30 anni, metà del patrimonio è denaro che non hai mai versato.',href:'#'},
+  {n:'04',cat:'fondamenta',col:'amber',titolo:'Regola del 72 — il calcolo che tutti dovrebbero saper fare',testo:'Dividi 72 per il rendimento annuo. Il risultato sono gli anni per raddoppiare il capitale.',href:'#'},
+  {n:'05',cat:'fondamenta',col:'amber',titolo:'Rischio e rendimento — il pasto gratis non esiste',testo:'Ogni rendimento più alto nasconde un rischio più alto. Chi ti promette il contrario mente.',href:'#'},
+  {n:'06',cat:'azioni',col:'amber',titolo:'Cosa compri davvero quando compri un\'azione',testo:'Un\'azione è una quota di proprietà reale. Diventi socio dell\'azienda, con tutto quello che comporta.',href:'#'},
+  {n:'07',cat:'azioni',col:'amber',titolo:'Dividendi — ricevere l\'affitto delle aziende',testo:'Alcune aziende distribuiscono parte degli utili ogni anno. Come ricevere l\'affitto di un immobile, senza il mutuo.',href:'#'},
+  {n:'08',cat:'azioni',col:'amber',titolo:'P/E ratio — come capisco se un\'azione è cara',testo:'Il rapporto prezzo/utili dice quanto paghi per ogni euro di profitto. Alto non significa sempre caro.',href:'#'},
+  {n:'09',cat:'azioni',col:'amber',titolo:'Singole azioni vs ETF — la scommessa contro il mercato',testo:'Scegliere azioni singole significa scommettere di essere più bravi del mercato. Quasi nessuno lo è nel lungo periodo.',href:'#'},
+  {n:'10',cat:'azioni',col:'amber',titolo:'Short selling — guadagnare quando il mercato scende',testo:'Vendi qualcosa che non hai ancora. Se scende, lo ricompri più a buon mercato. Se sale, perdi.',href:'#'},
+  {n:'11',cat:'etf',col:'green',titolo:'ETF — il carrello della spesa già riempito',testo:'Compri una quota e hai dentro centinaia di aziende. Costa lo 0,2% l\'anno, non il 2% dei fondi attivi.',href:'#'},
+  {n:'12',cat:'etf',col:'green',titolo:'PAC mensile — il pilota automatico dei tuoi investimenti',testo:'Stessa cifra ogni mese, qualunque cosa faccia il mercato. La media nel tempo batte il timing quasi sempre.',href:'#'},
+  {n:'13',cat:'etf',col:'green',titolo:'Fondo attivo vs ETF — perché il 90% dei gestori perde',testo:'I costi mangiano il rendimento. Nel lungo periodo, quasi nessun gestore batte l\'indice di riferimento.',href:'#'},
+  {n:'14',cat:'etf',col:'green',titolo:'ETF ESG — investire in modo etico funziona?',testo:'I fondi sostenibili sono cresciuti molto. Ma i costi sono più alti e le performance non sempre migliori.',href:'#'},
+  {n:'15',cat:'etf',col:'green',titolo:'Come scegliere un ETF — le 4 cose che contano davvero',testo:'TER, replica fisica o sintetica, dimensione del fondo, liquidità. Tutto il resto è rumore.',href:'#'},
+  {n:'16',cat:'etf',col:'green',titolo:'ETF tematici — AI, energia pulita, robotica',testo:'Scommettere su un settore specifico è più rischioso di un ETF globale. Ma può avere senso in piccole dosi.',href:'#'},
+  {n:'17',cat:'obbligazioni',col:'blue',titolo:'BTP — quando diventi creditore dello Stato',testo:'Presti soldi al governo italiano. Ogni anno ricevi gli interessi. Alla scadenza riprendi il capitale.',href:'#'},
+  {n:'18',cat:'obbligazioni',col:'blue',titolo:'Duration — perché i tassi alti fanno scendere i BTP',testo:'Quando i tassi salgono, le obbligazioni già emesse valgono meno. È matematica, non magia.',href:'#'},
+  {n:'19',cat:'obbligazioni',col:'blue',titolo:'Investment grade vs junk bond — il rischio che si vede',testo:'Le obbligazioni ad alto rendimento pagano di più perché c\'è più rischio che l\'emittente non rimborsi.',href:'#'},
+  {n:'20',cat:'obbligazioni',col:'blue',titolo:'Conto deposito — sicuro, ma a quale prezzo?',testo:'Tasso garantito, capitale protetto. Ma il rendimento reale — tolte tasse e inflazione — è spesso vicino a zero.',href:'#'},
+  {n:'21',cat:'cfds',col:'amber',titolo:'CFD — cosa sono e perché la maggioranza perde',testo:'Contratti per differenza: movi grandi capitali con piccoli depositi. Il 74% dei trader retail perde soldi.',href:'#'},
+  {n:'22',cat:'cfds',col:'amber',titolo:'Leva finanziaria — come si amplificano guadagni e perdite',testo:'Con la leva 10x, un movimento dell\'1% diventa il 10%. Nei due sensi. Non è uno strumento per principianti.',href:'#'},
+  {n:'23',cat:'cfds',col:'amber',titolo:'Spread e commissioni nei CFD — il costo nascosto',testo:'Il broker guadagna sullo spread tra bid e ask. Più operi, più paghi. Il costo si accumula silenziosamente.',href:'#'},
+  {n:'24',cat:'opzioni',col:'amber',titolo:'Opzioni — il diritto di comprare o vendere',testo:'Un\'opzione ti dà il diritto, non l\'obbligo, di comprare o vendere un asset a un prezzo fissato.',href:'#'},
+  {n:'25',cat:'opzioni',col:'amber',titolo:'Call e Put — le due facce delle opzioni',testo:'La call scommette sul rialzo. La put sul ribasso. Possono anche essere usate per proteggere un portafoglio.',href:'#'},
+  {n:'26',cat:'opzioni',col:'amber',titolo:'Theta decay — perché le opzioni perdono valore nel tempo',testo:'Ogni giorno che passa, l\'opzione vale un po\' meno. Il tempo lavora contro chi le compra.',href:'#'},
+  {n:'27',cat:'fiscalita',col:'amber',titolo:'12,5% vs 26% — la tassazione che nessuno ti spiega',testo:'BTP tassati al 12,5%. Azioni e ETF al 26%. Capire la differenza vale migliaia di euro nel tempo.',href:'#'},
+  {n:'28',cat:'fiscalita',col:'amber',titolo:'IRPEF a scaglioni — quanto tieni davvero di quello che guadagni',testo:'Non paghi il 35% su tutto il reddito. L\'aliquota marginale non è quella effettiva.',href:'#'},
+  {n:'29',cat:'fiscalita',col:'amber',titolo:'TFR — lasciarlo in azienda o mandarlo al fondo pensione?',testo:'Il TFR in azienda rende poco ed è tassato di più. Il fondo pensione ha vantaggi fiscali che quasi nessuno usa.',href:'#'},
+  {n:'30',cat:'fiscalita',col:'amber',titolo:'Capital gain — quanto resta in tasca quando vendi',testo:'Guadagni 1.000€ vendendo un ETF. Lo Stato prende il 26%. Ci sono modi legali per ridurre l\'impatto.',href:'#'},
+];
+
+function filterNapkins(btn,cat){
+  document.querySelectorAll('.nfbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  const list=cat==='tutti'?allNapkins:allNapkins.filter(n=>n.cat===cat);
+  renderNapkinsFull(list);
+}
+
+function renderNapkinsFull(list){
+  const g=document.getElementById('napkin-grid-full');
+  g.innerHTML='';
+  const cols={green:'#1d6b4a',amber:'#b8621a',blue:'#1a4a6b'};
+  list.forEach(n=>{
+    const c=document.createElement('div');c.className='nk-card';
+    c.innerHTML=`<div class="nk-stripe ${n.col}"></div>
+    <div class="nk-body">
+      <div class="nk-meta">
+        <span class="nk-num">#${n.n}</span>
+        <span class="nk-pill ${n.cat}">${n.cat}</span>
+      </div>
+      <div class="nk-title">${n.titolo}</div>
+      <div class="nk-desc">${n.testo}</div>
+      <div class="nk-read">Leggi il napkin →</div>
+    </div>`;
+    c.onclick=()=>{ if(n.href&&n.href!=='#') window.location.href=n.href; };
+    g.appendChild(c);
+  });
+}
+
+// HOME NAPKINS (8 highlights)
+const napkins=[
+  {cat:'fondamenta',col:'amber',titolo:'I bias mentali che distruggono i portafogli',testo:'Il mercato rende il 7%. Tu prendi il 2,9%. La differenza non è il mercato — è il cervello.',d:'M10,48 C50,44 90,32 130,18 S170,6 188,2',href:'tovagliolo-01-bias.html'},
+  {cat:'fondamenta',col:'amber',titolo:'L\'inflazione non aspetta i tuoi risparmi',testo:'Ogni anno i tuoi soldi fermi sul conto valgono un po\' meno. Non è una crisi — è la matematica.',d:'M10,48 L188,28'},
+  {cat:'fondamenta',col:'green',titolo:'Interesse composto — il tempo batte il talento',testo:'Gli interessi fanno interessi. Dopo 30 anni, metà del patrimonio è denaro che non hai mai versato.',d:'M10,48 C70,44 120,32 148,18 S175,5 188,2'},
+  {cat:'etf',col:'green',titolo:'ETF — il carrello della spesa già riempito',testo:'Compri una quota e hai dentro centinaia di aziende. Costa lo 0,2% all\'anno, non il 2% dei fondi attivi.',d:'M10,46 L55,38 L100,28 L148,18 L188,10'},
+  {cat:'etf',col:'green',titolo:'PAC mensile — il pilota automatico',testo:'Stessa cifra ogni mese. La media nel tempo batte il timing quasi sempre.',d:'M10,46 L40,46 L70,38 L100,30 L135,20 L165,12 L188,8'},
+  {cat:'obbligazioni',col:'blue',titolo:'BTP — quando diventi creditore dello Stato',testo:'Presti soldi al governo. Ogni anno ricevi gli interessi. Alla scadenza riprendi il capitale.',d:'M10,30 L60,24 L110,28 L155,20 L188,24'},
+  {cat:'fiscalita',col:'amber',titolo:'12,5% vs 26% — la tassazione che nessuno spiega',testo:'BTP tassati al 12,5%. Azioni e ETF al 26%. Capire la differenza vale migliaia di euro.',d:'M10,20 L80,20 L80,10 L160,10 L160,28 L188,28'},
+  {cat:'azioni',col:'amber',titolo:'P/E ratio — capire se un\'azione è cara',testo:'Il rapporto prezzo/utili dice quanto paghi per ogni euro di profitto. Alto non significa sempre caro.',d:'M10,40 L50,36 L90,28 L130,32 L160,22 L188,18'},
+];
+
+function buildNapkins(){
+  const g=document.getElementById('napkin-grid');
+  const cols={green:'#1d6b4a',amber:'#b8621a',blue:'#1a4a6b'};
+  napkins.forEach(n=>{
+    const c=document.createElement('div');c.className=`nc ${n.col}`;
+    const svg=`<svg viewBox="0 0 200 58" width="100%" height="58" style="display:block;margin-bottom:12px">
+      <line x1="10" y1="50" x2="190" y2="50" stroke="#dddbd0" stroke-width="1"/>
+      <path d="${n.d}" fill="none" stroke="${cols[n.col]}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`;
+    c.innerHTML=`<div class="nc-cat">${n.cat}</div><h3>${n.titolo}</h3>${svg}<p>${n.testo}</p><div class="nc-arrow">Leggi →</div>`;
+    if(n.href) c.onclick=()=>window.location.href=n.href;
+    g.appendChild(c);
+  });
+}
+
+// TOOLS
+const toolSections=[
+  {name:'Azioni',col:'#8b2a2a',desc:'Dove si comprano e si analizzano',tools:[
+    {name:'Directa SIM',desc:'Broker italiano, accesso diretto a azioni, ETF, BTP. Il punto di riferimento per chi vuole fare da sé.',tags:['it','paid'],url:'https://www.directa.it'},
+    {name:'Fineco Bank',desc:'Banca e broker in uno. PAC automatico integrato, IBAN italiano, copertura completa.',tags:['it','paid'],url:'https://www.finecobank.com'},
+    {name:'DEGIRO',desc:'Commissioni bassissime su azioni europee e americane. Il broker low-cost di riferimento in Europa.',tags:['paid'],url:'https://www.degiro.it'},
+    {name:'Investing.com',desc:'Grafici, notizie, screener azionari. Tutto quello che serve per analizzare un titolo prima di comprarlo.',tags:['free'],url:'https://it.investing.com'},
+  ]},
+  {name:'ETF',col:'#1d6b4a',desc:'Ricerca, confronto e acquisto',tools:[
+    {name:'JustETF',desc:'Il motore di ricerca degli ETF europei. TER, indice replicato, storico rendimenti, distribuzione dei dividendi.',tags:['free'],url:'https://www.justetf.com/it'},
+    {name:'Scalable Capital',desc:'Piano flat mensile, ETF illimitati. Ottimo per chi fa PAC su più strumenti senza preoccuparsi delle commissioni.',tags:['paid'],url:'https://it.scalable.capital'},
+    {name:'ETF Database',desc:'Confronta ETF per indice, costo e rendimento storico. Più orientato al mercato americano.',tags:['free'],url:'https://etfdb.com'},
+    {name:'Morningstar',desc:'Rating indipendenti su fondi ed ETF. Utile per capire la qualità di uno strumento nel tempo.',tags:['free'],url:'https://www.morningstar.it'},
+  ]},
+  {name:'Obbligazioni',col:'#1a4a6b',desc:'BTP, bond e tassi',tools:[
+    {name:'MEF — Tesoro',desc:'Aste dei titoli di Stato italiani, rendimenti correnti, calendario delle emissioni. Fonte ufficiale.',tags:['free','it'],url:'https://www.dt.mef.gov.it'},
+    {name:'Borsa Italiana',desc:'Prezzi live di BTP e obbligazioni corporate quotate a Milano, con storico e dati tecnici.',tags:['free','it'],url:'https://www.borsaitaliana.it'},
+    {name:'Banca d\'Italia',desc:'Tassi ufficiali, statistiche monetarie, report economici. La fonte primaria per ogni dato macro italiano.',tags:['free','it'],url:'https://www.bancaditalia.it'},
+  ]},
+  {name:'CFDs & Opzioni',col:'#5b21b6',desc:'Strumenti avanzati — solo per chi sa cosa fa',tools:[
+    {name:'Interactive Brokers',desc:'La piattaforma professionale per CFD, opzioni, futures. Complessità alta, costi bassi, strumenti completi.',tags:['paid'],url:'https://www.interactivebrokers.com'},
+    {name:'Tastyworks',desc:'Pensata per il trading di opzioni. Interfaccia chiara, commissioni competitive, ottima per chi studia le greche.',tags:['paid'],url:'https://www.tastytrade.com'},
+  ]},
+  {name:'Other — Dati & Fiscalità',col:'#b8621a',desc:'Fonti per capire il contesto italiano',tools:[
+    {name:'ISTAT — Inflazione',desc:'Il dato ufficiale dell\'inflazione italiana, aggiornato ogni mese. Fondamentale per calcolare il rendimento reale.',tags:['free','it'],url:'https://www.istat.it'},
+    {name:'Agenzia delle Entrate',desc:'Normativa fiscale sugli investimenti, tassazione capital gain, dichiarazioni. La fonte che devi leggere prima di agire.',tags:['free','it'],url:'https://www.agenziaentrate.gov.it'},
+    {name:'Wallet by BudgetBakers',desc:'Traccia le spese collegando il conto. Il primo passo per capire il tuo tasso di risparmio reale.',tags:['free'],url:'https://budgetbakers.com'},
+    {name:'Portfolio Visualizer',desc:'Simula portafogli storici, backtesting, correlazioni tra asset. Lo strumento degli investitori seri.',tags:['free'],url:'https://www.portfoliovisualizer.com'},
+  ]},
+];
+
+function buildTools(){
+  const w=document.getElementById('tools-wrap');
+  toolSections.forEach(sec=>{
+    const s=document.createElement('div');s.className='tools-sec';
+    s.innerHTML=`<div class="tools-sec-head">
+      <div class="tools-sec-dot" style="background:${sec.col}"></div>
+      <div class="tools-sec-name">${sec.name}</div>
+      <div class="tools-sec-desc">${sec.desc}</div>
+    </div>
+    <div class="tools-grid">${sec.tools.map(t=>`
+      <a class="tool-card" href="${t.url}" target="_blank" rel="noopener">
+        <div class="tool-top">
+          <div class="tool-name">${t.name}</div>
+          <span class="tool-link-badge">↗ visita</span>
+        </div>
+        <div class="tool-desc">${t.desc}</div>
+        <div class="tool-tags">${t.tags.map(tg=>`<span class="ttag ${tg}">${tg==='it'?'🇮🇹 Italia':tg==='free'?'Gratuito':'A pagamento'}</span>`).join('')}</div>
+      </a>`).join('')}
+    </div>`;
+    w.appendChild(s);
+  });
+}
+
+// GLOSSARIO
+const glossario=[
+  {t:'Asset allocation',c:'base',d:'Come distribuisci i tuoi soldi tra diverse categorie di investimento.',n:'Immagina un piatto: pasta=azioni, verdure=obbligazioni, pane=liquidità. Il piatto giusto cambia con l\'età e il rischio che sei disposto a correre.'},
+  {t:'BTP',c:'obbligazioni',d:'Buoni del Tesoro Poliennali: titoli di debito emessi dallo Stato italiano.',n:'Presti soldi al governo. Ogni anno ti paga gli interessi. Alla scadenza riprendi tutto. Rischio basso, rendimento basso.'},
+  {t:'Cedola',c:'obbligazioni',d:'Il pagamento periodico di interessi su un\'obbligazione.',n:'Compri un\'obbligazione da €1.000 al 3%: ogni anno ti arrivano €30 in tasca, senza fare nulla. Come affittare denaro.'},
+  {t:'Dividendo',c:'azioni',d:'La quota di profitto che un\'azienda distribuisce agli azionisti.',n:'L\'azienda guadagna, una parte la distribuisce a te. Come ricevere l\'affitto di un immobile, senza gestire l\'impianto idraulico.'},
+  {t:'ETF',c:'fondi',d:'Exchange Traded Fund: un fondo che replica un indice, acquistabile in borsa come un\'azione.',n:'Carrello del supermercato già pronto. Compri una quota e dentro ci sono 500 aziende. Costa 0,2% l\'anno invece del 2% dei fondi attivi.'},
+  {t:'Fondo attivo',c:'fondi',d:'Un fondo gestito da professionisti che cercano di battere il mercato.',n:'Paghi un gestore per scegliere le azioni migliori. Problema: l\'80% dei gestori fa peggio del mercato nel lungo periodo.'},
+  {t:'IRPEF',c:'tasse',d:'Imposta sul Reddito delle Persone Fisiche: la tassa principale sul reddito in Italia.',n:'Funziona a scaglioni. Paghi il 23% sui primi €15k, il 35% sui successivi. L\'aliquota effettiva è sempre più bassa di quella marginale.'},
+  {t:'PAC',c:'strategie',d:'Piano di Accumulo del Capitale: investire una cifra fissa a intervalli regolari.',n:'Ogni mese, stessa cifra, stesso ETF. Quando il mercato scende compri più quote. La media nel tempo vince sul timing.'},
+  {t:'Portafoglio',c:'base',d:'L\'insieme di tutti i tuoi investimenti.',n:'Come un mosaico. Il valore non dipende da un singolo pezzo. Se uno si rompe, il mosaico tiene.'},
+  {t:'Rendimento reale',c:'fondamenta',d:'Il rendimento al netto dell\'inflazione.',n:'Il tuo conto deposito rende il 3%. L\'inflazione è al 2,5%. Il rendimento reale è solo 0,5%. I soldi crescono, ma compri quasi le stesse cose.'},
+  {t:'TER',c:'fondi',d:'Total Expense Ratio: il costo annuo totale di un fondo o ETF.',n:'Un ETF con TER 0,2% ti costa €2 ogni €1.000 investiti. Un fondo attivo al 2% ti costa €20. Dopo 30 anni la differenza è enorme.'},
+  {t:'Volatilità',c:'rischio',d:'La misura di quanto il prezzo di un asset oscilla nel tempo.',n:'Alta volatilità = montagne russe. Bassa volatilità = treno. Entrambi arrivano, ma il viaggio è diverso. La volatilità non è rischio: è disagio.'},
+];
+
+function buildG(){
+  const letters=[...new Set(glossario.map(g=>g.t[0]))].sort();
+  const lc=document.getElementById('g-letters');
+  const all=document.createElement('button');all.className='glb on';all.textContent='Tutti';
+  all.onclick=()=>{document.getElementById('gs').value='';renderG(glossario);document.querySelectorAll('.glb').forEach(b=>b.classList.remove('on'));all.classList.add('on');};
+  lc.appendChild(all);
+  letters.forEach(l=>{
+    const b=document.createElement('button');b.className='glb';b.textContent=l;
+    b.onclick=()=>{renderG(glossario.filter(g=>g.t[0]===l));document.querySelectorAll('.glb').forEach(x=>x.classList.remove('on'));b.classList.add('on');};
+    lc.appendChild(b);
+  });
+  renderG(glossario);
+}
+function filterG(){
+  const v=document.getElementById('gs').value.toLowerCase();
+  renderG(v?glossario.filter(g=>g.t.toLowerCase().includes(v)||g.d.toLowerCase().includes(v)):glossario);
+}
+function renderG(list){
+  const c=document.getElementById('g-list');c.innerHTML='';
+  list.forEach(g=>{
+    const el=document.createElement('div');el.className='gi';
+    el.innerHTML=`<div class="gi-head"><h4>${g.t}</h4><span class="gi-badge">${g.c}</span></div><div class="gi-body"><div class="gi-def">${g.d}</div><div class="gi-napkin">${g.n}</div></div>`;
+    el.onclick=()=>el.querySelector('.gi-body').classList.toggle('open');
+    c.appendChild(el);
+  });
+}
+
+// FIRE
+const fmtE=v=>'€ '+Math.round(v).toLocaleString('it-IT');
+function calcFire(){
+  const eta=+document.getElementById('f-eta').value,red=+document.getElementById('f-red').value,
+    spe=+document.getElementById('f-spe').value,pat=+document.getElementById('f-pat').value,
+    ren=+document.getElementById('f-ren').value/100,inf=+document.getElementById('f-inf').value/100,
+    inp=+document.getElementById('f-inp').value;
+  document.getElementById('f-eta-v').textContent=eta+' anni';
+  document.getElementById('f-red-v').textContent=fmtE(red);
+  document.getElementById('f-spe-v').textContent=fmtE(spe);
+  document.getElementById('f-pat-v').textContent=fmtE(pat);
+  document.getElementById('f-ren-v').textContent=document.getElementById('f-ren').value+'% annuo';
+  document.getElementById('f-inf-v').textContent=document.getElementById('f-inf').value.replace('.',',')+' %';
+  document.getElementById('f-inp-v').textContent=fmtE(inp);
+  const risp=red-spe,target=Math.max(0,spe-inp)*12*25,rr=ren-inf;
+  let p=pat,anni=0;
+  while(p<target&&anni<60){p=p*(1+rr)+risp*12;anni++;}
+  const tasso=red>0?Math.round(risp/red*100):0;
+  document.getElementById('fr-eta').textContent='a '+(eta+anni)+' anni';
+  document.getElementById('fr-manca').textContent='tra '+anni+' anni';
+  document.getElementById('fr-target').textContent=fmtE(target);
+  document.getElementById('fr-risp').textContent=fmtE(risp);
+  document.getElementById('fr-tasso').textContent='tasso di risparmio: '+tasso+'%';
+  document.getElementById('fr-fin').textContent=fmtE(p);
+  document.getElementById('fr-bar').style.width=Math.min(100,Math.round(pat/target*100))+'%';
+  let w='';
+  if(risp<=0)w='⚠️ Stai spendendo più di quanto guadagni. Il FIRE non è raggiungibile così.';
+  else if(anni>35)w='💡 Aumentare il tasso di risparmio del 5-10% anticiperebbe il FIRE di diversi anni.';
+  else if(tasso>40)w='✓ Ottimo tasso di risparmio. Sei sulla strada giusta.';
+  document.getElementById('fr-warn').textContent=w;
+}
+
+// QUIZ
+const Qs=[
+  {q:'Come descriveresti il tuo rapporto con i soldi oggi?',o:['Li lascio fermi sul conto','Ho qualche risparmio ma non so cosa farci','Investo già qualcosa','Ho un piano, cerco ottimizzazione']},
+  {q:'Se il tuo portafoglio perdesse il 20% in un mese, cosa faresti?',o:['Venderei tutto','Aspetterei nervosamente','Resterei calmo, è temporaneo','Comprerei ancora di più']},
+  {q:'Qual è il tuo orizzonte temporale?',o:['Meno di 2 anni','3-5 anni','5-10 anni','Oltre 10 anni']},
+  {q:'Quanto tempo vuoi dedicare agli investimenti ogni mese?',o:['Zero, voglio il pilota automatico','30 minuti','Qualche ora a settimana','Mi piace seguirlo da vicino']},
+  {q:'Qual è il tuo obiettivo principale?',o:['Non perdere quello che ho','Battere l\'inflazione','Costruire un patrimonio solido','Indipendenza finanziaria']},
+];
+const Ps=[
+  {name:'Il Prudente',icon:'🛡️',badge:'profilo conservativo',desc:'Preferisci dormire tranquillo. Obbligazioni, BTP, conto deposito sono i tuoi strumenti. Inizia dal napkin sull\'inflazione: è il rischio che stai già correndo.'},
+  {name:'Il Costruttore',icon:'🏗️',badge:'profilo bilanciato',desc:'Vuoi far crescere il patrimonio con costanza. Un portafoglio 60% ETF azionari e 40% obbligazionari in PAC mensile è il tuo punto di partenza.'},
+  {name:'Il Navigatore',icon:'🧭',badge:'profilo crescita',desc:'Hai orizzonte lungo e non ti spaventa la volatilità. ETF azionari globali in PAC mensile. Vai al simulatore FIRE.'},
+  {name:'Il FIRE Hunter',icon:'🔥',badge:'profilo aggressivo',desc:'Vuoi l\'indipendenza finanziaria prima dell\'età pensionabile. Massimizza il tasso di risparmio, investi in ETF globali, calcola il tuo numero FIRE ogni anno.'},
+];
+let qi=0,ans=[];
+function buildQ(){
+  const a=document.getElementById('qa');
+  if(qi>=Qs.length){
+    const pr=Ps[Math.min(3,Math.floor(ans.reduce((s,v)=>s+v,0)/5))];
+    a.innerHTML=`<div class="qres"><div class="qres-icon">${pr.icon}</div><span class="qres-badge">${pr.badge}</span><h2>${pr.name}</h2><p>${pr.desc}</p><button class="qrestart" onclick="qi=0;ans=[];buildQ()">Rifai il quiz</button></div>`;
+    document.getElementById('qp').style.width='100%';return;
+  }
+  const q=Qs[qi];
+  document.getElementById('qp').style.width=((qi/Qs.length)*100)+'%';
+  let h=`<div class="qq">${q.q}</div><div class="qopts">`;
+  q.o.forEach((o,i)=>h+=`<button class="qopt" onclick="selQ(${i})">${o}</button>`);
+  h+=`</div><div class="qnav">${qi>0?`<button class="qback" onclick="qi--;ans.pop();buildQ()">← Indietro</button>`:'<span></span>'}`;
+  h+=`<button class="qnext" id="qnb" onclick="nextQ()" style="opacity:.3;pointer-events:none">Avanti →</button>
+</div>
+
+<footer>The Napkin · Non siamo consulenti finanziari · Nessun conflitto di interesse · Fatto con carta e penna (e un po' di codice)</footer>
+
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+const toolSections=[
+  {name:'Azioni',col:'#8b2a2a',desc:'Dove si comprano e si analizzano',tools:[
+    {name:'Directa SIM',desc:'Broker italiano, accesso diretto a azioni, ETF, BTP. Il punto di riferimento per chi vuole fare da sé.',tags:['it','paid'],url:'https://www.directa.it'},
+    {name:'Fineco Bank',desc:'Banca e broker in uno. PAC automatico integrato, IBAN italiano, copertura completa.',tags:['it','paid'],url:'https://www.finecobank.com'},
+    {name:'DEGIRO',desc:'Commissioni bassissime su azioni europee e americane. Il broker low-cost di riferimento in Europa.',tags:['paid'],url:'https://www.degiro.it'},
+    {name:'Investing.com',desc:'Grafici, notizie, screener azionari. Tutto quello che serve per analizzare un titolo prima di comprarlo.',tags:['free'],url:'https://it.investing.com'},
+  ]},
+  {name:'ETF',col:'#1d6b4a',desc:'Ricerca, confronto e acquisto',tools:[
+    {name:'JustETF',desc:'Il motore di ricerca degli ETF europei. TER, indice replicato, storico rendimenti, distribuzione dei dividendi.',tags:['free'],url:'https://www.justetf.com/it'},
+    {name:'Scalable Capital',desc:'Piano flat mensile, ETF illimitati. Ottimo per chi fa PAC su più strumenti senza preoccuparsi delle commissioni.',tags:['paid'],url:'https://it.scalable.capital'},
+    {name:'ETF Database',desc:'Confronta ETF per indice, costo e rendimento storico. Più orientato al mercato americano.',tags:['free'],url:'https://etfdb.com'},
+    {name:'Morningstar',desc:'Rating indipendenti su fondi ed ETF. Utile per capire la qualità di uno strumento nel tempo.',tags:['free'],url:'https://www.morningstar.it'},
+  ]},
+  {name:'Obbligazioni',col:'#1a4a6b',desc:'BTP, bond e tassi',tools:[
+    {name:'MEF — Tesoro',desc:'Aste dei titoli di Stato italiani, rendimenti correnti, calendario delle emissioni. Fonte ufficiale.',tags:['free','it'],url:'https://www.dt.mef.gov.it'},
+    {name:'Borsa Italiana',desc:'Prezzi live di BTP e obbligazioni corporate quotate a Milano, con storico e dati tecnici.',tags:['free','it'],url:'https://www.borsaitaliana.it'},
+    {name:'Banca d\'Italia',desc:'Tassi ufficiali, statistiche monetarie, report economici. La fonte primaria per ogni dato macro italiano.',tags:['free','it'],url:'https://www.bancaditalia.it'},
+  ]},
+  {name:'CFDs & Opzioni',col:'#5b21b6',desc:'Strumenti avanzati — solo per chi sa cosa fa',tools:[
+    {name:'Interactive Brokers',desc:'La piattaforma professionale per CFD, opzioni, futures. Complessità alta, costi bassi, strumenti completi.',tags:['paid'],url:'https://www.interactivebrokers.com'},
+    {name:'Tastyworks',desc:'Pensata per il trading di opzioni. Interfaccia chiara, commissioni competitive, ottima per chi studia le greche.',tags:['paid'],url:'https://www.tastytrade.com'},
+  ]},
+  {name:'Other — Dati & Fiscalità',col:'#b8621a',desc:'Fonti per capire il contesto italiano',tools:[
+    {name:'ISTAT — Inflazione',desc:'Il dato ufficiale dell\'inflazione italiana, aggiornato ogni mese. Fondamentale per calcolare il rendimento reale.',tags:['free','it'],url:'https://www.istat.it'},
+    {name:'Agenzia delle Entrate',desc:'Normativa fiscale sugli investimenti, tassazione capital gain, dichiarazioni. La fonte che devi leggere prima di agire.',tags:['free','it'],url:'https://www.agenziaentrate.gov.it'},
+    {name:'Wallet by BudgetBakers',desc:'Traccia le spese collegando il conto. Il primo passo per capire il tuo tasso di risparmio reale.',tags:['free'],url:'https://budgetbakers.com'},
+    {name:'Portfolio Visualizer',desc:'Simula portafogli storici, backtesting, correlazioni tra asset. Lo strumento degli investitori seri.',tags:['free'],url:'https://www.portfoliovisualizer.com'},
+  ]},
+];
+
+function buildTools(){
+  const w=document.getElementById('tools-wrap');
+  toolSections.forEach(sec=>{
+    const s=document.createElement('div');s.className='tools-sec';
+    s.innerHTML=`<div class="tools-sec-head">
+      <div class="tools-sec-dot" style="background:${sec.col}"></div>
+      <div class="tools-sec-name">${sec.name}</div>
+      <div class="tools-sec-desc">${sec.desc}</div>
+    </div>
+    <div class="tools-grid">${sec.tools.map(t=>`
+      <a class="tool-card" href="${t.url}" target="_blank" rel="noopener">
+        <div class="tool-top">
+          <div class="tool-name">${t.name}</div>
+          <span class="tool-link-badge">↗ visita</span>
+        </div>
+        <div class="tool-desc">${t.desc}</div>
+        <div class="tool-tags">${t.tags.map(tg=>`<span class="ttag ${tg}">${tg==='it'?'🇮🇹 Italia':tg==='free'?'Gratuito':'A pagamento'}</span>`).join('')}</div>
+      </a>`).join('')}
+    </div>`;
+    w.appendChild(s);
+  });
+}
+
+// GLOSSARIO
+const glossario=[
+  {t:'Asset allocation',c:'base',d:'Come distribuisci i tuoi soldi tra diverse categorie di investimento.',n:'Immagina un piatto: pasta=azioni, verdure=obbligazioni, pane=liquidità. Il piatto giusto cambia con l\'età e il rischio che sei disposto a correre.'},
+  {t:'BTP',c:'obbligazioni',d:'Buoni del Tesoro Poliennali: titoli di debito emessi dallo Stato italiano.',n:'Presti soldi al governo. Ogni anno ti paga gli interessi. Alla scadenza riprendi tutto. Rischio basso, rendimento basso.'},
+  {t:'Cedola',c:'obbligazioni',d:'Il pagamento periodico di interessi su un\'obbligazione.',n:'Compri un\'obbligazione da €1.000 al 3%: ogni anno ti arrivano €30 in tasca, senza fare nulla. Come affittare denaro.'},
+  {t:'Dividendo',c:'azioni',d:'La quota di profitto che un\'azienda distribuisce agli azionisti.',n:'L\'azienda guadagna, una parte la distribuisce a te. Come ricevere l\'affitto di un immobile, senza gestire l\'impianto idraulico.'},
+  {t:'ETF',c:'fondi',d:'Exchange Traded Fund: un fondo che replica un indice, acquistabile in borsa come un\'azione.',n:'Carrello del supermercato già pronto. Compri una quota e dentro ci sono 500 aziende. Costa 0,2% l\'anno invece del 2% dei fondi attivi.'},
+  {t:'Fondo attivo',c:'fondi',d:'Un fondo gestito da professionisti che cercano di battere il mercato.',n:'Paghi un gestore per scegliere le azioni migliori. Problema: l\'80% dei gestori fa peggio del mercato nel lungo periodo.'},
+  {t:'IRPEF',c:'tasse',d:'Imposta sul Reddito delle Persone Fisiche: la tassa principale sul reddito in Italia.',n:'Funziona a scaglioni. Paghi il 23% sui primi €15k, il 35% sui successivi. L\'aliquota effettiva è sempre più bassa di quella marginale.'},
+  {t:'PAC',c:'strategie',d:'Piano di Accumulo del Capitale: investire una cifra fissa a intervalli regolari.',n:'Ogni mese, stessa cifra, stesso ETF. Quando il mercato scende compri più quote. La media nel tempo vince sul timing.'},
+  {t:'Portafoglio',c:'base',d:'L\'insieme di tutti i tuoi investimenti.',n:'Come un mosaico. Il valore non dipende da un singolo pezzo. Se uno si rompe, il mosaico tiene.'},
+  {t:'Rendimento reale',c:'fondamenta',d:'Il rendimento al netto dell\'inflazione.',n:'Il tuo conto deposito rende il 3%. L\'inflazione è al 2,5%. Il rendimento reale è solo 0,5%. I soldi crescono, ma compri quasi le stesse cose.'},
+  {t:'TER',c:'fondi',d:'Total Expense Ratio: il costo annuo totale di un fondo o ETF.',n:'Un ETF con TER 0,2% ti costa €2 ogni €1.000 investiti. Un fondo attivo al 2% ti costa €20. Dopo 30 anni la differenza è enorme.'},
+  {t:'Volatilità',c:'rischio',d:'La misura di quanto il prezzo di un asset oscilla nel tempo.',n:'Alta volatilità = montagne russe. Bassa volatilità = treno. Entrambi arrivano, ma il viaggio è diverso. La volatilità non è rischio: è disagio.'},
+];
+
+function buildG(){
+  const letters=[...new Set(glossario.map(g=>g.t[0]))].sort();
+  const lc=document.getElementById('g-letters');
+  const all=document.createElement('button');all.className='glb on';all.textContent='Tutti';
+  all.onclick=()=>{document.getElementById('gs').value='';renderG(glossario);document.querySelectorAll('.glb').forEach(b=>b.classList.remove('on'));all.classList.add('on');};
+  lc.appendChild(all);
+  letters.forEach(l=>{
+    const b=document.createElement('button');b.className='glb';b.textContent=l;
+    b.onclick=()=>{renderG(glossario.filter(g=>g.t[0]===l));document.querySelectorAll('.glb').forEach(x=>x.classList.remove('on'));b.classList.add('on');};
+    lc.appendChild(b);
+  });
+  renderG(glossario);
+}
+function filterG(){
+  const v=document.getElementById('gs').value.toLowerCase();
+  renderG(v?glossario.filter(g=>g.t.toLowerCase().includes(v)||g.d.toLowerCase().includes(v)):glossario);
+}
+function renderG(list){
+  const c=document.getElementById('g-list');c.innerHTML='';
+  list.forEach(g=>{
+    const el=document.createElement('div');el.className='gi';
+    el.innerHTML=`<div class="gi-head"><h4>${g.t}</h4><span class="gi-badge">${g.c}</span></div><div class="gi-body"><div class="gi-def">${g.d}</div><div class="gi-napkin">${g.n}</div></div>`;
+    el.onclick=()=>el.querySelector('.gi-body').classList.toggle('open');
+    c.appendChild(el);
+  });
+}
+
+// FIRE
+const fmtE=v=>'€ '+Math.round(v).toLocaleString('it-IT');
+function calcFire(){
+  const eta=+document.getElementById('f-eta').value,red=+document.getElementById('f-red').value,
+    spe=+document.getElementById('f-spe').value,pat=+document.getElementById('f-pat').value,
+    ren=+document.getElementById('f-ren').value/100,inf=+document.getElementById('f-inf').value/100,
+    inp=+document.getElementById('f-inp').value;
+  document.getElementById('f-eta-v').textContent=eta+' anni';
+  document.getElementById('f-red-v').textContent=fmtE(red);
+  document.getElementById('f-spe-v').textContent=fmtE(spe);
+  document.getElementById('f-pat-v').textContent=fmtE(pat);
+  document.getElementById('f-ren-v').textContent=document.getElementById('f-ren').value+'% annuo';
+  document.getElementById('f-inf-v').textContent=document.getElementById('f-inf').value.replace('.',',')+' %';
+  document.getElementById('f-inp-v').textContent=fmtE(inp);
+  const risp=red-spe,target=Math.max(0,spe-inp)*12*25,rr=ren-inf;
+  let p=pat,anni=0;
+  while(p<target&&anni<60){p=p*(1+rr)+risp*12;anni++;}
+  const tasso=red>0?Math.round(risp/red*100):0;
+  document.getElementById('fr-eta').textContent='a '+(eta+anni)+' anni';
+  document.getElementById('fr-manca').textContent='tra '+anni+' anni';
+  document.getElementById('fr-target').textContent=fmtE(target);
+  document.getElementById('fr-risp').textContent=fmtE(risp);
+  document.getElementById('fr-tasso').textContent='tasso di risparmio: '+tasso+'%';
+  document.getElementById('fr-fin').textContent=fmtE(p);
+  document.getElementById('fr-bar').style.width=Math.min(100,Math.round(pat/target*100))+'%';
+  let w='';
+  if(risp<=0)w='⚠️ Stai spendendo più di quanto guadagni. Il FIRE non è raggiungibile così.';
+  else if(anni>35)w='💡 Aumentare il tasso di risparmio del 5-10% anticiperebbe il FIRE di diversi anni.';
+  else if(tasso>40)w='✓ Ottimo tasso di risparmio. Sei sulla strada giusta.';
+  document.getElementById('fr-warn').textContent=w;
+}
+
+// QUIZ
+const Qs=[
+  {q:'Come descriveresti il tuo rapporto con i soldi oggi?',o:['Li lascio fermi sul conto','Ho qualche risparmio ma non so cosa farci','Investo già qualcosa','Ho un piano, cerco ottimizzazione']},
+  {q:'Se il tuo portafoglio perdesse il 20% in un mese, cosa faresti?',o:['Venderei tutto','Aspetterei nervosamente','Resterei calmo, è temporaneo','Comprerei ancora di più']},
+  {q:'Qual è il tuo orizzonte temporale?',o:['Meno di 2 anni','3-5 anni','5-10 anni','Oltre 10 anni']},
+  {q:'Quanto tempo vuoi dedicare agli investimenti ogni mese?',o:['Zero, voglio il pilota automatico','30 minuti','Qualche ora a settimana','Mi piace seguirlo da vicino']},
+  {q:'Qual è il tuo obiettivo principale?',o:['Non perdere quello che ho','Battere l\'inflazione','Costruire un patrimonio solido','Indipendenza finanziaria']},
+];
+const Ps=[
+  {name:'Il Prudente',icon:'🛡️',badge:'profilo conservativo',desc:'Preferisci dormire tranquillo. Obbligazioni, BTP, conto deposito sono i tuoi strumenti. Inizia dal napkin sull\'inflazione: è il rischio che stai già correndo.'},
+  {name:'Il Costruttore',icon:'🏗️',badge:'profilo bilanciato',desc:'Vuoi far crescere il patrimonio con costanza. Un portafoglio 60% ETF azionari e 40% obbligazionari in PAC mensile è il tuo punto di partenza.'},
+  {name:'Il Navigatore',icon:'🧭',badge:'profilo crescita',desc:'Hai orizzonte lungo e non ti spaventa la volatilità. ETF azionari globali in PAC mensile. Vai al simulatore FIRE.'},
+  {name:'Il FIRE Hunter',icon:'🔥',badge:'profilo aggressivo',desc:'Vuoi l\'indipendenza finanziaria prima dell\'età pensionabile. Massimizza il tasso di risparmio, investi in ETF globali, calcola il tuo numero FIRE ogni anno.'},
+];
+let qi=0,ans=[];
+function buildQ(){
+  const a=document.getElementById('qa');
+  if(qi>=Qs.length){
+    const pr=Ps[Math.min(3,Math.floor(ans.reduce((s,v)=>s+v,0)/5))];
+    a.innerHTML=`<div class="qres"><div class="qres-icon">${pr.icon}</div><span class="qres-badge">${pr.badge}</span><h2>${pr.name}</h2><p>${pr.desc}</p><button class="qrestart" onclick="qi=0;ans=[];buildQ()">Rifai il quiz</button></div>`;
+    document.getElementById('qp').style.width='100%';return;
+  }
+  const q=Qs[qi];
+  document.getElementById('qp').style.width=((qi/Qs.length)*100)+'%';
+  let h=`<div class="qq">${q.q}</div><div class="qopts">`;
+  q.o.forEach((o,i)=>h+=`<button class="qopt" onclick="selQ(${i})">${o}</button>`);
+  h+=`</div><div class="qnav">${qi>0?`<button class="qback" onclick="qi--;ans.pop();buildQ()">← Indietro</button>`:'<span></span>'}`;
+  h+=`<button class="qnext" id="qnb" onclick="nextQ()" style="opacity:.3;pointer-events:none">Avanti →</button></div>`;
+  a.innerHTML=h;a._sel=undefined;
+}
+function selQ(i){
+  document.querySelectorAll('.qopt').forEach((o,idx)=>o.classList.toggle('sel',idx===i));
+  const nb=document.getElementById('qnb');nb.style.opacity='1';nb.style.pointerEvents='auto';nb._val=i;
+}
+function nextQ(){const nb=document.getElementById('qnb');if(nb._val===undefined)return;ans.push(nb._val);qi++;buildQ();}
+
+// INIT
+buildNapkins();buildG();buildQ();buildTools();calcFire();
+renderNapkinsFull(allNapkins);
+</script>
+</body>
+</html>
+
+// FIRE
+const fmtE=v=>'€ '+Math.round(v).toLocaleString('it-IT');
+function calcFire(){
+  const eta=+document.getElementById('f-eta').value,red=+document.getElementById('f-red').value,
+    spe=+document.getElementById('f-spe').value,pat=+document.getElementById('f-pat').value,
+    ren=+document.getElementById('f-ren').value/100,inf=+document.getElementById('f-inf').value/100,
+    inp=+document.getElementById('f-inp').value;
+  document.getElementById('f-eta-v').textContent=eta+' anni';
+  document.getElementById('f-red-v').textContent=fmtE(red);
+  document.getElementById('f-spe-v').textContent=fmtE(spe);
+  document.getElementById('f-pat-v').textContent=fmtE(pat);
+  document.getElementById('f-ren-v').textContent=document.getElementById('f-ren').value+'% annuo';
+  document.getElementById('f-inf-v').textContent=document.getElementById('f-inf').value.replace('.',',')+' %';
+  document.getElementById('f-inp-v').textContent=fmtE(inp);
+  const risp=red-spe,target=Math.max(0,spe-inp)*12*25,rr=ren-inf;
+  let p=pat,anni=0;
+  while(p<target&&anni<60){p=p*(1+rr)+risp*12;anni++;}
+  const tasso=red>0?Math.round(risp/red*100):0;
+  document.getElementById('fr-eta').textContent='a '+(eta+anni)+' anni';
+  document.getElementById('fr-manca').textContent='tra '+anni+' anni';
+  document.getElementById('fr-target').textContent=fmtE(target);
+  document.getElementById('fr-risp').textContent=fmtE(risp);
+  document.getElementById('fr-tasso').textContent='tasso di risparmio: '+tasso+'%';
+  document.getElementById('fr-fin').textContent=fmtE(p);
+  document.getElementById('fr-bar').style.width=Math.min(100,Math.round(pat/target*100))+'%';
+  let w='';
+  if(risp<=0)w='⚠️ Stai spendendo più di quanto guadagni. Il FIRE non è raggiungibile così.';
+  else if(anni>35)w='💡 Aumentare il tasso di risparmio del 5-10% anticiperebbe il FIRE di diversi anni.';
+  else if(tasso>40)w='✓ Ottimo tasso di risparmio. Sei sulla strada giusta.';
+  document.getElementById('fr-warn').textContent=w;
+}
+
+// QUIZ
+const Qs=[
+  {q:'Come descriveresti il tuo rapporto con i soldi oggi?',o:['Li lascio fermi sul conto','Ho qualche risparmio ma non so cosa farci','Investo già qualcosa','Ho un piano, cerco ottimizzazione']},
+  {q:'Se il tuo portafoglio perdesse il 20% in un mese, cosa faresti?',o:['Venderei tutto','Aspetterei nervosamente','Resterei calmo, è temporaneo','Comprerei ancora di più']},
+  {q:'Qual è il tuo orizzonte temporale?',o:['Meno di 2 anni','3-5 anni','5-10 anni','Oltre 10 anni']},
+  {q:'Quanto tempo vuoi dedicare agli investimenti ogni mese?',o:['Zero, voglio il pilota automatico','30 minuti','Qualche ora a settimana','Mi piace seguirlo da vicino']},
+  {q:'Qual è il tuo obiettivo principale?',o:['Non perdere quello che ho','Battere l\'inflazione','Costruire un patrimonio solido','Indipendenza finanziaria']},
+];
+const Ps=[
+  {name:'Il Prudente',icon:'🛡️',badge:'profilo conservativo',desc:'Preferisci dormire tranquillo. Obbligazioni, BTP, conto deposito sono i tuoi strumenti. Inizia dal napkin sull\'inflazione: è il rischio che stai già correndo.'},
+  {name:'Il Costruttore',icon:'🏗️',badge:'profilo bilanciato',desc:'Vuoi far crescere il patrimonio con costanza. Un portafoglio 60% ETF azionari e 40% obbligazionari in PAC mensile è il tuo punto di partenza.'},
+  {name:'Il Navigatore',icon:'🧭',badge:'profilo crescita',desc:'Hai orizzonte lungo e non ti spaventa la volatilità. ETF azionari globali in PAC mensile. Vai al simulatore FIRE.'},
+  {name:'Il FIRE Hunter',icon:'🔥',badge:'profilo aggressivo',desc:'Vuoi l\'indipendenza finanziaria prima dell\'età pensionabile. Massimizza il tasso di risparmio, investi in ETF globali, calcola il tuo numero FIRE ogni anno.'},
+];
+let qi=0,ans=[];
+function buildQ(){
+  const a=document.getElementById('qa');
+  if(qi>=Qs.length){
+    const pr=Ps[Math.min(3,Math.floor(ans.reduce((s,v)=>s+v,0)/5))];
+    a.innerHTML=`<div class="qres"><div class="qres-icon">${pr.icon}</div><span class="qres-badge">${pr.badge}</span><h2>${pr.name}</h2><p>${pr.desc}</p><button class="qrestart" onclick="qi=0;ans=[];buildQ()">Rifai il quiz</button></div>`;
+    document.getElementById('qp').style.width='100%';return;
+  }
+  const q=Qs[qi];
+  document.getElementById('qp').style.width=((qi/Qs.length)*100)+'%';
+  let h=`<div class="qq">${q.q}</div><div class="qopts">`;
+  q.o.forEach((o,i)=>h+=`<button class="qopt" onclick="selQ(${i})">${o}</button>`);
+  h+=`</div><div class="qnav">${qi>0?`<button class="qback" onclick="qi--;ans.pop();buildQ()">← Indietro</button>`:'<span></span>'}`;
+  h+=`<button class="qnext" id="qnb" onclick="nextQ()" style="opacity:.3;pointer-events:none">Avanti →</button></div>`;
+  a.innerHTML=h;a._sel=undefined;
+}
+function selQ(i){
+  document.querySelectorAll('.qopt').forEach((o,idx)=>o.classList.toggle('sel',idx===i));
+  const nb=document.getElementById('qnb');nb.style.opacity='1';nb.style.pointerEvents='auto';nb._val=i;
+}
+function nextQ(){const nb=document.getElementById('qnb');if(nb._val===undefined)return;ans.push(nb._val);qi++;buildQ();}
+
+buildTools();
+buildQ();
+calcFire();
+</script>
+</body>
+</html>
