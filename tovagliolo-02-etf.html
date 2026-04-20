@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ETF — Il carrello già pronto della finanza — The Napkin</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rough.js/4.5.2/rough.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1a1a18;--ink2:#4a4a44;--ink3:#8a8a80;
+  --paper:#faf9f5;--paper2:#f3f2ec;--paper3:#ebe9e0;
+  --green:#1d6b4a;--green-l:#e8f5ee;--green-m:#b8ddc9;
+  --amber:#b8621a;--amber-l:#fdf0e4;
+  --blue:#1a4a6b;--blue-l:#e4eef5;
+  --border:#dddbd0;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
+  --mono:'DM Mono',monospace;
+}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:19px;line-height:1.6;min-height:100vh}
+nav{display:flex;align-items:center;justify-content:space-between;padding:18px 40px;border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:100}
+.logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-dot{width:10px;height:10px;background:var(--green);border-radius:50%;display:inline-block}
+.nb{background:none;border:none;font-family:var(--sans);font-size:15px;color:var(--ink2);padding:8px 16px;border-radius:7px;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-block}
+.nb:hover{background:var(--paper2);color:var(--ink)}
+.nb.cta{background:var(--ink);color:var(--paper);font-weight:600}
+.nb.cta:hover{background:var(--green)}
+.wrap{max-width:720px;margin:0 auto;padding:56px 40px 96px}
+.bc{font-size:12px;font-family:var(--mono);color:var(--ink3);margin-bottom:32px;display:flex;align-items:center;gap:8px}
+.bc a{color:var(--ink3);text-decoration:none}.bc a:hover{color:var(--ink)}
+.art-cat{display:inline-block;font-size:11px;font-family:var(--mono);color:var(--blue);background:var(--blue-l);padding:5px 14px;border-radius:20px;margin-bottom:20px;letter-spacing:.07em;text-transform:uppercase}
+.art-title{font-family:var(--serif);font-size:clamp(34px,5vw,52px);font-weight:700;line-height:1.08;color:var(--ink);margin-bottom:16px}
+.art-sub{font-size:21px;color:var(--ink2);line-height:1.6;margin-bottom:28px;max-width:600px;font-weight:300}
+.art-meta{display:flex;align-items:center;gap:20px;padding-bottom:28px;border-bottom:1px solid var(--border);margin-bottom:48px}
+.art-meta-item{font-size:12px;font-family:var(--mono);color:var(--ink3)}
+.tovagliolo-wrap{position:relative;margin-bottom:56px}
+.tovagliolo-canvas{position:absolute;top:-16px;left:-16px;pointer-events:none;z-index:0}
+.tovagliolo{background:#f6f4ee;border-radius:4px;padding:36px 32px 36px;position:relative;z-index:1}
+.tovagliolo::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(180deg,transparent 0,transparent 31px,rgba(150,145,128,.09) 31px,rgba(150,145,128,.09) 32px);pointer-events:none}
+.tov-eyebrow{font-size:11px;font-family:var(--mono);color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px;position:relative;z-index:1;display:flex;align-items:center;gap:10px}
+.tov-eyebrow::after{content:'';flex:1;height:1px;background:var(--border)}
+.tov-sketch{display:block;width:100%;position:relative;z-index:1}
+.art-body{font-size:19px;color:var(--ink2);line-height:1.7;font-weight:400}
+.art-body p{margin-bottom:24px}
+.art-body strong{color:var(--ink);font-weight:600}
+.sec-title{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--ink);margin:48px 0 18px}
+.quote{border-left:3px solid var(--blue);padding:16px 24px;background:var(--blue-l);border-radius:0 8px 8px 0;font-size:19px;color:var(--ink);font-style:italic;line-height:1.6;margin:36px 0}
+.confronto{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:32px 0}
+.conf-box{border-radius:4px;padding:24px 20px;position:relative}
+.conf-box-canvas{position:absolute;top:-7px;left:-7px;pointer-events:none;z-index:0}
+.conf-label{font-size:11px;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;position:relative;z-index:1}
+.conf-box.etf{background:var(--green-l)}.conf-box.etf .conf-label{color:var(--green)}
+.conf-box.fondo{background:var(--amber-l)}.conf-box.fondo .conf-label{color:var(--amber)}
+.conf-box h4{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--ink);margin-bottom:10px;position:relative;z-index:1}
+.conf-box ul{list-style:none;position:relative;z-index:1}
+.conf-box ul li{font-size:15px;color:var(--ink2);padding:5px 0;display:flex;align-items:flex-start;gap:8px;font-weight:300}
+.conf-box ul li::before{content:'→';flex-shrink:0;font-family:var(--mono);font-size:13px;margin-top:2px}
+.conf-box.etf ul li::before{color:var(--green)}
+.conf-box.fondo ul li::before{color:var(--amber)}
+.ant-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:0 0 32px}
+.ant-box{background:var(--paper);border-radius:4px;padding:24px 20px;position:relative;min-height:130px}
+.ant-box-canvas{position:absolute;top:-8px;left:-8px;pointer-events:none;z-index:0}
+.ant-big-num{font-family:var(--serif);font-size:56px;font-weight:700;color:var(--border);line-height:1;margin-bottom:10px;position:relative;z-index:1}
+.ant-box-title{font-family:var(--sans);font-size:15px;font-weight:600;color:var(--ink);margin-bottom:5px;position:relative;z-index:1}
+.ant-box-text{font-family:var(--sans);font-size:14px;color:var(--ink2);line-height:1.45;font-weight:300;position:relative;z-index:1}
+.napkin-art-wrap{margin:0 0 48px;text-align:center}
+.napkin-art-label{font-size:11px;font-family:var(--mono);color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+.next-card{display:flex;align-items:center;justify-content:space-between;background:var(--paper2);border:1px solid var(--border);border-radius:4px;padding:24px 28px;margin:56px 0 40px;text-decoration:none;transition:all .2s}
+.next-card:hover{border-color:var(--ink);transform:translateX(4px)}
+.next-label{font-size:11px;font-family:var(--mono);color:var(--ink3);margin-bottom:8px;letter-spacing:.06em;text-transform:uppercase}
+.next-title{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--ink);line-height:1.2}
+.next-arrow{font-size:24px;color:var(--green);flex-shrink:0;margin-left:20px}
+.beehiiv{background:var(--ink);border-radius:4px;padding:40px;color:var(--paper);text-align:center}
+.beehiiv h4{font-family:var(--serif);font-size:28px;font-weight:700;margin-bottom:12px}
+.beehiiv p{font-size:17px;color:rgba(255,255,255,.65);margin-bottom:28px;line-height:1.5;font-weight:300}
+.beehiiv-row{display:flex;gap:12px;max-width:420px;margin:0 auto}
+.beehiiv input{flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:14px 18px;color:var(--paper);font-size:16px;font-family:var(--sans);outline:none}
+.beehiiv input::placeholder{color:rgba(255,255,255,.35)}
+.beehiiv button{background:var(--green);color:var(--paper);border:none;border-radius:4px;padding:14px 24px;font-size:16px;font-weight:600;font-family:var(--sans);cursor:pointer;white-space:nowrap;transition:opacity .15s}
+.beehiiv button:hover{opacity:.85}
+footer{text-align:center;padding:32px 40px;font-size:13px;font-family:var(--mono);color:var(--ink3);border-top:1px solid var(--border)}
+@media(max-width:640px){
+  nav{padding:14px 20px}
+  .wrap{padding:40px 20px 72px}
+  .confronto{grid-template-columns:1fr}
+  .ant-grid{grid-template-columns:1fr;gap:14px}
+  .beehiiv-row{flex-direction:column}
+  .nb.nav-label{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html"><span class="logo-dot"></span>The Napkin</a>
+  <div class="nav-links">
+    <a class="nb nav-label" href="#">I Napkins</a>
+    <a class="nb nav-label" href="#">Glossario</a>
+    <a class="nb cta" href="#">Newsletter</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="bc">
+    <a href="index.html">Home</a><span>&rsaquo;</span>
+    <a href="#">I Napkins</a><span>&rsaquo;</span>
+    ETF
+  </div>
+
+  <span class="art-cat">Strumenti di base</span>
+  <h1 class="art-title">ETF — Il carrello già pronto della finanza</h1>
+  <p class="art-sub">Non scegli le singole aziende. Compri tutto il mercato in una mossa sola.</p>
+  <div class="art-meta">
+    <span class="art-meta-item">Tovagliolo #02</span>
+    <span class="art-meta-item">5 min di lettura</span>
+    <span class="art-meta-item">Livello: Principiante</span>
+  </div>
+
+  <!-- SKETCH SUL TOVAGLIOLO -->
+  <div class="tovagliolo-wrap">
+    <canvas class="tovagliolo-canvas" id="tovCanvas"></canvas>
+    <div class="tovagliolo">
+      <div class="tov-eyebrow">Lo schizzo sul tovagliolo</div>
+      <canvas id="sketchCanvas" class="tov-sketch" height="240"></canvas>
+    </div>
+  </div>
+
+  <!-- ANIMAZIONE SCROLL -->
+  <div class="napkin-art-wrap" id="napkinArtWrap">
+    <div class="napkin-art-label">Come funziona la diversificazione — scorri per vederlo</div>
+    <canvas id="napkinArtCanvas" width="480" height="220" style="display:block;margin:0 auto;border-radius:4px"></canvas>
+  </div>
+
+  <div class="art-body">
+
+    <p>Al supermercato puoi comprare ogni ingrediente singolarmente oppure prendere un pasto già pronto. Gli ETF sono il pasto già pronto della finanza: compri una quota e dentro ci sono centinaia — a volte migliaia — di aziende contemporaneamente.</p>
+
+    <p>La parola chiave è <strong>Exchange Traded Fund</strong>: un fondo che replica un indice (come l'S&amp;P 500 o il MSCI World) e che puoi comprare e vendere in borsa come se fosse una singola azione.</p>
+
+    <div class="quote">"Non cercare l'ago nel pagliaio. Compra il pagliaio." — John Bogle, fondatore di Vanguard</div>
+
+    <div class="sec-title">Perché funziona così bene</div>
+
+    <p>Tre motivi concreti. Primo, la <strong>diversificazione automatica</strong>: se una delle 500 aziende dell'S&amp;P va male, le altre 499 attutiscono il colpo. Con un singolo titolo, se va male, va male tutto.</p>
+
+    <p>Secondo, il <strong>costo bassissimo</strong>. Un ETF sull'indice mondiale costa tipicamente tra 0,07% e 0,20% l'anno. Un fondo gestito attivamente costa 1,5–2,5%. Su 30 anni, quella differenza vale decine di migliaia di euro.</p>
+
+    <p>Terzo, la <strong>semplicità operativa</strong>. Si compra come un'azione, si tiene ferma, ci si dimentica. Non ci sono analisi da fare, nessun gestore a cui credere.</p>
+
+    <div class="sec-title">ETF vs fondo attivo</div>
+
+    <div class="confronto">
+      <div class="conf-box etf" id="confEtf">
+        <canvas class="conf-box-canvas" id="confC1"></canvas>
+        <div class="conf-label">ETF su indice</div>
+        <h4>Replica il mercato</h4>
+        <ul>
+          <li>Costo: 0,07–0,20% annuo</li>
+          <li>Batte l'80% dei fondi attivi nel lungo periodo</li>
+          <li>Trasparente: sai sempre cosa c'è dentro</li>
+          <li>Nessun gestore da valutare</li>
+        </ul>
+      </div>
+      <div class="conf-box fondo" id="confFondo">
+        <canvas class="conf-box-canvas" id="confC2"></canvas>
+        <div class="conf-label">Fondo attivo</div>
+        <h4>Batte il mercato?</h4>
+        <ul>
+          <li>Costo: 1,5–2,5% annuo</li>
+          <li>Solo il 20% batte l'indice nel lungo periodo</li>
+          <li>Non sempre trasparente nella composizione</li>
+          <li>Dipende dalle decisioni di una persona</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sec-title">Come scegliere il primo ETF</div>
+
+    <p>Se sei agli inizi, la scelta più semplice è un ETF sul mercato azionario mondiale — ad esempio uno che replica il <strong>MSCI World</strong> o l'<strong>FTSE All-World</strong>. Contengono migliaia di aziende in tutto il mondo. Nessuna scommessa geografica, nessuna scommessa settoriale.</p>
+
+    <p>Guarda tre cose: il <strong>TER</strong> (Total Expense Ratio, più basso è meglio), se è <strong>accumulazione</strong> (reinveste automaticamente i dividendi) o distribuzione, e se è <strong>fisico</strong> (compra davvero le azioni) o sintetico (replica con derivati).</p>
+
+    <div class="sec-title">Tre passi per iniziare</div>
+
+    <div class="ant-grid">
+      <div class="ant-box" id="antBox1">
+        <canvas class="ant-box-canvas" id="antC1"></canvas>
+        <div class="ant-big-num">1</div>
+        <div class="ant-box-title">Scegli un broker</div>
+        <div class="ant-box-text">Fineco, Degiro, IBKR. Cerca zero commissioni sull'ETF che vuoi.</div>
+      </div>
+      <div class="ant-box" id="antBox2">
+        <canvas class="ant-box-canvas" id="antC2"></canvas>
+        <div class="ant-big-num">2</div>
+        <div class="ant-box-title">Cerca il ticker</div>
+        <div class="ant-box-text">SWDA, VWCE, IWDA. Tre lettere, migliaia di aziende dentro.</div>
+      </div>
+      <div class="ant-box" id="antBox3">
+        <canvas class="ant-box-canvas" id="antC3"></canvas>
+        <div class="ant-big-num">3</div>
+        <div class="ant-box-title">Compra e aspetta</div>
+        <div class="ant-box-text">Non guardarlo ogni giorno. L'orizzonte è anni, non settimane.</div>
+      </div>
+    </div>
+
+    <p>Il segreto non è scegliere l'ETF perfetto. È comprarne uno buono e tenerlo abbastanza a lungo da lasciar lavorare il tempo.</p>
+
+  </div>
+
+  <a class="next-card" href="tovagliolo-03-pac.html">
+    <div>
+      <div class="next-label">Prossimo tovagliolo</div>
+      <div class="next-title">PAC — Investire ogni mese senza pensarci</div>
+    </div>
+    <div class="next-arrow">→</div>
+  </a>
+
+  <div class="beehiiv">
+    <h4>Una mail a settimana</h4>
+    <p>Il concetto finanziario più utile della settimana, spiegato su un tovagliolo.</p>
+    <div class="beehiiv-row">
+      <input type="email" placeholder="la-tua@email.it">
+      <button>Iscrivimi — è gratis</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>The Napkin · Non siamo consulenti finanziari · Nessun conflitto di interesse · Fatto con carta e penna (e un po' di codice)</footer>
+
+<script>
+const GREEN='#1d6b4a', AMBER='#b8621a', BLUE='#1a4a6b', INK='#1a1a18', BORDER='#dddbd0';
+
+function drawTovCanvas(){
+  const tov=document.querySelector('.tovagliolo');
+  const c=document.getElementById('tovCanvas');
+  const w=tov.offsetWidth+32, h=tov.offsetHeight+32;
+  c.width=w; c.height=h;
+  const rc=rough.canvas(c);
+  rc.rectangle(4,4,w-8,h-8,{stroke:BLUE,strokeWidth:2,roughness:3,fill:'none'});
+  rc.rectangle(10,10,w-20,h-20,{stroke:BORDER,strokeWidth:1,roughness:2.5,fill:'none'});
+}
+
+function drawSketch(){
+  const c=document.getElementById('sketchCanvas');
+  c.width=c.parentElement.offsetWidth;
+  const w=c.width, h=240;
+  const ctx=c.getContext('2d');
+  ctx.clearRect(0,0,w,h);
+  const rc=rough.canvas(c);
+
+  // Carrello grande al centro
+  const cx=w/2, cy=120;
+
+  // Basket body
+  rc.rectangle(cx-90,cy-40,180,80,{stroke:INK,strokeWidth:2,roughness:2.5,fill:'none'});
+  // Wheels
+  rc.circle(cx-50,cy+52,20,{stroke:INK,strokeWidth:1.5,roughness:2,fill:'none'});
+  rc.circle(cx+50,cy+52,20,{stroke:INK,strokeWidth:1.5,roughness:2,fill:'none'});
+  // Handle
+  rc.line(cx-90,cy-40,cx-110,cy-70,{stroke:INK,strokeWidth:2,roughness:2});
+  rc.line(cx-110,cy-70,cx+110,cy-70,{stroke:INK,strokeWidth:2,roughness:2});
+  rc.line(cx+110,cy-70,cx+90,cy-40,{stroke:INK,strokeWidth:2,roughness:2});
+
+  // Mini companies inside
+  const companies=[
+    {x:cx-60,y:cy,label:'AAPL',c:GREEN},
+    {x:cx,y:cy,label:'MSFT',c:BLUE},
+    {x:cx+55,y:cy,label:'NVDA',c:AMBER},
+  ];
+  companies.forEach(co=>{
+    rc.circle(co.x,co.y,28,{stroke:co.c,strokeWidth:1.5,roughness:2,fill:co.c+'22',fillStyle:'solid'});
+    ctx.font='600 10px "DM Mono",monospace';
+    ctx.fillStyle=co.c;
+    ctx.textAlign='center';
+    ctx.fillText(co.label,co.x,co.y+4);
+  });
+
+  // Label
+  ctx.font='500 13px "DM Sans",sans-serif';
+  ctx.fillStyle='#8a8a80';
+  ctx.textAlign='center';
+  ctx.fillText('1 ETF = migliaia di aziende dentro',cx,h-12);
+}
+
+function drawAntBox(canvasId,boxId,color){
+  const box=document.getElementById(boxId);
+  const c=document.getElementById(canvasId);
+  const w=box.offsetWidth+16, h=box.offsetHeight+16;
+  c.width=w; c.height=h;
+  const rc=rough.canvas(c);
+  rc.rectangle(4,4,w-8,h-8,{stroke:color,strokeWidth:2,roughness:3,fill:'none'});
+}
+
+function drawConfBox(canvasId,boxId,color){
+  const box=document.getElementById(boxId);
+  const c=document.getElementById(canvasId);
+  const w=box.offsetWidth+14, h=box.offsetHeight+14;
+  c.width=w; c.height=h;
+  const rc=rough.canvas(c);
+  rc.rectangle(4,4,w-8,h-8,{stroke:color,strokeWidth:2,roughness:2.8,fill:'none'});
+}
+
+let animDrawn=false;
+function drawDiversAnim(){
+  if(animDrawn) return;
+  animDrawn=true;
+  const c=document.getElementById('napkinArtCanvas');
+  const ctx=c.getContext('2d');
+  ctx.clearRect(0,0,480,220);
+  const rc=rough.canvas(c);
+
+  const stocks=[
+    {x:80,y:110,r:28,label:'A',col:GREEN,up:true},
+    {x:160,y:110,r:28,label:'B',col:AMBER,up:false},
+    {x:240,y:110,r:28,label:'C',col:BLUE,up:true},
+    {x:320,y:110,r:28,label:'D',col:'#8b2a2a',up:false},
+    {x:400,y:110,r:28,label:'E',col:INK,up:true},
+  ];
+
+  let step=0;
+  const steps=[];
+
+  stocks.forEach((s,i)=>{
+    steps.push(()=>{
+      rc.circle(s.x,s.y,s.r*2,{stroke:s.col,strokeWidth:1.5,roughness:2,fill:s.col+'22',fillStyle:'solid'});
+      ctx.font='700 13px "DM Mono",monospace';
+      ctx.fillStyle=s.col;ctx.textAlign='center';
+      ctx.fillText(s.label,s.x,s.y+5);
+      // arrow up/down
+      const ay=s.up?s.y-s.r-12:s.y+s.r+8;
+      ctx.font='600 16px "DM Sans",sans-serif';
+      ctx.fillStyle=s.up?GREEN:'#8b2a2a';
+      ctx.fillText(s.up?'↑':'↓',s.x,ay);
+    });
+  });
+
+  steps.push(()=>{
+    // Brace / equals
+    rc.line(60,170,420,170,{stroke:INK,strokeWidth:1.5,roughness:2});
+    rc.line(60,170,60,185,{stroke:INK,strokeWidth:1.5,roughness:2});
+    rc.line(420,170,420,185,{stroke:INK,strokeWidth:1.5,roughness:2});
+  });
+
+  steps.push(()=>{
+    rc.rectangle(160,185,160,26,{stroke:GREEN,strokeWidth:2,roughness:2.5,fill:GREEN+'18',fillStyle:'solid'});
+    ctx.font='500 12px "DM Sans",sans-serif';
+    ctx.fillStyle=GREEN;ctx.textAlign='center';
+    ctx.fillText('portafoglio: +medio stabile',240,203);
+  });
+
+  steps.push(()=>{
+    ctx.font='400 11px "DM Mono",monospace';
+    ctx.fillStyle='#8a8a80';ctx.textAlign='center';
+    ctx.fillText('Le perdite si compensano. Le vincite si sommano.',240,218);
+  });
+
+  const iv=setInterval(()=>{
+    if(step<steps.length){steps[step]();step++;}
+    else clearInterval(iv);
+  },340);
+}
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting) drawDiversAnim();});
+},{threshold:0.3});
+observer.observe(document.getElementById('napkinArtWrap'));
+
+window.addEventListener('load',()=>{
+  drawTovCanvas();
+  drawSketch();
+  setTimeout(()=>{
+    drawAntBox('antC1','antBox1',GREEN);
+    drawAntBox('antC2','antBox2',BLUE);
+    drawAntBox('antC3','antBox3',INK);
+    drawConfBox('confC1','confEtf',GREEN);
+    drawConfBox('confC2','confFondo',AMBER);
+  },150);
+});
+window.addEventListener('resize',()=>{
+  drawTovCanvas();
+  drawSketch();
+  drawAntBox('antC1','antBox1',GREEN);
+  drawAntBox('antC2','antBox2',BLUE);
+  drawAntBox('antC3','antBox3',INK);
+  drawConfBox('confC1','confEtf',GREEN);
+  drawConfBox('confC2','confFondo',AMBER);
+});
+</script>
+</body>
+</html>
