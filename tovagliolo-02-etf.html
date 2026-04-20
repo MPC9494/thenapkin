@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ETF — Il carrello già pronto della finanza — The Napkin</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rough.js/4.5.2/rough.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -16,7 +16,7 @@
   --blue:#1a4a6b;--blue-l:#e4eef5;
   --border:#dddbd0;
   --serif:'Playfair Display',Georgia,serif;
-  --sans:'DM Sans',sans-serif;
+  --sans:'Plus Jakarta Sans',sans-serif;
   --mono:'DM Mono',monospace;
 }
 body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:19px;line-height:1.6;min-height:100vh}
@@ -97,7 +97,7 @@ footer{text-align:center;padding:32px 40px;font-size:13px;font-family:var(--mono
   <a class="logo" href="index.html"><span class="logo-dot"></span>The Napkin</a>
   <div class="nav-links">
     <a class="nb nav-label" href="tovagliolo-01-bias.html">I Napkins</a>
-    <a class="nb nav-label" href="#glossario">Glossario</a>
+    <a class="nb nav-label" href="glossario.html">Glossario</a>
     <a class="nb cta" href="#">Newsletter</a>
   </div>
 </nav>
@@ -280,7 +280,7 @@ function drawSketch(){
   });
 
   // Label
-  ctx.font='500 13px "DM Sans",sans-serif';
+  ctx.font='500 13px "Plus Jakarta Sans",sans-serif';
   ctx.fillStyle='#8a8a80';
   ctx.textAlign='center';
   ctx.fillText('1 ETF = migliaia di aziende dentro',cx,h-12);
@@ -332,7 +332,7 @@ function drawDiversAnim(){
       ctx.fillText(s.label,s.x,s.y+5);
       // arrow up/down
       const ay=s.up?s.y-s.r-12:s.y+s.r+8;
-      ctx.font='600 16px "DM Sans",sans-serif';
+      ctx.font='600 16px "Plus Jakarta Sans",sans-serif';
       ctx.fillStyle=s.up?GREEN:'#8b2a2a';
       ctx.fillText(s.up?'↑':'↓',s.x,ay);
     });
@@ -347,7 +347,7 @@ function drawDiversAnim(){
 
   steps.push(()=>{
     rc.rectangle(160,185,160,26,{stroke:GREEN,strokeWidth:2,roughness:2.5,fill:GREEN+'18',fillStyle:'solid'});
-    ctx.font='500 12px "DM Sans",sans-serif';
+    ctx.font='500 12px "Plus Jakarta Sans",sans-serif';
     ctx.fillStyle=GREEN;ctx.textAlign='center';
     ctx.fillText('portafoglio: +medio stabile',240,203);
   });

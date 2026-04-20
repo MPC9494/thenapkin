@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Inflazione — La tassa che non vedi ma paghi sempre — The Napkin</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rough.js/4.5.2/rough.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -16,7 +16,7 @@
   --red:#8b2a2a;--red-l:#fdf0f0;
   --border:#dddbd0;
   --serif:'Playfair Display',Georgia,serif;
-  --sans:'DM Sans',sans-serif;
+  --sans:'Plus Jakarta Sans',sans-serif;
   --mono:'DM Mono',monospace;
 }
 body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:19px;line-height:1.6;min-height:100vh}
@@ -97,7 +97,7 @@ footer{text-align:center;padding:32px 40px;font-size:13px;font-family:var(--mono
   <a class="logo" href="index.html"><span class="logo-dot"></span>The Napkin</a>
   <div class="nav-links">
     <a class="nb nav-label" href="tovagliolo-01-bias.html">I Napkins</a>
-    <a class="nb nav-label" href="#glossario">Glossario</a>
+    <a class="nb nav-label" href="glossario.html">Glossario</a>
     <a class="nb cta" href="#">Newsletter</a>
   </div>
 </nav>
@@ -246,7 +246,7 @@ function drawSketch(){
 
   // Arrow
   rc.line(b1x+58,by,b2x-52,by,{stroke:RED,strokeWidth:2,roughness:2.5});
-  ctx.font='500 12px "DM Sans",sans-serif';ctx.fillStyle=RED;ctx.textAlign='center';
+  ctx.font='500 12px "Plus Jakarta Sans",sans-serif';ctx.fillStyle=RED;ctx.textAlign='center';
   ctx.fillText('10 anni',w/2,by-12);
   ctx.font='400 11px "DM Mono",monospace';ctx.fillStyle=RED;
   ctx.fillText('@ 3% inflaz.',w/2,by+4);
@@ -333,7 +333,7 @@ function drawPowerAnim(){
   }
 
   steps.push(()=>{
-    ctx.font='500 12px "DM Sans",sans-serif';ctx.fillStyle=RED;ctx.textAlign='right';
+    ctx.font='500 12px "Plus Jakarta Sans",sans-serif';ctx.fillStyle=RED;ctx.textAlign='right';
     ctx.fillText('fermo sul conto (-3%/a)',padL+W-4,toY(pts_real[years])-8);
     ctx.fillStyle=GREEN;ctx.textAlign='right';
     ctx.fillText('investito (+4% reale)',padL+W-4,toY(pts_invest[years])+16);
