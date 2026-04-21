@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inflazione — La tassa che non vedi ma paghi sempre — The Napkin</title>
+<title>Inflazione — The Napkin</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rough.js/4.5.2/rough.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --ink:#1a1a18;--ink2:#4a4a44;--ink3:#8a8a80;
-  --paper:#faf9f5;--paper2:#f3f2ec;--paper3:#ebe9e0;
+  --paper:#faf9f5;--paper2:#f3f2ec;
   --green:#1d6b4a;--green-l:#e8f5ee;--green-m:#b8ddc9;
-  --amber:#b8621a;--amber-l:#fdf0e4;
+  --amber:#b8621a;
   --red:#8b2a2a;--red-l:#fdf0f0;
   --border:#dddbd0;
   --serif:'Playfair Display',Georgia,serif;
@@ -20,9 +20,10 @@
   --mono:'DM Mono',monospace;
 }
 body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:19px;line-height:1.6;min-height:100vh}
-nav{display:flex;align-items:center;justify-content:space-between;padding:18px 40px;border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:100}
+nav{display:flex;align-items:center;justify-content:space-between;padding:14px 40px;border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:400;min-height:60px}
 .logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:10px;text-decoration:none}
 .logo-dot{width:10px;height:10px;background:var(--green);border-radius:50%;display:inline-block}
+.nav-links{display:flex;gap:4px;align-items:center;flex-direction:row}
 .nb{background:none;border:none;font-family:var(--sans);font-size:15px;color:var(--ink2);padding:8px 16px;border-radius:7px;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-block}
 .nb:hover{background:var(--paper2);color:var(--ink)}
 .nb.cta{background:var(--ink);color:var(--paper);font-weight:600}
@@ -32,62 +33,66 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 .bc a{color:var(--ink3);text-decoration:none}.bc a:hover{color:var(--ink)}
 .art-cat{display:inline-block;font-size:11px;font-family:var(--mono);color:var(--red);background:var(--red-l);padding:5px 14px;border-radius:20px;margin-bottom:20px;letter-spacing:.07em;text-transform:uppercase}
 .art-title{font-family:var(--serif);font-size:clamp(34px,5vw,52px);font-weight:700;line-height:1.08;color:var(--ink);margin-bottom:16px}
+.art-title em{font-style:italic;color:var(--red)}
 .art-sub{font-size:21px;color:var(--ink2);line-height:1.6;margin-bottom:28px;max-width:600px;font-weight:300}
 .art-meta{display:flex;align-items:center;gap:20px;padding-bottom:28px;border-bottom:1px solid var(--border);margin-bottom:48px}
 .art-meta-item{font-size:12px;font-family:var(--mono);color:var(--ink3)}
 .tovagliolo-wrap{position:relative;margin-bottom:56px}
 .tovagliolo-canvas{position:absolute;top:-16px;left:-16px;pointer-events:none;z-index:0}
-.tovagliolo{background:#f6f4ee;border-radius:4px;padding:36px 32px 36px;position:relative;z-index:1}
+.tovagliolo{background:#f6f4ee;border-radius:4px;padding:36px 32px;position:relative;z-index:1}
 .tovagliolo::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(180deg,transparent 0,transparent 31px,rgba(150,145,128,.09) 31px,rgba(150,145,128,.09) 32px);pointer-events:none}
 .tov-eyebrow{font-size:11px;font-family:var(--mono);color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px;position:relative;z-index:1;display:flex;align-items:center;gap:10px}
 .tov-eyebrow::after{content:'';flex:1;height:1px;background:var(--border)}
 .tov-sketch{display:block;width:100%;position:relative;z-index:1}
-.art-body{font-size:19px;color:var(--ink2);line-height:1.7;font-weight:400}
-.art-body p{margin-bottom:24px}
+.art-body{font-size:19px;color:var(--ink2);line-height:1.7}
+.art-body p{margin-bottom:22px}
 .art-body strong{color:var(--ink);font-weight:600}
-.sec-title{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--ink);margin:48px 0 18px}
-.quote{border-left:3px solid var(--red);padding:16px 24px;background:var(--red-l);border-radius:0 8px 8px 0;font-size:19px;color:var(--ink);font-style:italic;line-height:1.6;margin:36px 0}
-.napkin-art-wrap{margin:0 0 48px;text-align:center}
-.napkin-art-label{font-size:11px;font-family:var(--mono);color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
-.calc-box{background:var(--paper2);border-radius:4px;padding:32px;margin:32px 0;position:relative}
-.calc-canvas-wrap{position:absolute;top:-8px;left:-8px;pointer-events:none}
-.calc-title{font-size:12px;font-family:var(--mono);color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px}
-.calc-input-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:24px}
-.calc-input{font-family:var(--mono);font-size:22px;font-weight:500;color:var(--ink);background:var(--paper);border:1.5px solid var(--border);border-radius:4px;padding:10px 16px;width:180px;outline:none;transition:border-color .15s}
-.calc-input:focus{border-color:var(--red)}
-.calc-label{font-size:15px;color:var(--ink2);font-weight:300}
-.calc-result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.calc-cell{background:var(--paper);border-radius:4px;padding:16px;text-align:center}
-.calc-cell-year{font-size:12px;font-family:var(--mono);color:var(--ink3);margin-bottom:6px}
-.calc-cell-val{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--red)}
-.calc-cell-loss{font-size:12px;font-family:var(--mono);color:var(--ink3);margin-top:4px}
-.ant-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:0 0 32px}
-.ant-box{background:var(--paper);border-radius:4px;padding:24px 20px;position:relative;min-height:130px}
-.ant-box-canvas{position:absolute;top:-8px;left:-8px;pointer-events:none;z-index:0}
-.ant-big-num{font-family:var(--serif);font-size:56px;font-weight:700;color:var(--border);line-height:1;margin-bottom:10px;position:relative;z-index:1}
-.ant-box-title{font-family:var(--sans);font-size:15px;font-weight:600;color:var(--ink);margin-bottom:5px;position:relative;z-index:1}
-.ant-box-text{font-family:var(--sans);font-size:14px;color:var(--ink2);line-height:1.45;font-weight:300;position:relative;z-index:1}
-.next-card{display:flex;align-items:center;justify-content:space-between;background:var(--paper2);border:1px solid var(--border);border-radius:4px;padding:24px 28px;margin:56px 0 40px;text-decoration:none;transition:all .2s}
-.next-card:hover{border-color:var(--ink);transform:translateX(4px)}
-.next-label{font-size:11px;font-family:var(--mono);color:var(--ink3);margin-bottom:8px;letter-spacing:.06em;text-transform:uppercase}
-.next-title{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--ink);line-height:1.2}
-.next-arrow{font-size:24px;color:var(--green);flex-shrink:0;margin-left:20px}
+.sec-title{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink);margin:44px 0 16px}
+.example-box{background:var(--paper2);border-radius:4px;padding:22px 24px;margin:28px 0;border-left:3px solid var(--red)}
+.example-label{font-family:var(--mono);font-size:10px;color:var(--red);letter-spacing:.09em;text-transform:uppercase;margin-bottom:10px}
+.example-text{font-size:17px;color:var(--ink);line-height:1.65}
+.example-text strong{font-weight:600}
+.slider-box{background:var(--paper2);border-radius:4px;padding:28px 32px;margin:28px 0;position:relative}
+.slider-canvas{position:absolute;top:-8px;left:-8px;pointer-events:none}
+.slider-title{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px}
+.slider-row{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.slider-row label{font-size:14px;color:var(--ink2);min-width:110px;font-weight:300}
+.slider-row input[type=range]{flex:1;accent-color:var(--red)}
+.slider-row span{font-family:var(--mono);font-size:14px;color:var(--ink);min-width:70px;text-align:right;font-weight:500}
+.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.result-cell{background:var(--paper);border-radius:4px;padding:14px;text-align:center;border:1px solid var(--border)}
+.result-year{font-family:var(--mono);font-size:11px;color:var(--ink3);margin-bottom:6px}
+.result-val{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--red)}
+.result-loss{font-family:var(--mono);font-size:11px;color:var(--ink3);margin-top:4px}
+.confronto{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0}
+.conf-col{padding:20px;border-radius:4px;position:relative}
+.conf-canvas{position:absolute;top:-6px;left:-6px;pointer-events:none}
+.conf-col.bad{border:1.5px solid #e0b4b4;background:#fff8f8}
+.conf-col.good{border:1.5px solid var(--green-m);background:var(--green-l)}
+.conf-head{font-size:11px;font-family:var(--mono);letter-spacing:.07em;text-transform:uppercase;margin-bottom:12px}
+.conf-col.bad .conf-head{color:var(--red)}
+.conf-col.good .conf-head{color:var(--green)}
+.conf-item{font-size:15px;color:var(--ink2);padding:5px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.4;font-weight:300;border-bottom:1px solid rgba(0,0,0,.06)}
+.conf-item:last-child{border-bottom:none}
+.conf-col.bad .conf-item::before{content:'→';font-family:var(--mono);font-size:11px;color:var(--red);flex-shrink:0;margin-top:2px}
+.conf-col.good .conf-item::before{content:'→';font-family:var(--mono);font-size:11px;color:var(--green);flex-shrink:0;margin-top:2px}
 .beehiiv{background:var(--ink);border-radius:4px;padding:40px;color:var(--paper);text-align:center}
-.beehiiv h4{font-family:var(--serif);font-size:28px;font-weight:700;margin-bottom:12px}
-.beehiiv p{font-size:17px;color:rgba(255,255,255,.65);margin-bottom:28px;line-height:1.5;font-weight:300}
-.beehiiv-row{display:flex;gap:12px;max-width:420px;margin:0 auto}
-.beehiiv input{flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:14px 18px;color:var(--paper);font-size:16px;font-family:var(--sans);outline:none}
+.beehiiv h4{font-family:var(--serif);font-size:26px;font-weight:700;margin-bottom:10px}
+.beehiiv p{font-size:16px;color:rgba(255,255,255,.6);margin-bottom:24px;font-weight:300}
+.beehiiv-row{display:flex;gap:12px;max-width:400px;margin:0 auto}
+.beehiiv input{flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:13px 16px;color:var(--paper);font-size:15px;font-family:var(--sans);outline:none}
 .beehiiv input::placeholder{color:rgba(255,255,255,.35)}
-.beehiiv button{background:var(--green);color:var(--paper);border:none;border-radius:4px;padding:14px 24px;font-size:16px;font-weight:600;font-family:var(--sans);cursor:pointer;white-space:nowrap;transition:opacity .15s}
+.beehiiv button{background:var(--green);color:var(--paper);border:none;border-radius:4px;padding:13px 22px;font-size:15px;font-weight:600;font-family:var(--sans);cursor:pointer;white-space:nowrap}
 .beehiiv button:hover{opacity:.85}
 footer{text-align:center;padding:32px 40px;font-size:13px;font-family:var(--mono);color:var(--ink3);border-top:1px solid var(--border)}
 @media(max-width:640px){
   nav{padding:14px 20px}
   .wrap{padding:40px 20px 72px}
-  .calc-result-grid{grid-template-columns:1fr 1fr}
-  .ant-grid{grid-template-columns:1fr;gap:14px}
+  .result-grid{grid-template-columns:1fr 1fr}
+  .confronto{grid-template-columns:1fr}
   .beehiiv-row{flex-direction:column}
   .nb.nav-label{display:none}
+  .slider-box{padding:20px}
 }
 </style>
 </head>
@@ -96,107 +101,101 @@ footer{text-align:center;padding:32px 40px;font-size:13px;font-family:var(--mono
 <nav>
   <a class="logo" href="index.html"><span class="logo-dot"></span>The Napkin</a>
   <div class="nav-links">
-    
-    <a class="nb cta" href="#">Newsletter</a>
+    <a class="nb cta" href="https://thenapkin.beehiiv.com">Newsletter</a>
   </div>
 </nav>
 
 <div class="wrap">
 
   <div class="bc">
-    <a href="index.html">Home</a><span>&rsaquo;</span>
-    <a href="tovagliolo-01-bias.html">I Napkins</a><span>&rsaquo;</span>
+    <a href="index.html">Home</a><span>›</span>
+    <a href="#">I Napkins</a><span>›</span>
     Inflazione
   </div>
 
   <span class="art-cat">Fondamenta</span>
-  <h1 class="art-title">Inflazione — La tassa che non vedi ma paghi sempre</h1>
-  <p class="art-sub">Non ti toglie i soldi dal conto. Ti toglie quello che ci puoi comprare.</p>
+  <h1 class="art-title">L'inflazione non ti <em>ruba</em> i soldi.<br>Ti ruba quello che ci compri.</h1>
+  <p class="art-sub">Il saldo rimane lo stesso. Il problema è fuori — nei prezzi.</p>
+
   <div class="art-meta">
-    <span class="art-meta-item">Tovagliolo #04</span>
-    <span class="art-meta-item">5 min di lettura</span>
-    <span class="art-meta-item">Livello: Principiante</span>
+    <span class="art-meta-item">Napkin #04</span>
+    <span class="art-meta-item">5 min</span>
+    <span class="art-meta-item">Principiante</span>
   </div>
 
   <div class="tovagliolo-wrap">
     <canvas class="tovagliolo-canvas" id="tovCanvas"></canvas>
     <div class="tovagliolo">
-      <div class="tov-eyebrow">Lo schizzo sul tovagliolo</div>
+      <div class="tov-eyebrow">Lo schizzo sul napkin</div>
       <canvas id="sketchCanvas" class="tov-sketch" height="200"></canvas>
     </div>
   </div>
 
-  <div class="napkin-art-wrap" id="napkinArtWrap">
-    <div class="napkin-art-label">Il potere d'acquisto nel tempo — scorri per vederlo</div>
-    <canvas id="napkinArtCanvas" width="480" height="200" style="display:block;margin:0 auto;border-radius:4px"></canvas>
-  </div>
-
   <div class="art-body">
 
-    <p>Hai 10.000€ sul conto. Domani mattina ne hai ancora 10.000€. Ma se l'inflazione è al 3%, tra un anno quei 10.000€ comprano le stesse cose che oggi compreresti con 9.709€. I soldi ci sono. Il potere d'acquisto è scomparso.</p>
+    <p>Nel 2014 con 10€ compravi circa 4 caffè al bar a Milano. Oggi ne compri 2 e mezzo. I 10€ ci sono ancora — ma non bastano più per le stesse cose.</p>
 
-    <p>È la tassa più silenziosa che esiste: nessuno te la addebita, nessuno ti manda una lettera. Agisce piano, ogni giorno, erodendo il valore reale di ciò che hai.</p>
+    <p>Questo è l'inflazione. Non una teoria. <strong>È la differenza tra il prezzo della spesa di tua madre nel 2010 e quello di oggi.</strong> Il saldo del conto sembra intatto. Il suo valore reale scende ogni anno.</p>
 
-    <div class="quote">"L'inflazione è come il dentifricio. Una volta uscita dal tubetto, è quasi impossibile rimetterla dentro." — Karl Otto Pöhl</div>
-
-    <div class="sec-title">Calcola la perdita reale</div>
-
-    <div class="calc-box" id="calcBox">
-      <canvas class="calc-canvas-wrap" id="calcCanvas"></canvas>
-      <div class="calc-title">Inserisci il tuo capitale fermo sul conto</div>
-      <div class="calc-input-row">
-        <span style="font-family:var(--mono);font-size:20px;color:var(--ink3)">€</span>
-        <input class="calc-input" type="number" id="calcAmount" value="10000" step="1000">
-        <span class="calc-label">· inflazione 3% annua</span>
-      </div>
-      <div class="calc-result-grid" id="calcResults"></div>
-    </div>
-
-    <div class="sec-title">Perché il conto corrente non basta</div>
-
-    <p>Un conto corrente standard remunera zero. Un conto deposito oggi può dare il 2–3%, ma se l'inflazione è al 3%, il rendimento reale è zero o negativo. Stai correndo sul posto.</p>
-
-    <p>Non è detto che investire sia sempre la risposta. Ma <strong>non fare niente è già una scelta</strong> — e ha un costo preciso, calcolabile ogni anno.</p>
-
-    <div class="sec-title">Chi si difende dall'inflazione</div>
-
-    <p>Storicamente, le attività che battono l'inflazione nel lungo periodo sono le azioni (attraverso ETF), gli immobili e le obbligazioni indicizzate all'inflazione (come i BTP Italia). La liquidità, da sola, perde.</p>
-
-    <p>La regola pratica: tieni sul conto quello che ti serve nei prossimi 12–24 mesi come fondo di emergenza. Il resto lavori.</p>
-
-    <div class="sec-title">Tre risposte concrete</div>
-
-    <div class="ant-grid">
-      <div class="ant-box" id="antBox1">
-        <canvas class="ant-box-canvas" id="antC1"></canvas>
-        <div class="ant-big-num">1</div>
-        <div class="ant-box-title">Fondo d'emergenza</div>
-        <div class="ant-box-text">6 mesi di spese sul conto. Il resto non deve stare fermo.</div>
-      </div>
-      <div class="ant-box" id="antBox2">
-        <canvas class="ant-box-canvas" id="antC2"></canvas>
-        <div class="ant-big-num">2</div>
-        <div class="ant-box-title">ETF azionario</div>
-        <div class="ant-box-text">Storicamente +7% annuo medio. Batte l'inflazione nel lungo periodo.</div>
-      </div>
-      <div class="ant-box" id="antBox3">
-        <canvas class="ant-box-canvas" id="antC3"></canvas>
-        <div class="ant-big-num">3</div>
-        <div class="ant-box-title">BTP Italia</div>
-        <div class="ant-box-text">Rendimento agganciato all'inflazione italiana. Ottimo per la parte stabile.</div>
+    <div class="example-box">
+      <div class="example-label">Esempio concreto</div>
+      <div class="example-text">
+        Hai 30.000€ sul conto da 5 anni, fermi. Ti sembra prudente.<br><br>
+        Con inflazione media al 3%, quei soldi comprano oggi quello che nel 2019 avresti comprato con <strong>25.900€</strong>. Hai perso 4.100€ di potere d'acquisto senza che nessuno ti abbia toccato il conto.
       </div>
     </div>
 
-    <p>Non si tratta di diventare ricchi. Si tratta di non diventare più poveri mentre stai fermo.</p>
+    <p>Non fare niente ha già un costo. Preciso, calcolabile, ogni anno.</p>
+
+    <div class="slider-box" id="sliderBox">
+      <canvas class="slider-canvas" id="sliderCanvas"></canvas>
+      <div class="slider-title">Quanto perdi tenendo fermo?</div>
+      <div class="slider-row">
+        <label>Capitale fermo</label>
+        <input type="range" id="slCap" min="1000" max="100000" step="1000" value="20000">
+        <span id="outCap">€ 20.000</span>
+      </div>
+      <div class="slider-row">
+        <label>Inflazione</label>
+        <input type="range" id="slInf" min="1" max="8" step="0.5" value="3">
+        <span id="outInf">3,0%</span>
+      </div>
+      <div class="result-grid" id="resultGrid"></div>
+    </div>
+
+    <div class="sec-title">Il conto corrente non risolve il problema</div>
+
+    <p>Un conto corrente dà zero. Un conto deposito oggi arriva al 2,5–3% — ma se l'inflazione è al 3% stai correndo sul posto. E appena i tassi scendono, quel rendimento sparisce.</p>
+
+    <p><strong>La liquidità è uno strumento per la sicurezza a breve termine, non per costruire valore nel tempo.</strong> Il fondo di emergenza — 3-6 mesi di spese — va lasciato liquido: è il costo della tranquillità, accettalo. Sul resto non ha senso.</p>
+
+    <div class="confronto">
+      <div class="conf-col bad" id="confBad">
+        <canvas class="conf-canvas" id="confC1"></canvas>
+        <div class="conf-head">Fermo sul conto</div>
+        <div class="conf-item">Perde potere d'acquisto ogni anno</div>
+        <div class="conf-item">Conto corrente: 0% reale</div>
+        <div class="conf-item">Conto deposito: spesso sotto l'inflazione</div>
+        <div class="conf-item">Nessun rischio visibile, ma costo reale garantito</div>
+      </div>
+      <div class="conf-col good" id="confGood">
+        <canvas class="conf-canvas" id="confC2"></canvas>
+        <div class="conf-head">Cosa fa chi ci pensa</div>
+        <div class="conf-item">3-6 mesi di spese liquidi, il resto investe</div>
+        <div class="conf-item">ETF globale: ~7% storico annuo lordo</div>
+        <div class="conf-item">BTP Italia: agganciato all'inflazione IT</div>
+        <div class="conf-item">Ribilancia una volta l'anno, poi lascia fare al tempo</div>
+      </div>
+    </div>
 
   </div>
 
   <div class="beehiiv">
     <h4>Una mail a settimana</h4>
-    <p>Il concetto finanziario più utile della settimana, spiegato su un tovagliolo.</p>
+    <p>Il concetto più utile della settimana, in cinque minuti.</p>
     <div class="beehiiv-row">
       <input type="email" placeholder="la-tua@email.it">
-      <button>Iscrivimi — è gratis</button>
+      <button>Iscrivimi</button>
     </div>
   </div>
 
@@ -205,7 +204,8 @@ footer{text-align:center;padding:32px 40px;font-size:13px;font-family:var(--mono
 <footer>The Napkin · Non siamo consulenti finanziari · Nessun conflitto di interesse · Fatto con carta e penna (e un po' di codice)</footer>
 
 <script>
-const GREEN='#1d6b4a', AMBER='#b8621a', RED='#8b2a2a', INK='#1a1a18', BORDER='#dddbd0';
+const GREEN='#1d6b4a', RED='#8b2a2a', INK='#1a1a18', BORDER='#dddbd0';
+function fmt(n){ return Math.round(n).toLocaleString('it-IT'); }
 
 function drawTovCanvas(){
   const tov=document.querySelector('.tovagliolo');
@@ -224,150 +224,63 @@ function drawSketch(){
   const ctx=c.getContext('2d');
   ctx.clearRect(0,0,w,h);
   const rc=rough.canvas(c);
-
-  // Two piggy banks: today vs 10 years
-  const b1x=w*0.25, b2x=w*0.72, by=100;
-
-  // Big circle (today)
-  rc.circle(b1x,by,100,{stroke:INK,strokeWidth:2,roughness:2.5,fill:'#f6f4ee',fillStyle:'solid'});
-  ctx.font='700 18px "DM Mono",monospace';ctx.fillStyle=INK;ctx.textAlign='center';
-  ctx.fillText('€10.000',b1x,by-4);
+  const b1x=w*0.28, b2x=w*0.72, by=95;
+  rc.circle(b1x,by,110,{stroke:INK,strokeWidth:2,roughness:2.5,fill:'#f6f4ee',fillStyle:'solid'});
+  ctx.font='700 20px "DM Mono",monospace';ctx.fillStyle=INK;ctx.textAlign='center';
+  ctx.fillText('€ 20.000',b1x,by-5);
   ctx.font='400 12px "DM Mono",monospace';ctx.fillStyle='#8a8a80';
-  ctx.fillText('oggi',b1x,by+16);
-
-  // Arrow
-  rc.line(b1x+58,by,b2x-52,by,{stroke:RED,strokeWidth:2,roughness:2.5});
+  ctx.fillText('oggi',b1x,by+14);
+  rc.line(b1x+62,by,b2x-55,by,{stroke:RED,strokeWidth:2,roughness:2.5});
   ctx.font='500 12px "Plus Jakarta Sans",sans-serif';ctx.fillStyle=RED;ctx.textAlign='center';
-  ctx.fillText('10 anni',w/2,by-12);
-  ctx.font='400 11px "DM Mono",monospace';ctx.fillStyle=RED;
-  ctx.fillText('@ 3% inflaz.',w/2,by+4);
-
-  // Smaller circle (future)
-  rc.circle(b2x,by,74,{stroke:RED,strokeWidth:2,roughness:2.5,fill:'#fdf0f0',fillStyle:'solid'});
-  ctx.font='700 15px "DM Mono",monospace';ctx.fillStyle=RED;ctx.textAlign='center';
-  ctx.fillText('€7.441',b2x,by-3);
+  ctx.fillText('10 anni · 3% inflazione',w/2,by-14);
+  rc.circle(b2x,by,82,{stroke:RED,strokeWidth:2,roughness:2.5,fill:'#fdf0f0',fillStyle:'solid'});
+  ctx.font='700 17px "DM Mono",monospace';ctx.fillStyle=RED;ctx.textAlign='center';
+  ctx.fillText('€ 14.832',b2x,by-2);
   ctx.font='400 11px "DM Mono",monospace';ctx.fillStyle='#8a8a80';
-  ctx.fillText('potere acquisto',b2x,by+14);
-
-  // Label bottom
+  ctx.fillText('potere acquisto',b2x,by+15);
   ctx.font='400 12px "DM Mono",monospace';ctx.fillStyle='#8a8a80';ctx.textAlign='center';
   ctx.fillText('Stessi soldi. Meno cose che puoi comprare.',w/2,h-10);
 }
 
 function calcResults(){
-  const amt=parseFloat(document.getElementById('calcAmount').value)||10000;
-  const container=document.getElementById('calcResults');
-  const years=[5,10,20];
-  container.innerHTML='';
-  years.forEach(y=>{
-    const real=amt*Math.pow(1-0.03,y);
-    const loss=amt-real;
-    const div=document.createElement('div');
-    div.className='calc-cell';
-    div.innerHTML=`<div class="calc-cell-year">Tra ${y} anni</div>
-      <div class="calc-cell-val">€ ${Math.round(real).toLocaleString('it-IT')}</div>
-      <div class="calc-cell-loss">perdi € ${Math.round(loss).toLocaleString('it-IT')}</div>`;
-    container.appendChild(div);
-  });
+  const cap=parseInt(document.getElementById('slCap').value);
+  const inf=parseFloat(document.getElementById('slInf').value)/100;
+  document.getElementById('outCap').textContent='€ '+fmt(cap);
+  document.getElementById('outInf').textContent=parseFloat(document.getElementById('slInf').value).toFixed(1).replace('.',',')+'%';
+  document.getElementById('resultGrid').innerHTML=[5,10,20].map(y=>{
+    const real=cap*Math.pow(1-inf,y);
+    return `<div class="result-cell">
+      <div class="result-year">Tra ${y} anni</div>
+      <div class="result-val">€ ${fmt(real)}</div>
+      <div class="result-loss">−€ ${fmt(cap-real)}</div>
+    </div>`;
+  }).join('');
 }
 
-function drawCalcBox(){
-  const box=document.getElementById('calcBox');
-  const c=document.getElementById('calcCanvas');
-  const w=box.offsetWidth+16, h=box.offsetHeight+16;
+function drawBox(id,canvasId,color){
+  const box=document.getElementById(id);
+  const c=document.getElementById(canvasId);
+  const w=box.offsetWidth+12, h=box.offsetHeight+12;
   c.width=w; c.height=h;
-  const rc=rough.canvas(c);
-  rc.rectangle(4,4,w-8,h-8,{stroke:RED,strokeWidth:2,roughness:2.8,fill:'none'});
+  rough.canvas(c).rectangle(4,4,w-8,h-8,{stroke:color,strokeWidth:1.8,roughness:2.8,fill:'none'});
 }
 
-document.getElementById('calcAmount').addEventListener('input',calcResults);
-
-let animDrawn=false;
-function drawPowerAnim(){
-  if(animDrawn) return;
-  animDrawn=true;
-  const c=document.getElementById('napkinArtCanvas');
-  const ctx=c.getContext('2d');
-  ctx.clearRect(0,0,480,200);
-  const rc=rough.canvas(c);
-
-  const padL=48,padR=20,padT=20,padB=40;
-  const W=480-padL-padR, H=200-padT-padB;
-
-  const years=30;
-  const pts_real=Array.from({length:years+1},(_,i)=>10000*Math.pow(1-0.03,i));
-  const pts_invest=Array.from({length:years+1},(_,i)=>10000*Math.pow(1.04,i)); // 4% real return
-  const maxV=Math.max(...pts_invest);
-  const toX=i=>padL+(i/years)*W;
-  const toY=v=>padT+H-(v/maxV)*H;
-
-  let step=0;
-  const steps=[];
-
-  steps.push(()=>{
-    rc.line(padL,padT,padL,padT+H,{stroke:INK,strokeWidth:1.5,roughness:1.5});
-    rc.line(padL,padT+H,padL+W,padT+H,{stroke:INK,strokeWidth:1.5,roughness:1.5});
-    ctx.font='400 11px "DM Mono",monospace';ctx.fillStyle='#8a8a80';
-    ctx.textAlign='left';ctx.fillText('€ 10.000',padL+4,padT+14);
-    ctx.textAlign='center';
-    [10,20,30].forEach(y=>{ctx.fillText(y+'a',toX(y),padT+H+16);});
-  });
-
-  for(let i=1;i<=years;i++){
-    const yi=i;
-    steps.push(()=>{
-      if(yi>1){
-        rc.line(toX(yi-1),toY(pts_real[yi-1]),toX(yi),toY(pts_real[yi]),{stroke:RED,strokeWidth:2,roughness:1.2});
-        rc.line(toX(yi-1),toY(pts_invest[yi-1]),toX(yi),toY(pts_invest[yi]),{stroke:GREEN,strokeWidth:2,roughness:1.2});
-      }
-    });
-  }
-
-  steps.push(()=>{
-    ctx.font='500 12px "Plus Jakarta Sans",sans-serif';ctx.fillStyle=RED;ctx.textAlign='right';
-    ctx.fillText('fermo sul conto (-3%/a)',padL+W-4,toY(pts_real[years])-8);
-    ctx.fillStyle=GREEN;ctx.textAlign='right';
-    ctx.fillText('investito (+4% reale)',padL+W-4,toY(pts_invest[years])+16);
-  });
-
-  const iv=setInterval(()=>{
-    if(step<steps.length){steps[step]();step++;}
-    else clearInterval(iv);
-  },80);
-}
-
-function drawAntBox(id,boxId,color){
-  const box=document.getElementById(boxId);
-  const c=document.getElementById(id);
-  const w=box.offsetWidth+16, h=box.offsetHeight+16;
-  c.width=w; c.height=h;
-  const rc=rough.canvas(c);
-  rc.rectangle(4,4,w-8,h-8,{stroke:color,strokeWidth:2,roughness:3,fill:'none'});
-}
-
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting) drawPowerAnim();});
-},{threshold:0.3});
-observer.observe(document.getElementById('napkinArtWrap'));
+document.getElementById('slCap').addEventListener('input',calcResults);
+document.getElementById('slInf').addEventListener('input',calcResults);
 
 window.addEventListener('load',()=>{
-  drawTovCanvas();
-  drawSketch();
-  calcResults();
+  drawTovCanvas(); drawSketch(); calcResults();
   setTimeout(()=>{
-    drawCalcBox();
-    drawAntBox('antC1','antBox1',GREEN);
-    drawAntBox('antC2','antBox2',AMBER);
-    drawAntBox('antC3','antBox3',INK);
+    drawBox('sliderBox','sliderCanvas',RED);
+    drawBox('confBad','confC1',RED);
+    drawBox('confGood','confC2',GREEN);
   },150);
 });
 window.addEventListener('resize',()=>{
-  drawTovCanvas();
-  drawSketch();
-  drawCalcBox();
-  drawAntBox('antC1','antBox1',GREEN);
-  drawAntBox('antC2','antBox2',AMBER);
-  drawAntBox('antC3','antBox3',INK);
+  drawTovCanvas(); drawSketch();
+  drawBox('sliderBox','sliderCanvas',RED);
+  drawBox('confBad','confC1',RED);
+  drawBox('confGood','confC2',GREEN);
 });
 </script>
 <script src="nav.js"></script>

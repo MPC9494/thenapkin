@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PAC — Investire ogni mese senza pensarci — The Napkin</title>
+<title>PAC — The Napkin</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rough.js/4.5.2/rough.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --ink:#1a1a18;--ink2:#4a4a44;--ink3:#8a8a80;
-  --paper:#faf9f5;--paper2:#f3f2ec;--paper3:#ebe9e0;
+  --paper:#faf9f5;--paper2:#f3f2ec;
   --green:#1d6b4a;--green-l:#e8f5ee;--green-m:#b8ddc9;
-  --amber:#b8621a;--amber-l:#fdf0e4;
+  --amber:#b8621a;
   --purple:#4a3080;--purple-l:#eeebfb;
   --border:#dddbd0;
   --serif:'Playfair Display',Georgia,serif;
@@ -20,9 +20,10 @@
   --mono:'DM Mono',monospace;
 }
 body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:19px;line-height:1.6;min-height:100vh}
-nav{display:flex;align-items:center;justify-content:space-between;padding:18px 40px;border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:100}
+nav{display:flex;align-items:center;justify-content:space-between;padding:14px 40px;border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:400;min-height:60px}
 .logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:10px;text-decoration:none}
 .logo-dot{width:10px;height:10px;background:var(--green);border-radius:50%;display:inline-block}
+.nav-links{display:flex;gap:4px;align-items:center;flex-direction:row}
 .nb{background:none;border:none;font-family:var(--sans);font-size:15px;color:var(--ink2);padding:8px 16px;border-radius:7px;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-block}
 .nb:hover{background:var(--paper2);color:var(--ink)}
 .nb.cta{background:var(--ink);color:var(--paper);font-weight:600}
@@ -32,59 +33,53 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 .bc a{color:var(--ink3);text-decoration:none}.bc a:hover{color:var(--ink)}
 .art-cat{display:inline-block;font-size:11px;font-family:var(--mono);color:var(--purple);background:var(--purple-l);padding:5px 14px;border-radius:20px;margin-bottom:20px;letter-spacing:.07em;text-transform:uppercase}
 .art-title{font-family:var(--serif);font-size:clamp(34px,5vw,52px);font-weight:700;line-height:1.08;color:var(--ink);margin-bottom:16px}
+.art-title em{font-style:italic;color:var(--purple)}
 .art-sub{font-size:21px;color:var(--ink2);line-height:1.6;margin-bottom:28px;max-width:600px;font-weight:300}
 .art-meta{display:flex;align-items:center;gap:20px;padding-bottom:28px;border-bottom:1px solid var(--border);margin-bottom:48px}
 .art-meta-item{font-size:12px;font-family:var(--mono);color:var(--ink3)}
 .tovagliolo-wrap{position:relative;margin-bottom:56px}
 .tovagliolo-canvas{position:absolute;top:-16px;left:-16px;pointer-events:none;z-index:0}
-.tovagliolo{background:#f6f4ee;border-radius:4px;padding:36px 32px 36px;position:relative;z-index:1}
+.tovagliolo{background:#f6f4ee;border-radius:4px;padding:36px 32px;position:relative;z-index:1}
 .tovagliolo::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(180deg,transparent 0,transparent 31px,rgba(150,145,128,.09) 31px,rgba(150,145,128,.09) 32px);pointer-events:none}
 .tov-eyebrow{font-size:11px;font-family:var(--mono);color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px;position:relative;z-index:1;display:flex;align-items:center;gap:10px}
 .tov-eyebrow::after{content:'';flex:1;height:1px;background:var(--border)}
 .tov-sketch{display:block;width:100%;position:relative;z-index:1}
-.art-body{font-size:19px;color:var(--ink2);line-height:1.7;font-weight:400}
-.art-body p{margin-bottom:24px}
+.art-body{font-size:19px;color:var(--ink2);line-height:1.7}
+.art-body p{margin-bottom:22px}
 .art-body strong{color:var(--ink);font-weight:600}
-.sec-title{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--ink);margin:48px 0 18px}
-.quote{border-left:3px solid var(--purple);padding:16px 24px;background:var(--purple-l);border-radius:0 8px 8px 0;font-size:19px;color:var(--ink);font-style:italic;line-height:1.6;margin:36px 0}
-.sim-box{background:var(--paper2);border-radius:4px;padding:32px;margin:32px 0;position:relative}
-.sim-canvas-wrap{position:absolute;top:-8px;left:-8px;pointer-events:none}
-.sim-title{font-family:var(--mono);font-size:12px;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px}
-.sim-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
-.sim-cell{text-align:center}
-.sim-val{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink)}
-.sim-label{font-size:12px;font-family:var(--mono);color:var(--ink3);margin-top:4px}
-.sim-bar-wrap{display:flex;align-items:flex-end;gap:4px;height:60px;margin-top:16px}
-.sim-bar{flex:1;border-radius:2px 2px 0 0;min-height:4px;transition:height .3s}
-.napkin-art-wrap{margin:0 0 48px;text-align:center}
-.napkin-art-label{font-size:11px;font-family:var(--mono);color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
-.ant-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:0 0 32px}
-.ant-box{background:var(--paper);border-radius:4px;padding:24px 20px;position:relative;min-height:130px}
-.ant-box-canvas{position:absolute;top:-8px;left:-8px;pointer-events:none;z-index:0}
-.ant-big-num{font-family:var(--serif);font-size:56px;font-weight:700;color:var(--border);line-height:1;margin-bottom:10px;position:relative;z-index:1}
-.ant-box-title{font-family:var(--sans);font-size:15px;font-weight:600;color:var(--ink);margin-bottom:5px;position:relative;z-index:1}
-.ant-box-text{font-family:var(--sans);font-size:14px;color:var(--ink2);line-height:1.45;font-weight:300;position:relative;z-index:1}
-.next-card{display:flex;align-items:center;justify-content:space-between;background:var(--paper2);border:1px solid var(--border);border-radius:4px;padding:24px 28px;margin:56px 0 40px;text-decoration:none;transition:all .2s}
-.next-card:hover{border-color:var(--ink);transform:translateX(4px)}
-.next-label{font-size:11px;font-family:var(--mono);color:var(--ink3);margin-bottom:8px;letter-spacing:.06em;text-transform:uppercase}
-.next-title{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--ink);line-height:1.2}
-.next-arrow{font-size:24px;color:var(--green);flex-shrink:0;margin-left:20px}
+.sec-title{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink);margin:44px 0 16px}
+.example-box{background:var(--paper2);border-radius:4px;padding:22px 24px;margin:28px 0;border-left:3px solid var(--purple)}
+.example-label{font-family:var(--mono);font-size:10px;color:var(--purple);letter-spacing:.09em;text-transform:uppercase;margin-bottom:10px}
+.example-text{font-size:17px;color:var(--ink);line-height:1.65}
+.example-text strong{font-weight:600}
+.slider-box{background:var(--paper2);border-radius:4px;padding:28px 32px;margin:28px 0;position:relative}
+.slider-canvas{position:absolute;top:-8px;left:-8px;pointer-events:none}
+.slider-title{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px}
+.slider-row{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.slider-row label{font-size:14px;color:var(--ink2);min-width:130px;font-weight:300}
+.slider-row input[type=range]{flex:1;accent-color:var(--purple)}
+.slider-row span{font-family:var(--mono);font-size:14px;color:var(--ink);min-width:80px;text-align:right;font-weight:500}
+.result-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+.result-cell{background:var(--paper);border-radius:4px;padding:12px;text-align:center;border:1px solid var(--border)}
+.result-year{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-bottom:5px}
+.result-val{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--green)}
+.result-versato{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-top:4px}
 .beehiiv{background:var(--ink);border-radius:4px;padding:40px;color:var(--paper);text-align:center}
-.beehiiv h4{font-family:var(--serif);font-size:28px;font-weight:700;margin-bottom:12px}
-.beehiiv p{font-size:17px;color:rgba(255,255,255,.65);margin-bottom:28px;line-height:1.5;font-weight:300}
-.beehiiv-row{display:flex;gap:12px;max-width:420px;margin:0 auto}
-.beehiiv input{flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:14px 18px;color:var(--paper);font-size:16px;font-family:var(--sans);outline:none}
+.beehiiv h4{font-family:var(--serif);font-size:26px;font-weight:700;margin-bottom:10px}
+.beehiiv p{font-size:16px;color:rgba(255,255,255,.6);margin-bottom:24px;font-weight:300}
+.beehiiv-row{display:flex;gap:12px;max-width:400px;margin:0 auto}
+.beehiiv input{flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:13px 16px;color:var(--paper);font-size:15px;font-family:var(--sans);outline:none}
 .beehiiv input::placeholder{color:rgba(255,255,255,.35)}
-.beehiiv button{background:var(--green);color:var(--paper);border:none;border-radius:4px;padding:14px 24px;font-size:16px;font-weight:600;font-family:var(--sans);cursor:pointer;white-space:nowrap;transition:opacity .15s}
+.beehiiv button{background:var(--green);color:var(--paper);border:none;border-radius:4px;padding:13px 22px;font-size:15px;font-weight:600;font-family:var(--sans);cursor:pointer}
 .beehiiv button:hover{opacity:.85}
 footer{text-align:center;padding:32px 40px;font-size:13px;font-family:var(--mono);color:var(--ink3);border-top:1px solid var(--border)}
 @media(max-width:640px){
   nav{padding:14px 20px}
   .wrap{padding:40px 20px 72px}
-  .sim-grid{grid-template-columns:repeat(2,1fr)}
-  .ant-grid{grid-template-columns:1fr;gap:14px}
+  .result-grid{grid-template-columns:1fr 1fr}
   .beehiiv-row{flex-direction:column}
   .nb.nav-label{display:none}
+  .slider-box{padding:20px}
 }
 </style>
 </head>
@@ -93,120 +88,86 @@ footer{text-align:center;padding:32px 40px;font-size:13px;font-family:var(--mono
 <nav>
   <a class="logo" href="index.html"><span class="logo-dot"></span>The Napkin</a>
   <div class="nav-links">
-    
-    <a class="nb cta" href="#">Newsletter</a>
+    <a class="nb cta" href="https://thenapkin.beehiiv.com">Newsletter</a>
   </div>
 </nav>
 
 <div class="wrap">
-
   <div class="bc">
-    <a href="index.html">Home</a><span>&rsaquo;</span>
-    <a href="tovagliolo-01-bias.html">I Napkins</a><span>&rsaquo;</span>
+    <a href="index.html">Home</a><span>›</span>
+    <a href="#">I Napkins</a><span>›</span>
     PAC
   </div>
 
-  <span class="art-cat">Strategie di base</span>
-  <h1 class="art-title">PAC — Investire ogni mese senza pensarci</h1>
-  <p class="art-sub">Stessa cifra. Stesso giorno. Stesso ETF. Il tempo fa il lavoro al posto tuo.</p>
+  <span class="art-cat">Strategie</span>
+  <h1 class="art-title">Il PAC risolve il problema<br>del <em>"aspetto il momento giusto"</em>.</h1>
+  <p class="art-sub">Il momento giusto non arriva mai. Il PAC lo rende irrilevante.</p>
+
   <div class="art-meta">
-    <span class="art-meta-item">Tovagliolo #03</span>
-    <span class="art-meta-item">5 min di lettura</span>
-    <span class="art-meta-item">Livello: Principiante</span>
+    <span class="art-meta-item">Napkin #03</span>
+    <span class="art-meta-item">5 min</span>
+    <span class="art-meta-item">Principiante</span>
   </div>
 
   <div class="tovagliolo-wrap">
     <canvas class="tovagliolo-canvas" id="tovCanvas"></canvas>
     <div class="tovagliolo">
-      <div class="tov-eyebrow">Lo schizzo sul tovagliolo</div>
-      <canvas id="sketchCanvas" class="tov-sketch" height="220"></canvas>
+      <div class="tov-eyebrow">Lo schizzo sul napkin</div>
+      <canvas id="sketchCanvas" class="tov-sketch" height="200"></canvas>
     </div>
-  </div>
-
-  <div class="napkin-art-wrap" id="napkinArtWrap">
-    <div class="napkin-art-label">Cost averaging in azione — scorri per vederlo</div>
-    <canvas id="napkinArtCanvas" width="480" height="200" style="display:block;margin:0 auto;border-radius:4px"></canvas>
   </div>
 
   <div class="art-body">
 
-    <p>PAC sta per <strong>Piano di Accumulo del Capitale</strong>. L'idea è semplice: ogni mese metti da parte una cifra fissa — 100€, 300€, 1.000€, non importa — e la investi automaticamente nello stesso ETF.</p>
+    <p>Gennaio 2020: "aspetto che i mercati si calmino dopo le tensioni USA-Cina." Marzo 2020: mercato crolla del 34%. "Aspetto che tocchi il fondo." Giugno 2020: mercato risale del 50%. "Troppo tardi, aspetto la prossima correzione." Fine 2020: mercati ai massimi storici.</p>
 
-    <p>Non aspetti il momento giusto. Non guardi le notizie. Non cerchi di capire se il mercato è caro o economico. Bonifici, dimentichi, vai avanti.</p>
+    <p><strong>Chi ha aspettato il momento giusto, ha perso l'anno migliore degli ultimi 20.</strong> Chi aveva un PAC automatico ha comprato ogni mese — anche ai minimi di marzo — e ha incassato tutto il rimbalzo.</p>
 
-    <div class="quote">"Il tempo nel mercato batte il timing del mercato." — Ken Fisher</div>
-
-    <div class="sec-title">Perché funziona meglio che aspettare</div>
-
-    <p>Il PAC sfrutta un meccanismo chiamato <strong>cost averaging</strong>: quando il mercato scende, con gli stessi soldi compri più quote. Quando sale, ne compri meno. Nel tempo, il prezzo medio di acquisto tende a essere inferiore al prezzo medio del mercato.</p>
-
-    <p>L'alternativa — aspettare il momento giusto per investire tutto in una volta — suona bene in teoria. In pratica, nessuno sa quando è il momento giusto. Nemmeno i professionisti. Il PAC elimina il problema togliendo la decisione dall'equazione.</p>
-
-    <div class="sec-title">La simulazione sul tovagliolo</div>
-
-    <div class="sim-box" id="simBox">
-      <canvas class="sim-canvas-wrap" id="simCanvas"></canvas>
-      <div class="sim-title">200€ al mese · ETF globale · 7% annuo medio</div>
-      <div class="sim-grid">
-        <div class="sim-cell">
-          <div class="sim-val">5 anni</div>
-          <div class="sim-label">Versato: 12.000€</div>
-          <div class="sim-label" style="color:#1d6b4a;font-weight:600">Valore: ~14.400€</div>
-        </div>
-        <div class="sim-cell">
-          <div class="sim-val">10 anni</div>
-          <div class="sim-label">Versato: 24.000€</div>
-          <div class="sim-label" style="color:#1d6b4a;font-weight:600">Valore: ~34.600€</div>
-        </div>
-        <div class="sim-cell">
-          <div class="sim-val">20 anni</div>
-          <div class="sim-label">Versato: 48.000€</div>
-          <div class="sim-label" style="color:#1d6b4a;font-weight:600">Valore: ~104.000€</div>
-        </div>
-        <div class="sim-cell">
-          <div class="sim-val">30 anni</div>
-          <div class="sim-label">Versato: 72.000€</div>
-          <div class="sim-label" style="color:#1d6b4a;font-weight:600">Valore: ~243.000€</div>
-        </div>
-      </div>
-      <div class="sim-bar-wrap" id="simBars"></div>
-    </div>
-
-    <p>La differenza tra versato e valore finale è il <strong>rendimento composto</strong>: gli interessi generano interessi, che generano altri interessi. Più tempo passa, più la curva si impenna.</p>
-
-    <div class="sec-title">Come impostarlo in 20 minuti</div>
-
-    <div class="ant-grid">
-      <div class="ant-box" id="antBox1">
-        <canvas class="ant-box-canvas" id="antC1"></canvas>
-        <div class="ant-big-num">1</div>
-        <div class="ant-box-title">Scegli la cifra</div>
-        <div class="ant-box-text">Anche 50€ al mese. L'importante è che sia automatico e sostenibile.</div>
-      </div>
-      <div class="ant-box" id="antBox2">
-        <canvas class="ant-box-canvas" id="antC2"></canvas>
-        <div class="ant-big-num">2</div>
-        <div class="ant-box-title">Imposta il bonifico</div>
-        <div class="ant-box-text">Il 1° del mese. Prima che i soldi "spariscano" in spese inutili.</div>
-      </div>
-      <div class="ant-box" id="antBox3">
-        <canvas class="ant-box-canvas" id="antC3"></canvas>
-        <div class="ant-big-num">3</div>
-        <div class="ant-box-title">Non toccarlo</div>
-        <div class="ant-box-text">Quando il mercato crolla, il PAC compra di più. Non fermarlo.</div>
+    <div class="example-box">
+      <div class="example-label">Come funziona il cost averaging</div>
+      <div class="example-text">
+        Investi 200€ al mese su un ETF:<br><br>
+        · Gennaio: ETF a 100€ → compri <strong>2 quote</strong><br>
+        · Febbraio: ETF a 80€ → compri <strong>2,5 quote</strong> (mercato in calo = compri di più)<br>
+        · Marzo: ETF a 110€ → compri <strong>1,8 quote</strong><br><br>
+        Prezzo medio pagato: <strong>96€</strong> — meno del prezzo medio del mercato (97€). Il calo di febbraio ti ha fatto guadagnare.
       </div>
     </div>
 
-    <p>Il PAC non è una strategia sofisticata. È una strategia disciplinata. E la disciplina, nel lungo periodo, batte la sofisticazione quasi sempre.</p>
+    <div class="sec-title">Quanto cresce nel tempo — prova</div>
+
+    <div class="slider-box" id="sliderBox">
+      <canvas class="slider-canvas" id="sliderCanvas"></canvas>
+      <div class="slider-title">Simula il tuo PAC</div>
+      <div class="slider-row">
+        <label>Versamento mensile</label>
+        <input type="range" id="slMens" min="50" max="2000" step="50" value="200">
+        <span id="outMens">€ 200</span>
+      </div>
+      <div class="slider-row">
+        <label>Rendimento annuo</label>
+        <input type="range" id="slRend" min="3" max="10" step="0.5" value="7">
+        <span id="outRend">7,0%</span>
+      </div>
+      <div class="result-grid" id="resultGrid"></div>
+    </div>
+
+    <p>I numeri cambiano con l'importo, ma la struttura no: <strong>più aspetti, più la curva si impenna</strong>. L'interesse composto premia chi inizia presto, non chi aspetta di avere "abbastanza".</p>
+
+    <div class="sec-title">Come impostarlo in 10 minuti</div>
+
+    <p>Apri il tuo broker (Fineco, Degiro, IBKR). Cerca il ticker dell'ETF che hai scelto. Imposta un ordine ricorrente il 1° del mese per l'importo che hai scelto. Dimentica.</p>
+
+    <p>Non serve ribilanciare ogni mese, non serve guardare il portafoglio ogni settimana. <strong>Il PAC funziona proprio perché toglie le decisioni dall'equazione.</strong></p>
 
   </div>
 
   <div class="beehiiv">
     <h4>Una mail a settimana</h4>
-    <p>Il concetto finanziario più utile della settimana, spiegato su un tovagliolo.</p>
+    <p>Il concetto più utile della settimana, in cinque minuti.</p>
     <div class="beehiiv-row">
       <input type="email" placeholder="la-tua@email.it">
-      <button>Iscrivimi — è gratis</button>
+      <button>Iscrivimi</button>
     </div>
   </div>
 
@@ -215,7 +176,8 @@ footer{text-align:center;padding:32px 40px;font-size:13px;font-family:var(--mono
 <footer>The Napkin · Non siamo consulenti finanziari · Nessun conflitto di interesse · Fatto con carta e penna (e un po' di codice)</footer>
 
 <script>
-const GREEN='#1d6b4a', AMBER='#b8621a', PURPLE='#4a3080', INK='#1a1a18', BORDER='#dddbd0';
+const GREEN='#1d6b4a', PURPLE='#4a3080', INK='#1a1a18', BORDER='#dddbd0';
+function fmt(n){ return Math.round(n).toLocaleString('it-IT'); }
 
 function drawTovCanvas(){
   const tov=document.querySelector('.tovagliolo');
@@ -230,169 +192,65 @@ function drawTovCanvas(){
 function drawSketch(){
   const c=document.getElementById('sketchCanvas');
   c.width=c.parentElement.offsetWidth;
-  const w=c.width, h=220;
+  const w=c.width, h=200;
   const ctx=c.getContext('2d');
   ctx.clearRect(0,0,w,h);
   const rc=rough.canvas(c);
-
-  // Calendar grid — 6 months
-  const months=['GEN','FEB','MAR','APR','MAG','GIU'];
-  const prices=[100,88,95,105,92,112]; // simulated ETF price
+  const months=['G','F','M','A','M','G'];
+  const prices=[100,80,92,108,88,115];
   const invest=200;
-  const startX=40, cellW=(w-80)/6;
-
+  const gap=w/8;
   months.forEach((m,i)=>{
-    const x=startX+i*cellW+cellW/2;
-    const quoteBought=(invest/prices[i]).toFixed(2);
-    rc.rectangle(x-cellW/2+6,30,cellW-12,80,{stroke:PURPLE,strokeWidth:1.5,roughness:2,fill:PURPLE+'15',fillStyle:'solid'});
+    const x=gap*(i+1);
+    const q=(invest/prices[i]).toFixed(1);
+    rc.rectangle(x-28,30,56,72,{stroke:PURPLE,strokeWidth:1.5,roughness:2,fill:PURPLE+'18',fillStyle:'solid'});
     ctx.font='600 11px "DM Mono",monospace';ctx.fillStyle=PURPLE;ctx.textAlign='center';
-    ctx.fillText(m,x,52);
-    ctx.font='400 11px "DM Mono",monospace';ctx.fillStyle='#4a4a44';
-    ctx.fillText('€'+prices[i],x,70);
-    ctx.font='600 11px "DM Mono",monospace';ctx.fillStyle=GREEN;
-    ctx.fillText(quoteBought+'q',x,88);
+    ctx.fillText(m,x,50);
+    ctx.font='400 10px "DM Mono",monospace';ctx.fillStyle='#4a4a44';
+    ctx.fillText('€'+prices[i],x,65);
+    ctx.font='600 10px "DM Mono",monospace';ctx.fillStyle=GREEN;
+    ctx.fillText(q+'q',x,80);
   });
-
-  // Arrow and label
-  rc.line(startX,130,w-startX,130,{stroke:INK,strokeWidth:1.5,roughness:2});
-  ctx.font='500 13px "Plus Jakarta Sans",sans-serif';ctx.fillStyle='#8a8a80';ctx.textAlign='center';
-  ctx.fillText('Stessa cifra ogni mese → quote diverse al prezzo del giorno',w/2,155);
-  ctx.font='400 12px "DM Mono",monospace';ctx.fillStyle=GREEN;
-  ctx.fillText('Risultato: prezzo medio di acquisto più basso del mercato',w/2,178);
+  rc.line(gap*0.5,118,gap*7.5,118,{stroke:INK,strokeWidth:1.5,roughness:1.5});
+  ctx.font='400 12px "DM Mono",monospace';ctx.fillStyle='#8a8a80';ctx.textAlign='center';
+  ctx.fillText('Quando il prezzo scende → compri più quote con gli stessi soldi',w/2,145);
+  ctx.fillStyle=GREEN;ctx.font='500 13px "Plus Jakarta Sans",sans-serif';
+  ctx.fillText('Prezzo medio acquistato: sotto il prezzo medio di mercato.',w/2,170);
 }
 
-function drawSimBox(){
-  const box=document.getElementById('simBox');
-  const c=document.getElementById('simCanvas');
+function calcPAC(){
+  const mens=parseInt(document.getElementById('slMens').value);
+  const rend=parseFloat(document.getElementById('slRend').value)/100/12;
+  document.getElementById('outMens').textContent='€ '+fmt(mens);
+  document.getElementById('outRend').textContent=parseFloat(document.getElementById('slRend').value).toFixed(1).replace('.',',')+'%';
+  document.getElementById('resultGrid').innerHTML=[5,10,20,30].map(y=>{
+    const n=y*12;
+    const val=mens*((Math.pow(1+rend,n)-1)/rend)*(1+rend);
+    const versato=mens*n;
+    return `<div class="result-cell">
+      <div class="result-year">${y} anni</div>
+      <div class="result-val">€ ${fmt(val)}</div>
+      <div class="result-versato">versato: €${fmt(versato)}</div>
+    </div>`;
+  }).join('');
+}
+
+function drawSliderBox(){
+  const box=document.getElementById('sliderBox');
+  const c=document.getElementById('sliderCanvas');
   const w=box.offsetWidth+16, h=box.offsetHeight+16;
   c.width=w; c.height=h;
-  const rc=rough.canvas(c);
-  rc.rectangle(4,4,w-8,h-8,{stroke:GREEN,strokeWidth:2,roughness:2.8,fill:'none'});
+  rough.canvas(c).rectangle(4,4,w-8,h-8,{stroke:PURPLE,strokeWidth:1.8,roughness:2.5,fill:'none'});
 }
 
-function buildBars(){
-  const container=document.getElementById('simBars');
-  container.innerHTML='';
-  const data=[
-    {versato:12000,valore:14400,label:'5a'},
-    {versato:24000,valore:34600,label:'10a'},
-    {versato:48000,valore:104000,label:'20a'},
-    {versato:72000,valore:243000,label:'30a'},
-  ];
-  const maxVal=243000;
-  data.forEach(d=>{
-    const group=document.createElement('div');
-    group.style.cssText='flex:1;display:flex;flex-direction:column;align-items:center;gap:3px';
-    const barsWrap=document.createElement('div');
-    barsWrap.style.cssText='display:flex;gap:3px;align-items:flex-end;height:56px;width:100%';
-    const b1=document.createElement('div');
-    b1.style.cssText=`flex:1;background:${BORDER};border-radius:2px 2px 0 0;height:${Math.round(d.versato/maxVal*56)}px`;
-    const b2=document.createElement('div');
-    b2.style.cssText=`flex:1;background:${GREEN};border-radius:2px 2px 0 0;height:${Math.round(d.valore/maxVal*56)}px`;
-    barsWrap.appendChild(b1);barsWrap.appendChild(b2);
-    const lbl=document.createElement('div');
-    lbl.style.cssText='font-size:11px;font-family:"DM Mono",monospace;color:#8a8a80;text-align:center';
-    lbl.textContent=d.label;
-    group.appendChild(barsWrap);group.appendChild(lbl);
-    container.appendChild(group);
-  });
-}
-
-let animDrawn=false;
-function drawCostAnim(){
-  if(animDrawn) return;
-  animDrawn=true;
-  const c=document.getElementById('napkinArtCanvas');
-  const ctx=c.getContext('2d');
-  ctx.clearRect(0,0,480,200);
-  const rc=rough.canvas(c);
-
-  const prices=[100,80,90,110,75,95,120,105,130,150];
-  const padL=40,padR=20,padT=20,padB=40;
-  const W=480-padL-padR, H=200-padT-padB;
-  const minP=65,maxP=160;
-  const toX=i=>(i/(prices.length-1))*W+padL;
-  const toY=p=>H-(p-minP)/(maxP-minP)*H+padT;
-
-  let step=0;
-  const steps=[];
-
-  // Draw axes once
-  steps.push(()=>{
-    rc.line(padL,padT,padL,padT+H,{stroke:INK,strokeWidth:1.5,roughness:1.5});
-    rc.line(padL,padT+H,padL+W,padT+H,{stroke:INK,strokeWidth:1.5,roughness:1.5});
-    ctx.font='400 11px "DM Mono",monospace';ctx.fillStyle='#8a8a80';
-    ctx.textAlign='left';ctx.fillText('Prezzo ETF',padL+4,padT+12);
-  });
-
-  // Draw price line point by point
-  prices.forEach((p,i)=>{
-    steps.push(()=>{
-      if(i>0){
-        rc.line(toX(i-1),toY(prices[i-1]),toX(i),toY(p),{stroke:AMBER,strokeWidth:2,roughness:1.5});
-      }
-      rc.circle(toX(i),toY(p),10,{stroke:AMBER,strokeWidth:1.5,roughness:2,fill:'#fdf0e4',fillStyle:'solid'});
-    });
-  });
-
-  // Draw invest arrows
-  prices.forEach((p,i)=>{
-    steps.push(()=>{
-      const x=toX(i);
-      rc.line(x,padT+H+4,x,padT+H+16,{stroke:GREEN,strokeWidth:2,roughness:2});
-      ctx.font='600 10px "DM Mono",monospace';ctx.fillStyle=GREEN;ctx.textAlign='center';
-      ctx.fillText('€200',x,padT+H+28);
-    });
-  });
-
-  // Average line
-  steps.push(()=>{
-    const avgP=prices.reduce((a,b)=>a+b,0)/prices.length;
-    const ay=toY(avgP);
-    rc.line(padL,ay,padL+W,ay,{stroke:PURPLE,strokeWidth:1.5,roughness:2});
-    ctx.font='500 11px "DM Mono",monospace';ctx.fillStyle=PURPLE;ctx.textAlign='right';
-    ctx.fillText('prezzo medio acquisto',padL+W-4,ay-5);
-  });
-
-  const iv=setInterval(()=>{
-    if(step<steps.length){steps[step]();step++;}
-    else clearInterval(iv);
-  },200);
-}
-
-function drawAntBox(id,boxId,color){
-  const box=document.getElementById(boxId);
-  const c=document.getElementById(id);
-  const w=box.offsetWidth+16, h=box.offsetHeight+16;
-  c.width=w; c.height=h;
-  const rc=rough.canvas(c);
-  rc.rectangle(4,4,w-8,h-8,{stroke:color,strokeWidth:2,roughness:3,fill:'none'});
-}
-
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting) drawCostAnim();});
-},{threshold:0.3});
-observer.observe(document.getElementById('napkinArtWrap'));
+document.getElementById('slMens').addEventListener('input',calcPAC);
+document.getElementById('slRend').addEventListener('input',calcPAC);
 
 window.addEventListener('load',()=>{
-  drawTovCanvas();
-  drawSketch();
-  buildBars();
-  setTimeout(()=>{
-    drawSimBox();
-    drawAntBox('antC1','antBox1',GREEN);
-    drawAntBox('antC2','antBox2',PURPLE);
-    drawAntBox('antC3','antBox3',INK);
-  },150);
+  drawTovCanvas(); drawSketch(); calcPAC();
+  setTimeout(drawSliderBox,150);
 });
-window.addEventListener('resize',()=>{
-  drawTovCanvas();
-  drawSketch();
-  drawSimBox();
-  drawAntBox('antC1','antBox1',GREEN);
-  drawAntBox('antC2','antBox2',PURPLE);
-  drawAntBox('antC3','antBox3',INK);
-});
+window.addEventListener('resize',()=>{ drawTovCanvas(); drawSketch(); drawSliderBox(); });
 </script>
 <script src="nav.js"></script>
 </body>
