@@ -64,7 +64,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 4
 .result-year{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-bottom:5px}
 .result-val{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--green)}
 .result-versato{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-top:4px}
-.beehiiv{background:var(--ink);border-radius:4px;padding:40px;color:var(--paper);text-align:center}
+.beehiiv{background:var(--ink);border-radius:4px;padding:24px 32px;color:var(--paper);text-align:center}
 .beehiiv h4{font-family:var(--serif);font-size:26px;font-weight:700;margin-bottom:10px}
 .beehiiv p{font-size:16px;color:rgba(255,255,255,.6);margin-bottom:24px;font-weight:300}
 .beehiiv-row{display:flex;gap:12px;max-width:400px;margin:0 auto}
@@ -247,8 +247,13 @@ document.getElementById('slMens').addEventListener('input',calcPAC);
 document.getElementById('slRend').addEventListener('input',calcPAC);
 
 window.addEventListener('load',()=>{
-  drawTovCanvas(); drawSketch(); calcPAC();
-  setTimeout(drawSliderBox,150);
+  function tryDraw(){
+    const sk=document.getElementById('sketchCanvas');
+    if(!sk||sk.parentElement.offsetWidth===0){ setTimeout(tryDraw,50); return; }
+    drawTovCanvas(); drawSketch(); calcPAC();
+    setTimeout(drawSliderBox,150);
+  }
+  tryDraw();
 });
 window.addEventListener('resize',()=>{ drawTovCanvas(); drawSketch(); drawSliderBox(); });
 </script>

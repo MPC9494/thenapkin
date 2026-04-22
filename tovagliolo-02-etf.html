@@ -70,7 +70,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 4
 .ticker-info{background:var(--paper2);border-radius:4px;padding:18px 20px;font-size:15px;color:var(--ink2);line-height:1.6;display:none;border-left:3px solid var(--green)}
 .ticker-info.visible{display:block}
 .ticker-info strong{color:var(--ink)}
-.beehiiv{background:var(--ink);border-radius:4px;padding:40px;color:var(--paper);text-align:center}
+.beehiiv{background:var(--ink);border-radius:4px;padding:24px 32px;color:var(--paper);text-align:center}
 .beehiiv h4{font-family:var(--serif);font-size:26px;font-weight:700;margin-bottom:10px}
 .beehiiv p{font-size:16px;color:rgba(255,255,255,.6);margin-bottom:24px;font-weight:300}
 .beehiiv-row{display:flex;gap:12px;max-width:400px;margin:0 auto}
@@ -252,7 +252,15 @@ function drawConfBoxes(){
   });
 }
 
-window.addEventListener('load',()=>{ drawTovCanvas(); drawSketch(); setTimeout(drawConfBoxes,150); });
+window.addEventListener('load',()=>{
+  function tryDraw(){
+    const sk=document.getElementById('sketchCanvas');
+    if(!sk||sk.parentElement.offsetWidth===0){ setTimeout(tryDraw,50); return; }
+    drawTovCanvas(); drawSketch();
+    setTimeout(drawConfBoxes,150);
+  }
+  tryDraw();
+});
 window.addEventListener('resize',()=>{ drawTovCanvas(); drawSketch(); drawConfBoxes(); });
 </script>
 <script src="nav.js"></script>
