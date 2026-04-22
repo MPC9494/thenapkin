@@ -240,16 +240,18 @@ document.getElementById('biasGrid').addEventListener('click',e=>{
   setTimeout(drawBiasBoxes,50);
 });
 
+function drawAll(){ drawTovCanvas(); drawSketch(); setTimeout(drawBiasBoxes,100); }
 window.addEventListener('load',()=>{
   function tryDraw(){
     const sk=document.getElementById('sketchCanvas');
-    if(!sk||sk.parentElement.offsetWidth===0){ setTimeout(tryDraw,50); return; }
-    drawTovCanvas(); drawSketch();
-    setTimeout(drawBiasBoxes,150);
+    if(!sk || sk.parentElement.offsetWidth===0 || typeof rough==='undefined'){
+      setTimeout(tryDraw,40); return;
+    }
+    drawAll();
   }
   tryDraw();
 });
-window.addEventListener('resize',()=>{ drawTovCanvas(); drawSketch(); drawBiasBoxes(); });
+window.addEventListener('resize', drawAll);
 </script>
 <script src="nav.js"></script>
 </body>

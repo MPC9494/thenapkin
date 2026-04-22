@@ -246,16 +246,18 @@ function drawSliderBox(){
 document.getElementById('slMens').addEventListener('input',calcPAC);
 document.getElementById('slRend').addEventListener('input',calcPAC);
 
+function drawAll(){ drawTovCanvas(); drawSketch(); calcPAC(); setTimeout(drawSliderBox,100); }
 window.addEventListener('load',()=>{
   function tryDraw(){
     const sk=document.getElementById('sketchCanvas');
-    if(!sk||sk.parentElement.offsetWidth===0){ setTimeout(tryDraw,50); return; }
-    drawTovCanvas(); drawSketch(); calcPAC();
-    setTimeout(drawSliderBox,150);
+    if(!sk || sk.parentElement.offsetWidth===0 || typeof rough==='undefined'){
+      setTimeout(tryDraw,40); return;
+    }
+    drawAll();
   }
   tryDraw();
 });
-window.addEventListener('resize',()=>{ drawTovCanvas(); drawSketch(); drawSliderBox(); });
+window.addEventListener('resize', drawAll);
 </script>
 <script src="nav.js"></script>
 </body>

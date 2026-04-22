@@ -268,25 +268,18 @@ function drawBox(id,canvasId,color){
 document.getElementById('slCap').addEventListener('input',calcResults);
 document.getElementById('slInf').addEventListener('input',calcResults);
 
+function drawAll(){ drawTovCanvas(); drawSketch(); calcResults(); setTimeout(()=>{ drawBox('sliderBox','sliderCanvas',RED); drawBox('confBad','confC1',RED); drawBox('confGood','confC2',GREEN); },100); }
 window.addEventListener('load',()=>{
   function tryDraw(){
     const sk=document.getElementById('sketchCanvas');
-    if(!sk||sk.parentElement.offsetWidth===0){ setTimeout(tryDraw,50); return; }
-    drawTovCanvas(); drawSketch(); calcResults();
-    setTimeout(()=>{
-      drawBox('sliderBox','sliderCanvas',RED);
-      drawBox('confBad','confC1',RED);
-      drawBox('confGood','confC2',GREEN);
-    },150);
+    if(!sk || sk.parentElement.offsetWidth===0 || typeof rough==='undefined'){
+      setTimeout(tryDraw,40); return;
+    }
+    drawAll();
   }
   tryDraw();
 });
-window.addEventListener('resize',()=>{
-  drawTovCanvas(); drawSketch();
-  drawBox('sliderBox','sliderCanvas',RED);
-  drawBox('confBad','confC1',RED);
-  drawBox('confGood','confC2',GREEN);
-});
+window.addEventListener('resize', drawAll);
 </script>
 <script src="nav.js"></script>
 </body>
