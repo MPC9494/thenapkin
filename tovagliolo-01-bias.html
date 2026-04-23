@@ -19,6 +19,8 @@
   --sans:'Plus Jakarta Sans',sans-serif;
   --mono:'DM Mono',monospace;
 }
+.sketch-wrap{background:#f6f4ee;border-radius:4px;padding:20px 24px;margin-bottom:48px}
+.sketch-wrap svg{display:block;width:100%}
 body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:19px;line-height:1.6;min-height:100vh}
 nav{display:flex;align-items:center;justify-content:space-between;padding:14px 40px;border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:400;min-height:60px}
 .logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:10px;text-decoration:none}
@@ -37,14 +39,16 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 4
 .art-sub{font-size:21px;color:var(--ink2);line-height:1.6;margin-bottom:28px;max-width:600px;font-weight:300}
 .art-meta{display:flex;align-items:center;gap:20px;padding-bottom:28px;border-bottom:1px solid var(--border);margin-bottom:48px}
 .art-meta-item{font-size:12px;font-family:var(--mono);color:var(--ink3)}
-.tovagliolo-wrap{position:relative;margin-bottom:56px}
-.tovagliolo-canvas{position:absolute;top:-16px;left:-16px;pointer-events:none;z-index:0}
-.tovagliolo{background:#f6f4ee;border-radius:4px;padding:36px 32px;position:relative;z-index:1}
-.tovagliolo::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(180deg,transparent 0,transparent 31px,rgba(150,145,128,.09) 31px,rgba(150,145,128,.09) 32px);pointer-events:none}
-.tov-eyebrow{font-size:11px;font-family:var(--mono);color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px;position:relative;z-index:1;display:flex;align-items:center;gap:10px}
+
+
+
+
+
 .tov-eyebrow::after{content:'';flex:1;height:1px;background:var(--border)}
-.tov-sketch{display:block;width:100%;position:relative;z-index:1}
-.art-body{font-size:19px;color:var(--ink2);line-height:1.7}
+
+.art-.sketch-wrap{background:#f6f4ee;border-radius:4px;padding:20px 24px;margin-bottom:48px}
+.sketch-wrap svg{display:block;width:100%}
+body{font-size:19px;color:var(--ink2);line-height:1.7}
 .art-body p{margin-bottom:22px}
 .art-body strong{color:var(--ink);font-weight:600}
 .sec-title{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink);margin:44px 0 16px}
@@ -106,13 +110,44 @@ footer{text-align:center;padding:32px 40px;font-size:13px;font-family:var(--mono
     <span class="art-meta-item">Principiante</span>
   </div>
 
-  <div class="tovagliolo-wrap">
-    <canvas class="tovagliolo-canvas" id="tovCanvas"></canvas>
-    <div class="tovagliolo">
-      <div class="tov-eyebrow">Lo schizzo sul napkin</div>
-      <canvas id="sketchCanvas" class="tov-sketch" height="240"></canvas>
-    </div>
-  </div>
+  <div class="sketch-wrap"><svg width="100%" viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg" style="display:block">
+<defs><marker id="ar1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="context-stroke" stroke-width="2" stroke-linecap="round"/></marker></defs>
+<line x1="12" y1="40" x2="308" y2="40" stroke="#dbd8ce" stroke-width="0.5"/>
+<line x1="12" y1="60" x2="308" y2="60" stroke="#dbd8ce" stroke-width="0.5"/>
+<line x1="12" y1="80" x2="308" y2="80" stroke="#dbd8ce" stroke-width="0.5"/>
+<line x1="12" y1="100" x2="308" y2="100" stroke="#dbd8ce" stroke-width="0.5"/>
+<line x1="12" y1="120" x2="308" y2="120" stroke="#dbd8ce" stroke-width="0.5"/>
+<line x1="12" y1="140" x2="308" y2="140" stroke="#dbd8ce" stroke-width="0.5"/>
+<line x1="12" y1="160" x2="308" y2="160" stroke="#dbd8ce" stroke-width="0.5"/>
+<line x1="12" y1="180" x2="308" y2="180" stroke="#dbd8ce" stroke-width="0.5"/>
+<line x1="12" y1="200" x2="308" y2="200" stroke="#dbd8ce" stroke-width="0.5"/>
+<line x1="12" y1="220" x2="308" y2="220" stroke="#dbd8ce" stroke-width="0.5"/>
+<line x1="12" y1="240" x2="308" y2="240" stroke="#dbd8ce" stroke-width="0.5"/>
+<ellipse cx="78" cy="88" rx="42" ry="34" fill="none" stroke="#2a2520" stroke-width="2.2" transform="rotate(-5,78,88)"/>
+<path d="M40,72 C38,58 48,46 58,50" fill="none" stroke="#2a2520" stroke-width="1.8" stroke-linecap="round"/>
+<path d="M55,52 C58,40 70,38 74,46" fill="none" stroke="#2a2520" stroke-width="1.8" stroke-linecap="round"/>
+<path d="M77,45 C82,36 94,38 96,50" fill="none" stroke="#2a2520" stroke-width="1.8" stroke-linecap="round"/>
+<path d="M98,52 C108,46 116,56 112,66" fill="none" stroke="#2a2520" stroke-width="1.8" stroke-linecap="round"/>
+<circle cx="64" cy="84" r="4" fill="#2a2520"/>
+<circle cx="92" cy="82" r="4" fill="#2a2520"/>
+<circle cx="65" cy="83" r="1.5" fill="#faf8f2"/>
+<circle cx="93" cy="81" r="1.5" fill="#faf8f2"/>
+<path d="M62,102 C68,112 88,112 95,102" fill="none" stroke="#2a2520" stroke-width="1.8" stroke-linecap="round"/>
+<ellipse cx="78" cy="107" rx="12" ry="8" fill="#f5e6e6" stroke="#2a2520" stroke-width="1"/>
+<path d="M115,55 C130,42 175,40 185,55 C195,68 188,85 172,88 C160,90 138,88 125,82 C110,90 108,78 112,72 C110,65 112,58 115,55Z" fill="#fff8f0" stroke="#c0510a" stroke-width="1.8"/>
+<text x="152" y="61" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#c0510a" font-weight="bold" transform="rotate(-3,152,61)">ESCI!</text>
+<text x="152" y="76" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#c0510a" transform="rotate(-3,152,76)">mercato -15%</text>
+<path d="M78,124 L78,148" fill="none" stroke="#2a2520" stroke-width="2" marker-end="url(#ar1)"/>
+<path d="M78,148 C55,155 38,162 30,172" fill="none" stroke="#a33" stroke-width="2" marker-end="url(#ar1)" stroke-linecap="round"/>
+<path d="M78,148 C102,155 120,162 128,172" fill="none" stroke="#1d6b4a" stroke-width="2" marker-end="url(#ar1)" stroke-linecap="round"/>
+<text x="18" y="168" font-family="Georgia,serif" font-size="10" fill="#a33" transform="rotate(-8,18,168)">vende</text>
+<text x="112" y="168" font-family="Georgia,serif" font-size="10" fill="#1d6b4a" transform="rotate(8,112,168)">aspetta</text>
+<text x="24" y="195" font-family="Georgia,serif" font-size="24" fill="#a33" font-weight="bold" transform="rotate(-4,24,195)">-30%</text>
+<text x="24" y="212" font-family="Georgia,serif" font-size="9" fill="#999" transform="rotate(-2,24,212)">perdita reale</text>
+<text x="108" y="195" font-family="Georgia,serif" font-size="24" fill="#1d6b4a" font-weight="bold" transform="rotate(3,108,195)">+7%</text>
+<text x="110" y="212" font-family="Georgia,serif" font-size="9" fill="#999" transform="rotate(2,110,212)">medio storico</text>
+<text x="160" y="248" text-anchor="middle" font-family="Georgia,serif" font-size="9.5" fill="#888" font-style="italic" transform="rotate(-1,160,248)">il problema non e il mercato</text>
+</svg></div>
 
   <div class="art-body">
 
@@ -181,77 +216,30 @@ footer{text-align:center;padding:32px 40px;font-size:13px;font-family:var(--mono
 <footer>The Napkin · Non siamo consulenti finanziari · Nessun conflitto di interesse · Fatto con carta e penna (e un po' di codice)</footer>
 
 <script>
-const GREEN='#1d6b4a', AMBER='#b8621a', INK='#1a1a18', BORDER='#dddbd0';
-
-function drawTovCanvas(){
-  const tov=document.querySelector('.tovagliolo');
-  const c=document.getElementById('tovCanvas');
-  const w=tov.offsetWidth+32, h=tov.offsetHeight+32;
-  c.width=w; c.height=h;
-  const rc=rough.canvas(c);
-  rc.rectangle(4,4,w-8,h-8,{stroke:AMBER,strokeWidth:2,roughness:3,fill:'none'});
-  rc.rectangle(10,10,w-20,h-20,{stroke:BORDER,strokeWidth:1,roughness:2.5,fill:'none'});
-}
-
-function drawSketch(){
-  const c=document.getElementById('sketchCanvas');
-  c.width=c.parentElement.offsetWidth;
-  const w=c.width, h=240;
-  const ctx=c.getContext('2d');
-  ctx.clearRect(0,0,w,h);
-  const rc=rough.canvas(c);
-  const cx=w/2, cy=105, R=85;
-  rc.circle(cx,cy,R*2,{stroke:INK,strokeWidth:2,roughness:3,fill:'none'});
-  ctx.font='500 13px "Plus Jakarta Sans",sans-serif';ctx.fillStyle='#4a4a44';ctx.textAlign='center';
-  ctx.fillText('Il tuo portafoglio',cx,cy-8);
-  ctx.fillText('scende del 15%',cx,cy+10);
-  const arrows=[
-    {dx:-1,dy:-1,label:'VENDI!',col:'#8b2a2a'},
-    {dx:1,dy:-1,label:'ASPETTA',col:GREEN},
-    {dx:1,dy:0.3,label:'COMPRA',col:GREEN},
-    {dx:-1,dy:0.3,label:'ESCI!',col:'#8b2a2a'},
-  ];
-  arrows.forEach((a,i)=>{
-    const ex=cx+a.dx*(R+55), ey=cy+a.dy*(R+35);
-    rc.line(cx+a.dx*R,cy+a.dy*R*0.7,ex,ey,{stroke:a.col,strokeWidth:1.5,roughness:2.5});
-    ctx.font='600 11px "Plus Jakarta Sans",sans-serif';ctx.fillStyle=a.col;ctx.textAlign='center';
-    ctx.fillText(a.label,ex,ey+(a.dy<0?-8:14));
-  });
-  ctx.font='400 12px "DM Mono",monospace';ctx.fillStyle='#8a8a80';ctx.textAlign='center';
-  ctx.fillText('Il sistema automatico risponde al posto tuo.',cx,h-8);
-}
+const AMBER='#b8621a', INK='#1a1a18', BORDER='#dddbd0';
 
 function drawBiasBoxes(){
-  [['b1','bc1',AMBER],['b2','bc2',AMBER],['b3','bc3',AMBER],['b4','bc4',AMBER]].forEach(([bid,cid,col])=>{
-    const box=document.getElementById(bid);
-    const c=document.getElementById(cid);
+  if(typeof rough==='undefined') return;
+  [['b1','bc1'],['b2','bc2'],['b3','bc3'],['b4','bc4']].forEach(([bid,cid])=>{
+    const box=document.getElementById(bid), c=document.getElementById(cid);
+    if(!box||!c) return;
     const w=box.offsetWidth+12, h=box.offsetHeight+12;
     c.width=w; c.height=h;
-    rough.canvas(c).rectangle(4,4,w-8,h-8,{stroke:col,strokeWidth:1.8,roughness:2.8,fill:'none'});
+    rough.canvas(c).rectangle(4,4,w-8,h-8,{stroke:AMBER,strokeWidth:1.8,roughness:2.8,fill:'none'});
   });
 }
-
-document.getElementById('biasGrid').addEventListener('click',e=>{
-  const card=e.target.closest('.bias-card');
-  if(!card) return;
-  const wasOpen=card.classList.contains('open');
-  document.querySelectorAll('.bias-card').forEach(c=>c.classList.remove('open'));
-  if(!wasOpen) card.classList.add('open');
-  setTimeout(drawBiasBoxes,50);
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('biasGrid').addEventListener('click',e=>{
+    const card=e.target.closest('.bias-card');
+    if(!card) return;
+    const wasOpen=card.classList.contains('open');
+    document.querySelectorAll('.bias-card').forEach(c=>c.classList.remove('open'));
+    if(!wasOpen) card.classList.add('open');
+    setTimeout(drawBiasBoxes,50);
+  });
 });
-
-function drawAll(){ drawTovCanvas(); drawSketch(); setTimeout(drawBiasBoxes,100); }
-window.addEventListener('load',()=>{
-  function tryDraw(){
-    const sk=document.getElementById('sketchCanvas');
-    if(!sk || sk.parentElement.offsetWidth===0 || typeof rough==='undefined'){
-      setTimeout(tryDraw,40); return;
-    }
-    drawAll();
-  }
-  tryDraw();
-});
-window.addEventListener('resize', drawAll);
+window.addEventListener('load',()=>{ setTimeout(()=>{ drawBiasBoxes(); },200); });
+window.addEventListener('resize',()=>{ drawBiasBoxes(); });
 </script>
 <script src="nav.js"></script>
 </body>
