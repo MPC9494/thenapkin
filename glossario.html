@@ -19,7 +19,7 @@
   --mono:'DM Mono',monospace;
 }
 body{font-family:var(--body);background:var(--paper);color:var(--ink);font-size:18px;line-height:1.6;min-height:100vh}
-nav{display:flex;align-items:center;justify-content:space-between;padding:18px 40px;border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:100}
+nav{display:flex;align-items:center;justify-content:space-between;padding:14px 40px;border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:400;min-height:60px}
 .logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:10px;text-decoration:none}
 .logo-dot{width:10px;height:10px;background:var(--green);border-radius:50%;display:inline-block}
 .nb{background:none;border:none;font-family:var(--body);font-size:15px;color:var(--ink2);padding:8px 16px;border-radius:7px;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-block}
@@ -126,11 +126,7 @@ footer{text-align:center;padding:32px 40px;font-size:13px;font-family:var(--mono
 <body>
 <nav>
   <a class="logo" href="index.html"><span class="logo-dot"></span>The Napkin</a>
-  <div class="nav-links" style="display:flex;gap:4px;align-items:center">
-    <a class="nb nav-label" href="tovagliolo-01-bias.html">I Napkins</a>
-    <a class="nb nav-label" href="strumenti.html">Strumenti</a>
-    <a class="nb cta" href="https://thenapkin.beehiiv.com">Newsletter</a>
-  </div>
+  <div class="nav-links"></div>
 </nav>
 
 <div class="page-hero">
@@ -191,5 +187,6 @@ function renderG(list){
 
 buildG();
 </script>
+<script src="nav.js"></script>
 </body>
 </html>
