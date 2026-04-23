@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'interesse composto — The Napkin</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rough.js/4.5.2/rough.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1a1a18;--ink2:#4a4a44;--ink3:#8a8a80;--paper:#faf9f5;--paper2:#f3f2ec;--green:#1d6b4a;--green-l:#e8f5ee;--amber:#b8621a;--amber-l:#fdf0e4;--red:#8b2a2a;--red-l:#fdf0f0;--border:#dddbd0;--serif:'Playfair Display',Georgia,serif;--sans:'Plus Jakarta Sans',sans-serif;--mono:'DM Mono',monospace;}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:19px;line-height:1.6;min-height:100vh}
+nav{display:flex;align-items:center;justify-content:space-between;padding:14px 40px;border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:400;min-height:60px}
+.logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-dot{width:10px;height:10px;background:var(--green);border-radius:50%;display:inline-block}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nb{background:none;border:none;font-family:var(--sans);font-size:15px;color:var(--ink2);padding:8px 16px;border-radius:7px;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-block}
+.nb:hover{background:var(--paper2);color:var(--ink)}
+.nb.cta{background:var(--ink);color:var(--paper);font-weight:600}
+.nb.cta:hover{background:var(--green)}
+.wrap{max-width:720px;margin:0 auto;padding:56px 40px 96px}
+.bc{font-size:12px;font-family:var(--mono);color:var(--ink3);margin-bottom:32px;display:flex;align-items:center;gap:8px}
+.bc a{color:var(--ink3);text-decoration:none}.bc a:hover{color:var(--ink)}
+.art-cat{display:inline-block;font-size:11px;font-family:var(--mono);color:#1a4a6b;background:#e4eef5;padding:5px 14px;border-radius:20px;margin-bottom:20px;letter-spacing:.07em;text-transform:uppercase}
+.art-title{font-family:var(--serif);font-size:clamp(32px,5vw,50px);font-weight:700;line-height:1.08;color:var(--ink);margin-bottom:16px}
+.art-title em{font-style:italic;color:#1a4a6b}
+.art-sub{font-size:20px;color:var(--ink2);line-height:1.6;margin-bottom:28px;max-width:600px;font-weight:300}
+.art-meta{display:flex;align-items:center;gap:20px;padding-bottom:28px;border-bottom:1px solid var(--border);margin-bottom:48px}
+.art-meta-item{font-size:12px;font-family:var(--mono);color:var(--ink3)}
+.sketch-wrap{background:#f6f4ee;border-radius:4px;padding:20px 24px;margin-bottom:48px}
+.art-body{font-size:19px;color:var(--ink2);line-height:1.7}
+.art-body p{margin-bottom:22px}
+.art-body strong{color:var(--ink);font-weight:600}
+.sec-title{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink);margin:44px 0 16px}
+.example-box{background:var(--paper2);border-radius:4px;padding:22px 24px;margin:28px 0;border-left:3px solid #1a4a6b}
+.example-label{font-family:var(--mono);font-size:10px;color:#1a4a6b;letter-spacing:.09em;text-transform:uppercase;margin-bottom:10px}
+.example-text{font-size:17px;color:var(--ink);line-height:1.65}
+.example-text strong{font-weight:600}
+.quote{border-left:3px solid #1a4a6b;padding:16px 24px;background:#e4eef5;border-radius:0 8px 8px 0;font-size:18px;color:var(--ink);font-style:italic;line-height:1.6;margin:32px 0}
+.tn-takehome{margin:40px 0 0;position:relative}
+.tn-th-inner{background:var(--paper2);border-radius:4px;padding:28px 32px}
+.tn-th-eyebrow{font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.tn-th-eyebrow::after{content:'';flex:1;height:1px;background:var(--border)}
+.tn-th-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.tn-th-col-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.tn-th-icon{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.tn-th-icon.do{background:#e8f5ee;color:#1d6b4a}
+.tn-th-icon.dont{background:#fdf0f0;color:#8b2a2a}
+.tn-th-title{font-family:var(--serif);font-size:17px;font-weight:700}
+.tn-th-title.do{color:#1d6b4a}
+.tn-th-title.dont{color:#8b2a2a}
+.tn-th-list{list-style:none}
+.tn-th-list li{font-size:14px;color:var(--ink2);padding:7px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:8px;line-height:1.45}
+.tn-th-list li:last-child{border-bottom:none}
+.tn-th-list.do li::before{content:'→';font-family:var(--mono);font-size:11px;color:#1d6b4a;flex-shrink:0;margin-top:2px}
+.tn-th-list.dont li::before{content:'×';font-family:var(--mono);font-size:13px;color:#8b2a2a;flex-shrink:0;line-height:1.2}
+.beehiiv{background:var(--ink);border-radius:4px;padding:24px 32px;color:var(--paper);text-align:center;margin-top:40px}
+.beehiiv h4{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:8px}
+.beehiiv p{font-size:15px;color:rgba(255,255,255,.6);margin-bottom:20px;font-weight:300}
+.beehiiv-row{display:flex;gap:10px;max-width:380px;margin:0 auto}
+.beehiiv input{flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:12px 14px;color:var(--paper);font-size:14px;font-family:var(--sans);outline:none}
+.beehiiv input::placeholder{color:rgba(255,255,255,.35)}
+.beehiiv button{background:var(--green);color:var(--paper);border:none;border-radius:4px;padding:12px 20px;font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer}
+footer{text-align:center;padding:32px 40px;font-size:13px;font-family:var(--mono);color:var(--ink3);border-top:1px solid var(--border)}
+@media(max-width:640px){nav{padding:14px 20px}.wrap{padding:40px 20px 72px}.tn-th-grid{grid-template-columns:1fr}.beehiiv-row{flex-direction:column}.nb.nav-label{display:none}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="index.html"><span class="logo-dot"></span>The Napkin</a>
+  <div class="nav-links">
+    <a class="nb cta" href="https://thenapkin.beehiiv.com">Newsletter</a>
+  </div>
+</nav>
+<div class="wrap">
+  <div class="bc"><a href="index.html">Home</a><span>›</span><a href="#">I Napkins</a><span>›</span>L'interesse composto</div>
+  <span class="art-cat">Intermedio</span>
+  <h1 class="art-title">L'interesse composto</h1>
+  <p class="art-sub">Ogni euro guadagnato genera altri euro. Poi anche quelli generano. È una valanga.</p>
+  <div class="art-meta">
+    <span class="art-meta-item">Napkin #05</span>
+    <span class="art-meta-item">5 min</span>
+    <span class="art-meta-item">Intermedio</span>
+  </div>
+  <div class="sketch-wrap"><svg width="100%" viewBox="0 0 340 280" xmlns="http://www.w3.org/2000/svg" style="display:block"><defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M1 2L8 5L1 8" fill="none" stroke="context-stroke" stroke-width="2" stroke-linecap="round"/></marker></defs><line x1="10" y1="36" x2="330" y2="36" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="56" x2="330" y2="56" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="76" x2="330" y2="76" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="96" x2="330" y2="96" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="116" x2="330" y2="116" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="136" x2="330" y2="136" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="156" x2="330" y2="156" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="176" x2="330" y2="176" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="196" x2="330" y2="196" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="216" x2="330" y2="216" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="236" x2="330" y2="236" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="256" x2="330" y2="256" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="276" x2="330" y2="276" stroke="#d8d4c8" stroke-width="0.5"/>
+<!-- asse tempo orizzontale -->
+<line x1="40" y1="200" x2="310" y2="200" stroke="#2a2520" stroke-width="1.4" marker-end="url(#ar)"/>
+<text x="314" y="204" font-family="Georgia,serif" font-size="9" fill="#2a2520">anni</text>
+<!-- curva composta esponenziale -->
+<path d="M40,196 C80,192 110,180 140,162 C170,144 195,115 220,88 C240,66 262,48 305,36" fill="none" stroke="#1d6b4a" stroke-width="2.2" stroke-linecap="round"/>
+<!-- curva lineare confronto -->
+<path d="M40,196 C120,180 200,164 305,148" fill="none" stroke="#d8d4c8" stroke-width="1.4" stroke-dasharray="5,3" stroke-linecap="round"/>
+<!-- etichette curve -->
+<text x="308" y="32" font-family="Georgia,serif" font-size="9" fill="#1d6b4a" font-style="italic">composto</text>
+<text x="308" y="144" font-family="Georgia,serif" font-size="9" fill="#aaa" font-style="italic">lineare</text>
+<!-- pallino inizio -->
+<circle cx="40" cy="196" r="4" fill="#1d6b4a"/>
+<text x="40" y="214" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#888">anno 0</text>
+<!-- freccia e valore anno 10 -->
+<line x1="140" y1="162" x2="140" y2="200" stroke="#d8d4c8" stroke-width="0.8" stroke-dasharray="3,2"/>
+<text x="140" y="214" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#888">10a</text>
+<!-- freccia e valore anno 30 -->
+<line x1="305" y1="36" x2="305" y2="200" stroke="#d8d4c8" stroke-width="0.8" stroke-dasharray="3,2"/>
+<text x="305" y="214" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#888">30a</text>
+<!-- i numeri chiave ben separati sopra -->
+<rect x="36" y="44" width="120" height="54" rx="3" fill="#f6f4ee" stroke="#d8d4c8" stroke-width="1"/>
+<text x="96" y="63" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#888">investi 200eu/mese</text>
+<text x="96" y="80" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#1d6b4a">10 anni: 34.600eu</text>
+<text x="96" y="94" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#1d6b4a">30 anni: 243.000eu</text>
+<!-- nota sul "quando iniziare" -->
+<text x="170" y="240" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#a33">iniziare a 25 vs 35: differenza di ~120.000eu</text>
+<text x="170" y="258" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#888" font-style="italic">il tempo e il tuo unico vantaggio competitivo</text>
+</svg></div>
+  <div class="art-body"><p>Nel 1626, Peter Minuit comprò Manhattan dagli indigeni per 60 fiorini. Una cifra ridicola, giusto? Dipende. Se quegli stessi 60 fiorini fossero stati investiti all'8% annuo composto, oggi varrebbero trilioni di dollari. Più di Manhattan intera.</p>
+<p>L'interesse composto funziona così: i tuoi guadagni generano altri guadagni. Poi anche quelli generano guadagni. Non è magia — è matematica. Ma il risultato sembra magia perché il cervello umano ragiona in modo lineare, non esponenziale.</p>
+<div class="example-box"><div class="example-label">La differenza che fa 10 anni</div><div class="example-text">Marco inizia a 25 anni. Luca a 35. Entrambi investono 200€ al mese al 7% annuo.<br><br>A 65 anni: Marco ha <strong>525.000€</strong>. Luca ha <strong>243.000€</strong>.<br><br>Marco ha versato solo 24.000€ in più di Luca. La differenza di 282.000€ è tutta generata dal composto su quei 10 anni di vantaggio.</div></div>
+<p>La conclusione pratica è scomoda: <strong>la cosa più importante non è quanto investi, ma quando inizi</strong>. Ogni anno che aspetti costa molto più di quanto pensi.</p>
+<div class="sec-title">Il nemico del composto</div>
+<p>Ci sono due cose che distruggono l'effetto composto. La prima è prelevare i guadagni ogni anno invece di reinvestirli — per questo gli ETF ad accumulazione battono quelli a distribuzione nel lungo periodo. La seconda è interrompere il PAC quando il mercato scende — proprio quando il composto stava lavorando al massimo.</p>
+<div class="quote">"Il composto è la forza più potente dell'universo." — frase attribuita a Einstein (probabilmente falsa, ma il concetto è vero)</div></div>
+  <div class="tn-takehome">
+    <div class="tn-th-inner">
+      <div class="tn-th-eyebrow">Take home</div>
+      <div class="tn-th-grid">
+        <div>
+          <div class="tn-th-col-head"><div class="tn-th-icon do">✓</div><div class="tn-th-title do">Cosa fare</div></div>
+          <ul class="tn-th-list do"><li>Inizia subito — ogni anno che aspetti riduce il risultato finale in modo sproporzionato</li><li>Usa ETF ad accumulazione — reinvestono i dividendi automaticamente</li><li>Lascia lavorare il tempo senza interrompere il PAC</li></ul>
+        </div>
+        <div>
+          <div class="tn-th-col-head"><div class="tn-th-icon dont">×</div><div class="tn-th-title dont">Cosa evitare</div></div>
+          <ul class="tn-th-list dont"><li>Prelevare i guadagni ogni anno — interrompi la valanga</li><li>Aspettare il momento giusto per iniziare — non esiste</li><li>Sottovalutare la differenza tra iniziare a 25 e iniziare a 35 anni</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="beehiiv">
+    <h4>Una mail a settimana</h4>
+    <p>Il concetto più utile della settimana, in cinque minuti.</p>
+    <div class="beehiiv-row">
+      <input type="email" placeholder="la-tua@email.it">
+      <button>Iscrivimi</button>
+    </div>
+  </div>
+</div>
+<footer>The Napkin · Non siamo consulenti finanziari · Nessun conflitto di interesse · Fatto con carta e penna (e un po' di codice)</footer>
+<script src="nav.js"></script>
+</body>
+</html>
