@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FIRE — The Napkin</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rough.js/4.5.2/rough.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#1a1a18;--ink2:#4a4a44;--ink3:#8a8a80;--paper:#faf9f5;--paper2:#f3f2ec;--green:#1d6b4a;--green-l:#e8f5ee;--amber:#b8621a;--amber-l:#fdf0e4;--red:#8b2a2a;--red-l:#fdf0f0;--border:#dddbd0;--serif:'Playfair Display',Georgia,serif;--sans:'Plus Jakarta Sans',sans-serif;--mono:'DM Mono',monospace;}
-body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:19px;line-height:1.6;min-height:100vh}
-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 40px;border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:400;min-height:60px}
+:root{--ink:#1a1a18;--ink2:#4a4a44;--ink3:#8a8a80;--paper:#ffffff;--paper2:#f5f5f5;--green:#1d6b4a;--green-l:#e8f5ee;--amber:#b8621a;--amber-l:#fdf0e4;--red:#8b2a2a;--red-l:#fdf0f0;--border:#dddbd0;--serif:'Playfair Display',Georgia,serif;--sans:'Plus Jakarta Sans',sans-serif;--mono:'DM Mono',monospace;}
+body{font-family:var(--sans);background:#ffffff;color:var(--ink);font-size:21px;line-height:1.6;min-height:100vh}
+nav{display:flex;align-items:center;justify-content:space-between;padding:14px 40px;border-bottom:1px solid var(--border);background:#ffffff;position:sticky;top:0;z-index:400;min-height:60px}
 .logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:10px;text-decoration:none}
 .logo-dot{width:10px;height:10px;background:var(--green);border-radius:50%;display:inline-block}
 .nav-links{display:flex;gap:4px;align-items:center;flex-direction:row}
@@ -23,12 +23,12 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 4
 .bc a{color:var(--ink3);text-decoration:none}.bc a:hover{color:var(--ink)}
 .art-cat{display:inline-block;font-size:11px;font-family:var(--mono);color:#4a3080;background:#eeebfb;padding:5px 14px;border-radius:20px;margin-bottom:20px;letter-spacing:.07em;text-transform:uppercase}
 .art-title{font-family:var(--serif);font-size:clamp(32px,5vw,50px);font-weight:700;line-height:1.08;color:var(--ink);margin-bottom:16px}
-.art-title em{font-style:italic;color:#4a3080}
+.art-title em{color:#4a3080}
 .art-sub{font-size:20px;color:var(--ink2);line-height:1.6;margin-bottom:28px;max-width:600px;font-weight:300}
 .art-meta{display:flex;align-items:center;gap:20px;padding-bottom:28px;border-bottom:1px solid var(--border);margin-bottom:48px}
 .art-meta-item{font-size:12px;font-family:var(--mono);color:var(--ink3)}
-.sketch-wrap{background:#f6f4ee;border-radius:4px;padding:20px 24px;margin-bottom:48px}
-.art-body{font-size:19px;color:var(--ink2);line-height:1.7}
+.sketch-wrap{background:#f8f8f8;border-radius:4px;padding:20px 24px;margin-bottom:48px}
+.art-body{font-size:21px;color:var(--ink2);line-height:1.7}
 .art-body p{margin-bottom:22px}
 .art-body strong{color:var(--ink);font-weight:600}
 .sec-title{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink);margin:44px 0 16px}
@@ -36,7 +36,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 4
 .example-label{font-family:var(--mono);font-size:10px;color:#4a3080;letter-spacing:.09em;text-transform:uppercase;margin-bottom:10px}
 .example-text{font-size:17px;color:var(--ink);line-height:1.65}
 .example-text strong{font-weight:600}
-.quote{border-left:3px solid #4a3080;padding:16px 24px;background:#eeebfb;border-radius:0 8px 8px 0;font-size:18px;color:var(--ink);font-style:italic;line-height:1.6;margin:32px 0}
+.quote{border-left:3px solid #4a3080;padding:16px 24px;background:#eeebfb;border-radius:0 8px 8px 0;font-size:18px;color:var(--ink);line-height:1.6;margin:32px 0}
 .tn-takehome{margin:40px 0 0;position:relative}
 .tn-th-inner{background:var(--paper2);border-radius:4px;padding:28px 32px}
 .tn-th-eyebrow{font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px}
@@ -82,9 +82,9 @@ footer{text-align:center;padding:32px 40px;font-size:13px;font-family:var(--mono
     <span class="art-meta-item">5 min</span>
     <span class="art-meta-item">Avanzato</span>
   </div>
-  <div class="sketch-wrap"><svg width="100%" viewBox="0 0 340 280" xmlns="http://www.w3.org/2000/svg" style="display:block"><defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M1 2L8 5L1 8" fill="none" stroke="context-stroke" stroke-width="2" stroke-linecap="round"/></marker></defs><line x1="10" y1="36" x2="330" y2="36" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="56" x2="330" y2="56" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="76" x2="330" y2="76" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="96" x2="330" y2="96" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="116" x2="330" y2="116" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="136" x2="330" y2="136" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="156" x2="330" y2="156" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="176" x2="330" y2="176" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="196" x2="330" y2="196" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="216" x2="330" y2="216" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="236" x2="330" y2="236" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="256" x2="330" y2="256" stroke="#d8d4c8" stroke-width="0.5"/><line x1="10" y1="276" x2="330" y2="276" stroke="#d8d4c8" stroke-width="0.5"/>
+  <div class="sketch-wrap"><svg width="100%" viewBox="0 0 340 280" xmlns="http://www.w3.org/2000/svg" style="display:block"><defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M1 2L8 5L1 8" fill="none" stroke="context-stroke" stroke-width="2" stroke-linecap="round"/></marker></defs><line x1="10" y1="36" x2="330" y2="36" stroke="#e8e8e8" stroke-width="0.5"/><line x1="10" y1="56" x2="330" y2="56" stroke="#e8e8e8" stroke-width="0.5"/><line x1="10" y1="76" x2="330" y2="76" stroke="#e8e8e8" stroke-width="0.5"/><line x1="10" y1="96" x2="330" y2="96" stroke="#e8e8e8" stroke-width="0.5"/><line x1="10" y1="116" x2="330" y2="116" stroke="#e8e8e8" stroke-width="0.5"/><line x1="10" y1="136" x2="330" y2="136" stroke="#e8e8e8" stroke-width="0.5"/><line x1="10" y1="156" x2="330" y2="156" stroke="#e8e8e8" stroke-width="0.5"/><line x1="10" y1="176" x2="330" y2="176" stroke="#e8e8e8" stroke-width="0.5"/><line x1="10" y1="196" x2="330" y2="196" stroke="#e8e8e8" stroke-width="0.5"/><line x1="10" y1="216" x2="330" y2="216" stroke="#e8e8e8" stroke-width="0.5"/><line x1="10" y1="236" x2="330" y2="236" stroke="#e8e8e8" stroke-width="0.5"/><line x1="10" y1="256" x2="330" y2="256" stroke="#e8e8e8" stroke-width="0.5"/><line x1="10" y1="276" x2="330" y2="276" stroke="#e8e8e8" stroke-width="0.5"/>
 <!-- formula FIRE -->
-<text x="170" y="36" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#888" font-style="italic">F.I.R.E. — Financial Independence, Retire Early</text>
+<text x="170" y="36" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#888">F.I.R.E. — Financial Independence, Retire Early</text>
 <!-- formula grande al centro -->
 <rect x="30" y="48" width="280" height="70" rx="4" fill="#f6f4ee" stroke="#2a2520" stroke-width="1.8"/>
 <text x="170" y="76" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#888">il tuo numero FIRE =</text>
@@ -92,14 +92,14 @@ footer{text-align:center;padding:32px 40px;font-size:13px;font-family:var(--mono
 <!-- freccia giù -->
 <path d="M170,120 L170,140" fill="none" stroke="#2a2520" stroke-width="1.4" marker-end="url(#ar)"/>
 <!-- esempio concreto -->
-<text x="170" y="158" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#888" font-style="italic">esempio:</text>
+<text x="170" y="158" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#888">esempio:</text>
 <text x="170" y="175" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#2a2520">spendi 24.000eu/anno</text>
 <path d="M170,180 L170,196" fill="none" stroke="#1d6b4a" stroke-width="1.4" marker-end="url(#ar)"/>
 <text x="170" y="214" text-anchor="middle" font-family="Georgia,serif" font-size="16" fill="#1d6b4a" font-weight="bold">ti servono 600.000eu</text>
 <!-- la regola del 4% -->
-<line x1="20" y1="228" x2="320" y2="228" stroke="#d8d4c8" stroke-width="0.8"/>
-<text x="170" y="244" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#888" font-style="italic">la regola del 4%: puoi prelevare il 4% del patrimonio</text>
-<text x="170" y="260" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#888" font-style="italic">ogni anno senza esaurirlo (dati storici su 30 anni)</text>
+<line x1="20" y1="228" x2="320" y2="228" stroke="#e8e8e8" stroke-width="0.8"/>
+<text x="170" y="244" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#888">la regola del 4%: puoi prelevare il 4% del patrimonio</text>
+<text x="170" y="260" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#888">ogni anno senza esaurirlo (dati storici su 30 anni)</text>
 <text x="170" y="276" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#aaa">600.000eu × 4% = 24.000eu/anno da prelevare</text>
 </svg></div>
   <div class="art-body"><p>Il concetto è semplice: se accumuli un patrimonio abbastanza grande, i suoi rendimenti coprono le tue spese per sempre. Non devi più lavorare per vivere. Puoi farlo per scelta.</p>
