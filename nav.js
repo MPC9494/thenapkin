@@ -204,7 +204,6 @@ function buildNav(){
       </button>
       <div class="tn-dropdown">${ddCols}</div>
     </div>
-    <a class="nb nav-label" href="glossario.html">Glossario</a>
     <a class="nb nav-label" href="strumenti.html">Strumenti</a>
     ${!isHome?`<button class="tn-indice-btn" id="tnIndiceBtn" onclick="TNNav.openDrawer()">
       <canvas class="tn-indice-rough" id="tnIndiceCanvas" width="100" height="34"></canvas>
@@ -268,7 +267,6 @@ function buildDrawer(){
     </div>
     ${levSections}
     <div class="tn-drawer-level">Risorse</div>
-    <a class="tn-drawer-link" href="glossario.html">↗ Glossario</a>
     <a class="tn-drawer-link" href="strumenti.html">↗ Strumenti</a>
     <div class="tn-drawer-footer">
       <a class="tn-drawer-cta" href="https://thenapkin.beehiiv.com">Newsletter — è gratis</a>
